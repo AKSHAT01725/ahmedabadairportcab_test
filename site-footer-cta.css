@@ -69,3 +69,22 @@ body,
 body.page-load,
 body.page-enter,
 body.page-smooth{animation:ctaPageFade .55s ease both!important;transform:none!important}
+
+/* ---------------- Index hero: make the background photo visible ----------------
+   The original hero covered the photo with a 78-90% white wash + desaturate filter + a purple glow.
+   Layers now (top to bottom): light top-only wash (keeps the title readable) -> Unsplash photo ->
+   local ertiga.webp as a fallback, so an image is ALWAYS visible even if the Unsplash link fails.
+   !important so this wins over any hero background edits made inside index.html. */
+.booking-hero::before{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.32) 38%,rgba(255,255,255,.04) 100%),
+    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=82') center/cover no-repeat,
+    url('ertiga.webp') center/cover no-repeat !important;
+  filter:none !important;
+}
+.booking-hero::after{display:none !important}
+/* keep hero text readable on top of the photo */
+.booking-hero .hero-title{text-shadow:0 2px 20px rgba(255,255,255,.75)}
+.booking-hero .hero-title span{text-shadow:none} /* gradient text is transparent; a shadow would wash it out */
+.booking-hero .hero-copy{color:#24243a;font-weight:600;text-shadow:0 1px 12px rgba(255,255,255,.9)}
+.booking-hero .kicker{text-shadow:0 1px 10px rgba(255,255,255,.9)}
