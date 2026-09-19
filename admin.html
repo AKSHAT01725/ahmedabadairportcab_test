@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Ahmedabad Airport Cab</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--ink:#191929;--muted:#707186;--purple:#6d24db;--blue:#416ff3;--soft:#f7f3ff;--line:#e6e1ef;--card:#fff;--wash:#fbfaff;--shadow:0 26px 80px rgba(63,33,115,.12);--radius:20px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--wash);line-height:1.5;min-height:100vh}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+.container{width:min(1320px,95vw);margin:auto}
+
+/* ---------- Login screen ---------- */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-card{width:100%;max-width:400px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:34px}
+.login-card img{width:170px;height:56px;object-fit:contain;margin-bottom:18px}
+.login-card h1{font-family:Manrope,Inter,sans-serif;font-size:24px;letter-spacing:-.03em;margin-bottom:6px}
+.login-card p{color:var(--muted);font-size:13px;margin-bottom:22px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:800;color:#767689;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.field input{width:100%;border:1.5px solid #ded9e8;border-radius:12px;padding:12px 14px;outline:0;font-size:14px}
+.field input:focus{border-color:#9b74df;box-shadow:0 0 0 4px rgba(109,36,219,.08)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;padding:13px 18px;border-radius:13px;font-weight:800;font-size:14px;cursor:pointer;transition:.2s;width:100%}
+.btn-primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;box-shadow:0 14px 30px rgba(109,36,219,.22)}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-primary:disabled{opacity:.6;cursor:default;transform:none}
+.login-error{color:#c0392b;font-size:13px;font-weight:700;margin-top:12px;display:none}
+
+/* ---------- Dashboard ---------- */
+#dashboard{display:none}
+.admin-nav{background:#fff;border-bottom:1px solid var(--line);padding:16px 0;position:sticky;top:0;z-index:10}
+.admin-nav .container{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.admin-nav .brand{display:flex;align-items:center;gap:10px}
+.admin-nav .brand img{width:150px;height:48px;object-fit:contain}
+.admin-nav .badge{font-size:11px;font-weight:800;color:var(--purple);background:var(--soft);padding:5px 10px;border-radius:999px;border:1px solid #e3d7f7}
+.admin-nav .who{font-size:12px;color:var(--muted);font-weight:700}
+.btn-outline{background:#fff;border:1px solid var(--line);color:var(--ink);padding:10px 14px;border-radius:11px;font-weight:800;font-size:13px;cursor:pointer}
+.btn-outline:hover{border-color:#cbb7eb;color:var(--purple)}
+
+.main{padding:26px 0 60px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.stat small{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:800}
+.stat strong{display:block;font-size:26px;margin-top:6px;font-family:Manrope,Inter,sans-serif}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.tabs{display:flex;gap:6px;background:#fff;border:1px solid var(--line);padding:5px;border-radius:14px;flex-wrap:wrap}
+.tabs button{border:0;background:transparent;padding:9px 14px;border-radius:10px;font-size:13px;font-weight:800;color:#6e6d80;cursor:pointer}
+.tabs button.active{background:linear-gradient(135deg,#7430e0,#5f22c8);color:#fff}
+.search{position:relative}
+.search input{border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13px;min-width:220px}
+
+.table-wrap{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:800;padding:14px 16px;border-bottom:1px solid var(--line);background:#faf8ff;white-space:nowrap}
+tbody td{padding:13px 16px;border-bottom:1px solid #f1eef7;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#fbfaff}
+.type-pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:800}
+.type-booking{background:#eef1ff;color:#3b56d6}
+.type-contact{background:#eafaf1;color:#1f9d55}
+.type-tour{background:#fff3e6;color:#c17a12}
+.status-select{border:1.5px solid var(--line);border-radius:9px;padding:6px 9px;font-size:12px;font-weight:800;background:#fff}
+.status-new{color:#c0392b}
+.status-contacted{color:#c17a12}
+.status-done{color:#1f9d55}
+.cell-muted{color:var(--muted);font-size:12px}
+.wa-link{color:var(--purple);font-weight:800;font-size:12px}
+.del-btn{border:0;background:none;color:#c0392b;cursor:pointer;font-size:12px;font-weight:800}
+.empty-state{padding:60px 20px;text-align:center;color:var(--muted)}
+.loading{padding:40px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:820px){.stats{grid-template-columns:1fr 1fr}.table-wrap{overflow-x:auto}table{min-width:900px}}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginScreen">
+  <div class="login-card">
+    <img src="logo.png" alt="Ahmedabad Airport Cab">
+    <h1>Admin Panel</h1>
+    <p>Sign in with your admin account to view bookings and enquiries.</p>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input id="loginEmail" type="email" required autocomplete="username" placeholder="admin@example.com"></div>
+      <div class="field"><label>Password</label><input id="loginPassword" type="password" required autocomplete="current-password" placeholder="••••••••"></div>
+      <button class="btn btn-primary" id="loginBtn" type="submit">Sign In</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard">
+  <div class="admin-nav">
+    <div class="container">
+      <div class="brand"><img src="logo.png" alt="Ahmedabad Airport Cab"><span class="badge">ADMIN</span></div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="who" id="whoAmI"></span>
+        <button class="btn-outline" id="logoutBtn">Sign Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main container">
+    <div class="stats">
+      <div class="stat"><small>Total Leads</small><strong id="statTotal">0</strong></div>
+      <div class="stat"><small>New</small><strong id="statNew">0</strong></div>
+      <div class="stat"><small>Contacted</small><strong id="statContacted">0</strong></div>
+      <div class="stat"><small>Done</small><strong id="statDone">0</strong></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="tabs" id="typeTabs">
+        <button data-type="all" class="active">All</button>
+        <button data-type="booking">Bookings</button>
+        <button data-type="tour">Tours</button>
+        <button data-type="contact">Contact</button>
+      </div>
+      <div class="search"><input id="searchBox" type="text" placeholder="Search phone, name, from/to…"></div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Received</th>
+            <th>Type</th>
+            <th>Name / Phone</th>
+            <th>Trip Details</th>
+            <th>Status</th>
+            <th>Page</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="leadsBody"></tbody>
+      </table>
+      <div class="loading" id="loadingState">Loading leads…</div>
+      <div class="empty-state" id="emptyState" style="display:none">No leads match this view yet.</div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {
+  getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDDMqMXdar86EawwYdMhwSdKKDU-eijSRc",
+  authDomain: "ahmedabad-airport-cab.firebaseapp.com",
+  projectId: "ahmedabad-airport-cab",
+  storageBucket: "ahmedabad-airport-cab.firebasestorage.app",
+  messagingSenderId: "82570456282",
+  appId: "1:82570456282:web:4302c9c3e9a6c7ae7949e3",
+  measurementId: "G-JTYJHB16VD"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const loginScreen = document.getElementById('loginScreen');
+const dashboard = document.getElementById('dashboard');
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+const loginBtn = document.getElementById('loginBtn');
+const whoAmI = document.getElementById('whoAmI');
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginError.style.display = 'none';
+  loginBtn.disabled = true;
+  loginBtn.textContent = 'Signing in…';
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    loginError.textContent = 'Sign-in failed. Check your email and password.';
+    loginError.style.display = 'block';
+  } finally {
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'Sign In';
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+let unsubscribeLeads = null;
+let allLeads = [];
+let activeType = 'all';
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    whoAmI.textContent = user.email;
+    startLeadsListener();
+  } else {
+    dashboard.style.display = 'none';
+    loginScreen.style.display = 'flex';
+    if (unsubscribeLeads) { unsubscribeLeads(); unsubscribeLeads = null; }
+    allLeads = [];
+  }
+});
+
+function startLeadsListener() {
+  const q = query(collection(db, 'leads'), orderBy('createdAt', 'desc'));
+  unsubscribeLeads = onSnapshot(q, (snap) => {
+    allLeads = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    document.getElementById('loadingState').style.display = 'none';
+    render();
+  }, (err) => {
+    document.getElementById('loadingState').textContent = 'Could not load leads: ' + err.message;
+  });
+}
+
+document.getElementById('typeTabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-type]');
+  if (!btn) return;
+  activeType = btn.dataset.type;
+  [...document.querySelectorAll('#typeTabs button')].forEach(b => b.classList.toggle('active', b === btn));
+  render();
+});
+
+document.getElementById('searchBox').addEventListener('input', render);
+
+function fmtDate(ts) {
+  if (!ts) return '—';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function tripSummary(lead) {
+  const parts = [];
+  if (lead.type === 'booking') {
+    parts.push([lead.category, lead.mode].filter(Boolean).join(' · '));
+    if (lead.from || lead.to) parts.push(lead.to ? `${lead.from || '—'} → ${lead.to}` : lead.from);
+    if (lead.vehicle) parts.push(`${lead.vehicle}${lead.price ? ' (' + lead.price + ')' : ''}`);
+    if (lead.date || lead.time) parts.push([lead.date, lead.time].filter(Boolean).join(' '));
+  } else if (lead.type === 'tour') {
+    if (lead.tourTitle) parts.push(lead.tourTitle);
+    if (lead.date || lead.time) parts.push([lead.date, lead.time].filter(Boolean).join(' '));
+  } else if (lead.type === 'contact') {
+    if (lead.message) parts.push(lead.message);
+  }
+  return parts.filter(Boolean).join('<br>') || '—';
+}
+
+function render() {
+  const search = document.getElementById('searchBox').value.trim().toLowerCase();
+  let leads = allLeads;
+  if (activeType !== 'all') leads = leads.filter(l => l.type === activeType);
+  if (search) {
+    leads = leads.filter(l => {
+      const hay = [l.name, l.phone, l.from, l.to, l.tourTitle, l.vehicle, l.message].filter(Boolean).join(' ').toLowerCase();
+      return hay.includes(search);
+    });
+  }
+
+  document.getElementById('statTotal').textContent = allLeads.length;
+  document.getElementById('statNew').textContent = allLeads.filter(l => (l.status || 'new') === 'new').length;
+  document.getElementById('statContacted').textContent = allLeads.filter(l => l.status === 'contacted').length;
+  document.getElementById('statDone').textContent = allLeads.filter(l => l.status === 'done').length;
+
+  const body = document.getElementById('leadsBody');
+  const empty = document.getElementById('emptyState');
+  if (!leads.length) {
+    body.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  body.innerHTML = leads.map(lead => {
+    const typeClass = `type-${lead.type || 'contact'}`;
+    const status = lead.status || 'new';
+    const phone = (lead.phone || '').replace(/\D/g, '');
+    const waHref = phone ? `https://wa.me/91${phone.slice(-10)}` : '';
+    return `
+      <tr data-id="${lead.id}">
+        <td class="cell-muted">${fmtDate(lead.createdAt)}</td>
+        <td><span class="type-pill ${typeClass}">${(lead.type || 'contact').toUpperCase()}</span></td>
+        <td>
+          <div style="font-weight:800">${escapeHtml(lead.name || '—')}</div>
+          <div class="cell-muted">${escapeHtml(lead.phone || '—')}</div>
+          ${waHref ? `<a class="wa-link" href="${waHref}" target="_blank" rel="noopener">Message on WhatsApp</a>` : ''}
+        </td>
+        <td>${tripSummary(lead)}</td>
+        <td>
+          <select class="status-select status-${status}" data-action="status">
+            <option value="new" ${status === 'new' ? 'selected' : ''}>New</option>
+            <option value="contacted" ${status === 'contacted' ? 'selected' : ''}>Contacted</option>
+            <option value="done" ${status === 'done' ? 'selected' : ''}>Done</option>
+          </select>
+        </td>
+        <td class="cell-muted">${escapeHtml(lead.page || '—')}</td>
+        <td><button class="del-btn" data-action="delete">Delete</button></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function escapeHtml(v) {
+  return String(v || '').replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+}
+
+document.getElementById('leadsBody').addEventListener('change', async (e) => {
+  const select = e.target.closest('select[data-action="status"]');
+  if (!select) return;
+  const id = select.closest('tr').dataset.id;
+  const newStatus = select.value;
+  select.className = `status-select status-${newStatus}`;
+  try {
+    await updateDoc(doc(db, 'leads', id), { status: newStatus });
+  } catch (err) {
+    alert('Could not update status: ' + err.message);
+  }
+});
+
+document.getElementById('leadsBody').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-action="delete"]');
+  if (!btn) return;
+  const id = btn.closest('tr').dataset.id;
+  if (!confirm('Delete this lead permanently?')) return;
+  try {
+    await deleteDoc(doc(db, 'leads', id));
+  } catch (err) {
+    alert('Could not delete: ' + err.message);
+  }
+});
+</script>
+</body>
+</html>

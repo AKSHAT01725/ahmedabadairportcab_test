@@ -1,0 +1,71 @@
+/* Ahmedabad Airport Cab — shared site-wide overrides
+   1) Dark (black) footer background across both footer templates in use
+   2) Sticky bottom Call / WhatsApp bar, replacing the old round floating buttons
+   Linked from every page via <link rel="stylesheet" href="site-footer-cta.css">
+   placed after each page's own <style> blocks, so these rules win the cascade. */
+
+/* ---------------- Footer: dark theme ---------------- */
+.footer,
+.site-footer{background:#0b0b13;border-top:1px solid #1c1c28;color:#c9c9dc}
+
+/* logo needs a light backdrop to stay legible — it keeps its own colors */
+.footer-brand img,
+.footer-brand-pro img{background:#fff;border-radius:14px;padding:8px 16px}
+
+.footer-brand p,
+.footer-connect p,
+.footer-connect-pro p{color:#a3a3ba}
+
+.footer-col h4,
+.footer-col-pro h4{color:#f4f3fb}
+
+.footer-col a,
+.footer-col-pro a{color:#b6b6cb}
+.footer-col a:hover,
+.footer-col-pro a:hover{color:#fff}
+
+.footer-connect strong{color:#e7e6f2}
+
+.footer-keywords,
+.footer-keywords-pro{color:#9393a9;border-color:#20202e}
+
+.footer-bottom,
+.footer-bottom-pro{color:#8b8ba1;border-color:#20202e}
+.footer-bottom span:first-child,
+.footer-bottom-pro span:first-child{color:#d6d5e6}
+
+.social-btn,
+.social-pro a{background:#15151f;border-color:#282838;color:#eceafb!important;box-shadow:none}
+.social-btn:hover,
+.social-pro a:hover{border-color:#3c3c56;box-shadow:0 10px 22px rgba(0,0,0,.35)}
+
+/* ---------------- Sticky Call / WhatsApp bar ---------------- */
+.floaters{display:none!important}
+
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:150;display:flex;
+  box-shadow:0 -10px 26px rgba(8,6,18,.22)}
+.sticky-cta a{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:13px 10px;color:#fff;text-decoration:none}
+.sticky-cta svg{width:21px;height:21px;flex:none}
+.sticky-cta .cta-text{display:flex;flex-direction:column;line-height:1.22;text-align:left}
+.sticky-cta .cta-label{font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  opacity:.85;font-weight:700}
+.sticky-cta .cta-main{font-size:14px;font-weight:800}
+.sticky-cta .cta-call{background:linear-gradient(135deg,#1c2f6e,#111d45)}
+.sticky-cta .cta-wa{background:linear-gradient(135deg,#22b95d,#178a44)}
+.sticky-cta a:active{filter:brightness(.92)}
+
+body{padding-bottom:64px}
+
+/* ---------------- Keep the bar floating ----------------
+   Pages animate <body> on load (pageIn / pageEnter / mainPageIn) using
+   `transform: translateY()` with fill-mode `both`. An element with a transform
+   animation becomes the containing block for position:fixed descendants, so the
+   bar was anchoring to the bottom of the whole page instead of the viewport.
+   Override with a fade-only entrance (opacity never affects fixed positioning).
+   !important is needed to beat each page's own inline <style> and its keyframes. */
+@keyframes ctaPageFade{from{opacity:0}to{opacity:1}}
+body,
+body.page-load,
+body.page-enter,
+body.page-smooth{animation:ctaPageFade .55s ease both!important;transform:none!important}
