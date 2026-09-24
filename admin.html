@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Console — Ahmedabad Airport Cab</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#120b22; --ink:#181030; --ink-2:#20153e;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
+  --purple:#8b5cf6; --purple-dim:rgba(139,92,246,.16);
+  --blue:#5b8cff; --blue-dim:rgba(91,140,255,.14);
+  --teal:#3ddc97; --teal-dim:rgba(61,220,151,.14);
+  --red:#ff5c5c; --red-dim:rgba(255,92,92,.14);
+  --ice:#f1eefb; --mute:#9691b0; --mute-2:#6c6790;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',Arial,sans-serif;background:var(--navy);
+  background-image:radial-gradient(circle at 15% 0%,rgba(139,92,246,.08),transparent 45%),
+    radial-gradient(circle at 100% 30%,rgba(91,140,255,.06),transparent 50%);
+  color:var(--ice);min-height:100vh}
+.mono,.num{font-family:'Manrope',monospace}
+button,input,select{font:inherit}
+
+/* ---------- Login ---------- */
+#loginScreen{position:fixed;inset:0;background:var(--navy);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.02) 40px),
+    radial-gradient(circle at 50% 20%,rgba(139,92,246,.10),transparent 55%);
+  display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px}
+.login-logo{display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.login-logo img{width:160px;height:52px;object-fit:contain;border-radius:12px;background:#fff;padding:6px}
+.login-box{width:400px;max-width:100%;background:var(--ink);border:1px solid var(--line-2);
+  border-radius:var(--radius);padding:40px 34px;box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative}
+.login-box::before{content:'';position:absolute;top:0;left:18%;right:18%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.login-eyebrow{font-family:'Manrope';font-size:11px;letter-spacing:2.5px;color:var(--purple);
+  text-transform:uppercase;margin-bottom:10px}
+.login-box h1{font-family:'Manrope';font-size:25px;font-weight:800;margin-bottom:6px}
+.login-box .sub{color:var(--mute);font-size:13.5px;margin-bottom:30px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;color:var(--mute);margin-bottom:7px;
+  text-transform:uppercase;letter-spacing:1px}
+.field input{width:100%;padding:13px 15px;background:rgba(255,255,255,.04);
+  border:1px solid var(--line);border-radius:9px;color:var(--ice);font-size:14.5px;outline:none;transition:.2s}
+.field input:focus{border-color:var(--purple);background:rgba(139,92,246,.06)}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--blue));
+  color:#fff;border:none;border-radius:9px;font-weight:700;font-size:15px;cursor:pointer;
+  margin-top:8px;transition:.2s;font-family:'Manrope'}
+.login-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.login-btn:disabled{opacity:.55;cursor:default;transform:none}
+#loginError{color:var(--red);font-size:13px;margin-top:14px;display:none;padding:10px 13px;
+  background:var(--red-dim);border-radius:8px;border:1px solid rgba(255,92,92,.25)}
+
+/* ---------- Shell ---------- */
+#adminApp{display:none}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--ink);
+  border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:100;transition:.3s}
+.brand{padding:24px 22px 20px;border-bottom:1px solid var(--line)}
+.brand-mark{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.brand-mark img{width:34px;height:34px;border-radius:8px;background:#fff;padding:2px;flex-shrink:0}
+.brand-mark .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);
+  box-shadow:0 0 0 4px var(--teal-dim);animation:pulse 2s infinite;margin-left:auto}
+@keyframes pulse{50%{opacity:.4}}
+.brand h2{font-family:'Manrope';font-size:14.5px;letter-spacing:.4px}
+.brand span{font-size:11.5px;color:var(--mute);display:block;margin-top:5px}
+.nav-item{display:flex;align-items:center;gap:13px;padding:14px 22px;color:var(--mute);
+  cursor:pointer;transition:.18s;font-size:13.5px;font-weight:500;border-left:3px solid transparent}
+.nav-item:hover{color:var(--ice);background:rgba(255,255,255,.03)}
+.nav-item.active{color:var(--purple);border-left-color:var(--purple);background:var(--purple-dim)}
+.nav-item i{width:16px;text-align:center;font-size:13px}
+.nav-count{margin-left:auto;background:rgba(255,255,255,.08);color:var(--mute);font-size:11px;
+  padding:1px 7px;border-radius:10px;font-family:'Manrope'}
+.nav-item.active .nav-count{background:rgba(139,92,246,.22);color:var(--purple)}
+.sidebar-bottom{margin-top:auto;padding:18px 22px;border-top:1px solid var(--line)}
+.admin-id{font-size:11.5px;color:var(--mute-2);margin-bottom:12px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.logout-btn{display:flex;align-items:center;gap:9px;color:var(--red);cursor:pointer;
+  font-size:13px;font-weight:600}
+.logout-btn:hover{opacity:.8}
+
+.main{margin-left:240px;padding:28px 32px 50px;min-height:100vh}
+
+.ticker{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,var(--ink-2),var(--ink));
+  border:1px solid var(--line);border-radius:11px;padding:11px 18px;margin-bottom:24px;
+  font-size:12.5px;overflow:hidden}
+.ticker-label{font-family:'Manrope';font-size:10.5px;letter-spacing:1.5px;color:var(--teal);
+  text-transform:uppercase;flex-shrink:0;display:flex;align-items:center;gap:7px}
+.ticker-label .pip{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 1.4s infinite}
+.ticker-msg{color:var(--mute);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticker-msg b{color:var(--ice);font-weight:600}
+.ticker-time{color:var(--mute-2);font-family:'Manrope';flex-shrink:0}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;
+  flex-wrap:wrap;gap:14px}
+.topbar h1{font-family:'Manrope';font-size:22px;font-weight:800}
+.refresh-btn{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--mute);
+  padding:9px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;display:flex;align-items:center;
+  gap:7px;transition:.2s}
+.refresh-btn:hover{color:var(--ice);border-color:var(--line-2)}
+.refresh-btn.spinning i{animation:spin .8s linear infinite}
+@keyframes spin{100%{transform:rotate(360deg)}}
+
+.page{display:none}
+.page.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- Briefing ---------- */
+.briefing{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--ink-2) 0%,var(--navy) 100%);
+  border:1px solid var(--line-2);border-radius:18px;padding:28px 30px;margin-bottom:22px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.briefing::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.briefing::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;
+  border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.16),transparent 70%);pointer-events:none}
+.briefing-date{font-family:'Manrope';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--teal);margin-bottom:8px;display:flex;align-items:center;gap:7px;position:relative;z-index:1}
+.briefing-date .pip{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 1.4s infinite}
+.briefing h2{font-family:'Manrope';font-size:23px;font-weight:800;margin-bottom:6px;position:relative;z-index:1}
+.briefing p{color:var(--mute);font-size:13.5px;max-width:420px;position:relative;z-index:1}
+.briefing-actions{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.briefing-btn{display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:10px;
+  font-size:13px;font-weight:700;cursor:pointer;transition:.2s;border:1px solid var(--line-2);
+  background:rgba(255,255,255,.04);color:var(--ice);white-space:nowrap}
+.briefing-btn:hover{border-color:var(--purple);color:var(--purple)}
+.briefing-btn.primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border-color:transparent}
+.briefing-btn.primary:hover{filter:brightness(1.1);color:#fff}
+
+/* ---------- Stat cards ---------- */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:26px}
+.stat-card{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 22px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--purple))}
+.stat-card::after{content:'';position:absolute;right:-30px;top:-30px;width:100px;height:100px;
+  border-radius:50%;background:var(--accent-glow,rgba(139,92,246,.08));filter:blur(10px)}
+.stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.stat-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.stat-icon.purple{background:var(--purple-dim);color:var(--purple)}
+.stat-icon.teal{background:var(--teal-dim);color:var(--teal)}
+.stat-icon.blue{background:var(--blue-dim);color:var(--blue)}
+.stat-icon.red{background:var(--red-dim);color:var(--red)}
+.stat-num{font-family:'Manrope';font-size:29px;font-weight:800;line-height:1;position:relative;z-index:1}
+.stat-label{font-size:12px;color:var(--mute);margin-top:6px;position:relative;z-index:1}
+.stat-foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;
+  padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;position:relative;z-index:1}
+.stat-foot a{color:var(--purple);text-decoration:none;font-weight:600;cursor:pointer}
+.stat-foot a:hover{text-decoration:underline}
+.stat-foot .trend{color:var(--mute-2);font-family:'Manrope'}
+.stat-foot .trend.up{color:var(--teal)}
+
+/* ---------- Table card ---------- */
+.table-card{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;margin-bottom:22px}
+.table-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;
+  border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px}
+.table-header h3{font-family:'Manrope';font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:9px}
+.table-header h3 i{color:var(--purple)}
+.settings-val{color:var(--mute);font-size:13px;font-family:'Manrope'}
+.btn-sm{padding:8px 14px;border-radius:8px;border:none;font-size:12.5px;font-weight:700;cursor:pointer;
+  transition:.2s;display:flex;align-items:center;gap:6px}
+.btn-purple{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff}
+.btn-purple:hover{filter:brightness(1.08)}
+.btn-outline{background:transparent;border:1px solid var(--line-2);color:var(--ice)}
+.btn-outline:hover{border-color:var(--purple);color:var(--purple)}
+.btn-danger-outline{background:transparent;border:1px solid rgba(255,92,92,.35);color:var(--red)}
+.btn-danger-outline:hover{background:var(--red);color:#fff;border-color:var(--red)}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:rgba(255,255,255,.02);padding:11px 16px;text-align:left;color:var(--mute);
+  font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;
+  font-family:'Manrope'}
+td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top}
+tr.data-row:hover td{background:rgba(255,255,255,.018)}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:700;
+  letter-spacing:.3px;font-family:'Manrope'}
+.tag-purple{background:var(--purple-dim);color:var(--purple)}
+.tag-blue{background:var(--blue-dim);color:var(--blue)}
+.tag-teal{background:var(--teal-dim);color:var(--teal)}
+.status-select{background:rgba(255,255,255,.04);border:1px solid var(--line-2);border-radius:8px;
+  padding:6px 9px;font-size:11.5px;font-weight:700;color:var(--ice);cursor:pointer}
+.status-new{color:var(--red)}
+.status-contacted{color:#e0a742}
+.status-done{color:var(--teal)}
+.del-btn{background:transparent;border:1px solid rgba(255,92,92,.3);color:var(--red);padding:6px 10px;
+  border-radius:7px;cursor:pointer;font-size:12px;transition:.2s}
+.del-btn:hover{background:var(--red);color:#fff}
+.call-link{color:var(--purple);text-decoration:none;font-family:'Manrope'}
+.empty-row td{text-align:center;padding:46px;color:var(--mute)}
+.empty-icon{font-size:32px;margin-bottom:10px;opacity:.6}
+.loading-row td{text-align:center;padding:46px;color:var(--mute)}
+
+/* ---------- Search bar ---------- */
+.search-bar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.search-bar input{flex:1;min-width:200px;padding:11px 16px;background:var(--ink);border:1px solid var(--line);
+  border-radius:9px;color:var(--ice);font-size:13.5px;outline:none;transition:.2s}
+.search-bar input:focus{border-color:var(--purple)}
+.search-bar select{padding:11px 14px;background:var(--ink);border:1px solid var(--line);border-radius:9px;
+  color:var(--ice);font-size:13.5px;outline:none;cursor:pointer}
+
+/* ---------- Settings ---------- */
+.settings-card{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px;margin-bottom:18px}
+.settings-card h3{font-family:'Manrope';font-size:14.5px;margin-bottom:18px;color:var(--purple);
+  display:flex;align-items:center;gap:9px}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;
+  border-bottom:1px solid var(--line);gap:14px;flex-wrap:wrap}
+.settings-row:last-child{border:none}
+.settings-row label{font-size:13.5px}
+.settings-row span{font-size:11.5px;color:var(--mute);margin-top:3px;display:block}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;top:22px;right:22px;background:var(--ink-2);border:1px solid var(--line-2);
+  border-left:3px solid var(--purple);color:#fff;padding:14px 20px;border-radius:10px;font-size:13.5px;
+  z-index:99999;opacity:0;transform:translateX(30px);transition:.3s;pointer-events:none;max-width:320px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.toast.show{opacity:1;transform:translateX(0)}
+
+/* ---------- Mobile ---------- */
+.hamburger-admin{display:none;font-size:20px;cursor:pointer;color:var(--ice)}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0);box-shadow:20px 0 50px rgba(0,0,0,.5)}
+  .main{margin-left:0;padding:22px 16px 50px}
+  .hamburger-admin{display:block}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .ticker-msg{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo"><img src="logo.png" alt="Ahmedabad Airport Cab"></div>
+    <div class="login-eyebrow">Restricted Access</div>
+    <h1>Admin Console</h1>
+    <p class="sub">Ahmedabad Airport Cab — Admin Sign In</p>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input id="loginEmail" type="email" required autocomplete="username" placeholder="admin@example.com"></div>
+      <div class="field"><label>Password</label><input id="loginPassword" type="password" required autocomplete="current-password" placeholder="••••••••"></div>
+      <button class="login-btn" id="loginBtn" type="submit"><i class="fas fa-arrow-right-to-bracket"></i>&nbsp; Sign In</button>
+      <div id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="adminApp">
+
+  <nav class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><img src="logo.png" alt="Ahmedabad Airport Cab"><div class="dot"></div></div>
+      <h2>ADMIN CONSOLE</h2>
+      <span>Ahmedabad Airport Cab</span>
+    </div>
+    <div class="nav-item active" onclick="showPage('dashboard',this)"><i class="fas fa-gauge-high"></i> Dashboard</div>
+    <div class="nav-item" onclick="showPage('bookings',this)"><i class="fas fa-car"></i> Bookings <span class="nav-count" id="navCountBookings">0</span></div>
+    <div class="nav-item" onclick="showPage('tours',this)"><i class="fas fa-route"></i> Tour Enquiries <span class="nav-count" id="navCountTours">0</span></div>
+    <div class="nav-item" onclick="showPage('contacts',this)"><i class="fas fa-comment-dots"></i> Contact Enquiries <span class="nav-count" id="navCountContacts">0</span></div>
+    <div class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-gear"></i> Settings</div>
+    <div class="sidebar-bottom">
+      <div class="admin-id" id="adminEmailLabel">—</div>
+      <div class="logout-btn" onclick="doLogout()"><i class="fas fa-power-off"></i> Sign Out</div>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="hamburger-admin" onclick="toggleSidebar()"><i class="fas fa-bars"></i></span>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()"><i class="fas fa-rotate"></i> Refresh</button>
+    </div>
+
+    <div class="ticker">
+      <div class="ticker-label"><span class="pip"></span> Live Feed</div>
+      <div class="ticker-msg" id="tickerMsg">Connecting to the leads database…</div>
+      <div class="ticker-time" id="tickerTime"></div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="briefing">
+        <div>
+          <div class="briefing-date"><span class="pip"></span><span id="briefingDate">—</span></div>
+          <h2 id="briefingGreeting">Welcome back</h2>
+          <p>Here's what's moving across bookings, tour enquiries and contact requests right now.</p>
+        </div>
+        <div class="briefing-actions">
+          <button class="briefing-btn" onclick="manualRefresh()"><i class="fas fa-rotate"></i> Refresh</button>
+          <button class="briefing-btn primary" onclick="goToPage('bookings')"><i class="fas fa-car"></i> View Bookings</button>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card" style="--accent-glow:rgba(139,92,246,.12);--accent:var(--purple)">
+          <div class="stat-top"><div class="stat-icon purple"><i class="fas fa-car"></i></div></div>
+          <div class="stat-num num" id="stat-bookings">—</div>
+          <div class="stat-label">Bookings</div>
+          <div class="stat-foot"><a onclick="goToPage('bookings')">View all →</a><span class="trend" id="stat-bookings-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(61,220,151,.12);--accent:var(--teal)">
+          <div class="stat-top"><div class="stat-icon teal"><i class="fas fa-route"></i></div></div>
+          <div class="stat-num num" id="stat-tours">—</div>
+          <div class="stat-label">Tour Enquiries</div>
+          <div class="stat-foot"><a onclick="goToPage('tours')">View all →</a><span class="trend" id="stat-tours-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(91,140,255,.12);--accent:var(--blue)">
+          <div class="stat-top"><div class="stat-icon blue"><i class="fas fa-comment-dots"></i></div></div>
+          <div class="stat-num num" id="stat-contacts">—</div>
+          <div class="stat-label">Contact Enquiries</div>
+          <div class="stat-foot"><a onclick="goToPage('contacts')">View all →</a><span class="trend" id="stat-contacts-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(255,92,92,.12);--accent:var(--red)">
+          <div class="stat-top"><div class="stat-icon red"><i class="fas fa-list-check"></i></div></div>
+          <div class="stat-num num" id="stat-new">—</div>
+          <div class="stat-label">New (unread)</div>
+          <div class="stat-foot"><span class="trend" id="stat-new-trend">—</span></div>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card" style="--accent-glow:rgba(139,92,246,.12);--accent:var(--purple)">
+          <div class="stat-top"><div class="stat-icon purple"><i class="fas fa-list-ol"></i></div></div>
+          <div class="stat-num num" id="stat-total">—</div>
+          <div class="stat-label">All Leads</div>
+          <div class="stat-foot"><span class="trend" id="stat-total-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(61,220,151,.12);--accent:var(--teal)">
+          <div class="stat-top"><div class="stat-icon teal"><i class="fas fa-calendar-days"></i></div></div>
+          <div class="stat-num num" id="stat-month">—</div>
+          <div class="stat-label">Leads This Month</div>
+          <div class="stat-foot"><span class="trend" id="stat-month-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(91,140,255,.12);--accent:var(--blue)">
+          <div class="stat-top"><div class="stat-icon blue"><i class="fas fa-map-location-dot"></i></div></div>
+          <div class="stat-num" id="stat-toproute" style="font-family:'Manrope';font-size:17px;font-weight:800;line-height:1.3">—</div>
+          <div class="stat-label">Most Requested Route</div>
+          <div class="stat-foot"><span class="trend" id="stat-toproute-count">—</span></div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h3><i class="fas fa-clock"></i>Recent Leads</h3>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Received</th><th>Type</th><th>Name / Phone</th><th>Details</th></tr></thead>
+            <tbody id="recentBody"><tr class="loading-row"><td colspan="4">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKINGS -->
+    <div class="page" id="page-bookings">
+      <div class="search-bar">
+        <input type="text" id="bookSearch" placeholder="Search name, phone, from/to, vehicle…" oninput="renderBookings()">
+        <select id="bookStatusFilter" onchange="renderBookings()">
+          <option value="">All Statuses</option><option value="new">New</option>
+          <option value="contacted">Contacted</option><option value="done">Done</option>
+        </select>
+        <button class="btn-sm btn-danger-outline" onclick="clearType('booking')"><i class="fas fa-trash"></i> Clear All</button>
+        <button class="btn-sm btn-purple" onclick="exportCSV('booking')"><i class="fas fa-download"></i> Export</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3><i class="fas fa-car"></i>Bookings</h3><span class="settings-val" id="bookCount"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name / Phone</th><th>Trip</th><th>Route</th><th>Vehicle</th><th>Date &amp; Time</th><th>Status</th><th>Received</th><th>Action</th></tr></thead>
+            <tbody id="bookingsBody"><tr class="loading-row"><td colspan="8">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOURS -->
+    <div class="page" id="page-tours">
+      <div class="search-bar">
+        <input type="text" id="tourSearch" placeholder="Search name, phone, route…" oninput="renderTours()">
+        <select id="tourStatusFilter" onchange="renderTours()">
+          <option value="">All Statuses</option><option value="new">New</option>
+          <option value="contacted">Contacted</option><option value="done">Done</option>
+        </select>
+        <button class="btn-sm btn-danger-outline" onclick="clearType('tour')"><i class="fas fa-trash"></i> Clear All</button>
+        <button class="btn-sm btn-purple" onclick="exportCSV('tour')"><i class="fas fa-download"></i> Export</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3><i class="fas fa-route"></i>Tour Enquiries</h3><span class="settings-val" id="tourCount"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name / Phone</th><th>Route / Tour</th><th>Date &amp; Time</th><th>Status</th><th>Received</th><th>Action</th></tr></thead>
+            <tbody id="toursBody"><tr class="loading-row"><td colspan="6">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTS -->
+    <div class="page" id="page-contacts">
+      <div class="search-bar">
+        <input type="text" id="contactSearch" placeholder="Search name, phone, message…" oninput="renderContacts()">
+        <select id="contactStatusFilter" onchange="renderContacts()">
+          <option value="">All Statuses</option><option value="new">New</option>
+          <option value="contacted">Contacted</option><option value="done">Done</option>
+        </select>
+        <button class="btn-sm btn-danger-outline" onclick="clearType('contact')"><i class="fas fa-trash"></i> Clear All</button>
+        <button class="btn-sm btn-purple" onclick="exportCSV('contact')"><i class="fas fa-download"></i> Export</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3><i class="fas fa-comment-dots"></i>Contact Enquiries</h3><span class="settings-val" id="contactCount"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name / Phone</th><th>Message</th><th>Status</th><th>Received</th><th>Action</th></tr></thead>
+            <tbody id="contactsBody"><tr class="loading-row"><td colspan="5">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="settings-card">
+        <h3><i class="fas fa-circle-info"></i>Account</h3>
+        <div class="settings-row"><div><label>Signed in as</label></div><div class="settings-val" id="settingsEmail">—</div></div>
+        <div class="settings-row"><div><label>Authentication</label><span>Managed by Firebase Authentication</span></div><div class="settings-val">Email / Password</div></div>
+      </div>
+      <div class="settings-card">
+        <h3><i class="fas fa-building"></i>Business Info</h3>
+        <div class="settings-row"><div><label>Phone Number</label></div><div class="settings-val">+91 97244 29334</div></div>
+        <div class="settings-row"><div><label>Database</label></div><div class="settings-val">Firebase Firestore — "leads" collection</div></div>
+      </div>
+      <div class="settings-card">
+        <h3><i class="fas fa-database"></i>Data Management</h3>
+        <div class="settings-row">
+          <div><label>Clear All Records</label><span>Permanently delete every booking, tour and contact lead</span></div>
+          <button class="btn-sm btn-danger-outline" onclick="clearType('all')"><i class="fas fa-trash-can"></i> Clear All Data</button>
+        </div>
+        <div class="settings-row">
+          <div><label>Export All Data</label><span>Download every lead as a single CSV file</span></div>
+          <button class="btn-sm btn-purple" onclick="exportCSV('all')"><i class="fas fa-file-csv"></i> Export All</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {
+  getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDDMqMXdar86EawwYdMhwSdKKDU-eijSRc",
+  authDomain: "ahmedabad-airport-cab.firebaseapp.com",
+  projectId: "ahmedabad-airport-cab",
+  storageBucket: "ahmedabad-airport-cab.firebasestorage.app",
+  messagingSenderId: "82570456282",
+  appId: "1:82570456282:web:4302c9c3e9a6c7ae7949e3",
+  measurementId: "G-JTYJHB16VD"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const loginScreen = document.getElementById('loginScreen');
+const adminApp = document.getElementById('adminApp');
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+const loginBtn = document.getElementById('loginBtn');
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginError.style.display = 'none';
+  loginBtn.disabled = true;
+  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp; Signing in…';
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    loginError.textContent = 'Sign-in failed. Check your email and password.';
+    loginError.style.display = 'block';
+  } finally {
+    loginBtn.disabled = false;
+    loginBtn.innerHTML = '<i class="fas fa-arrow-right-to-bracket"></i>&nbsp; Sign In';
+  }
+});
+window.doLogout = () => signOut(auth);
+
+let unsubscribeLeads = null;
+let allLeads = [];
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginScreen.style.display = 'none';
+    adminApp.style.display = 'block';
+    document.getElementById('adminEmailLabel').textContent = user.email;
+    document.getElementById('settingsEmail').textContent = user.email;
+    updateBriefing(user.email);
+    startLeadsListener();
+  } else {
+    adminApp.style.display = 'none';
+    loginScreen.style.display = 'flex';
+    if (unsubscribeLeads) { unsubscribeLeads(); unsubscribeLeads = null; }
+    allLeads = [];
+  }
+});
+
+function startLeadsListener() {
+  const q = query(collection(db, 'leads'), orderBy('createdAt', 'desc'));
+  unsubscribeLeads = onSnapshot(q, (snap) => {
+    allLeads = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderAll();
+  }, (err) => {
+    document.getElementById('tickerMsg').textContent = 'Could not load leads: ' + err.message;
+  });
+}
+
+window.manualRefresh = function () {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  renderAll();
+  showToast('Data is live — already up to date');
+  setTimeout(() => btn.classList.remove('spinning'), 500);
+};
+
+function updateBriefing(email) {
+  const now = new Date();
+  const hour = now.getHours();
+  const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const prefix = (email || 'Admin').split('@')[0];
+  document.getElementById('briefingGreeting').textContent = `${greet}, ${prefix}`;
+  document.getElementById('briefingDate').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+window.goToPage = function (name) {
+  const el = document.querySelector(`.nav-item[onclick*="'${name}'"]`);
+  if (el) el.click();
+};
+window.showPage = function (name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  const titles = { dashboard: 'Dashboard', bookings: 'Bookings', tours: 'Tour Enquiries', contacts: 'Contact Enquiries', settings: 'Settings' };
+  document.getElementById('pageTitle').textContent = titles[name] || name;
+  document.getElementById('sidebar').classList.remove('open');
+};
+window.toggleSidebar = function () { document.getElementById('sidebar').classList.toggle('open'); };
+
+function toDate(ts) { try { return ts && ts.toDate ? ts.toDate() : (ts ? new Date(ts) : null); } catch (e) { return null; } }
+function fmtDate(ts) {
+  const d = toDate(ts);
+  if (!d) return '—';
+  return d.toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+function esc(s) {
+  if (s === undefined || s === null || s === '') return '—';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function statusTag(status) {
+  const s = status || 'new';
+  return `<span class="tag ${s === 'done' ? 'tag-teal' : s === 'contacted' ? 'tag-blue' : 'tag-purple'}">${s.toUpperCase()}</span>`;
+}
+function waLink(phone) {
+  const p = (phone || '').replace(/\D/g, '');
+  if (p.length < 10) return '';
+  return `<a class="call-link" href="https://wa.me/91${p.slice(-10)}" target="_blank" rel="noopener">WhatsApp</a>`;
+}
+
+function updateTicker() {
+  const latest = allLeads[0];
+  const msgEl = document.getElementById('tickerMsg');
+  const timeEl = document.getElementById('tickerTime');
+  if (latest) {
+    const who = latest.name || latest.phone || 'Someone';
+    const what = latest.type === 'booking' ? `${latest.from || '?'} → ${latest.to || '?'}` :
+                 latest.type === 'tour' ? (latest.tourTitle || `${latest.from || '?'} → ${latest.to || '?'}`) :
+                 'sent a message';
+    msgEl.innerHTML = `Latest: <b>${esc(who)}</b> — ${esc(what)} (${esc((latest.type || 'contact').toUpperCase())})`;
+    timeEl.textContent = fmtDate(latest.createdAt);
+  } else {
+    msgEl.textContent = 'No leads yet — waiting for the first request.';
+    timeEl.textContent = '';
+  }
+}
+
+function renderStats() {
+  const bookings = allLeads.filter(l => l.type === 'booking');
+  const tours = allLeads.filter(l => l.type === 'tour');
+  const contacts = allLeads.filter(l => l.type === 'contact');
+  const newLeads = allLeads.filter(l => (l.status || 'new') === 'new');
+
+  document.getElementById('stat-bookings').textContent = bookings.length;
+  document.getElementById('stat-tours').textContent = tours.length;
+  document.getElementById('stat-contacts').textContent = contacts.length;
+  document.getElementById('stat-new').textContent = newLeads.length;
+  document.getElementById('stat-total').textContent = allLeads.length;
+
+  document.getElementById('navCountBookings').textContent = bookings.length;
+  document.getElementById('navCountTours').textContent = tours.length;
+  document.getElementById('navCountContacts').textContent = contacts.length;
+
+  const now = new Date();
+  const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const countSince = (arr, since) => arr.filter(x => { const d = toDate(x.createdAt); return d && d >= since; }).length;
+
+  const setTrend = (id, n) => {
+    const el = document.getElementById(id);
+    el.textContent = n ? `+${n} this week` : 'No change this week';
+    el.classList.toggle('up', n > 0);
+  };
+  setTrend('stat-bookings-trend', countSince(bookings, weekAgo));
+  setTrend('stat-tours-trend', countSince(tours, weekAgo));
+  setTrend('stat-contacts-trend', countSince(contacts, weekAgo));
+  document.getElementById('stat-new-trend').textContent = 'awaiting first contact';
+  document.getElementById('stat-total-trend').textContent = countSince(allLeads, weekAgo) + ' this week';
+
+  const monthCount = countSince(allLeads, monthStart);
+  document.getElementById('stat-month').textContent = monthCount;
+  document.getElementById('stat-month-trend').textContent = now.toLocaleDateString('en-IN', { month: 'long' });
+
+  const tally = {};
+  allLeads.forEach(l => {
+    const key = l.type === 'tour' ? (l.tourTitle || (l.from && l.to ? `${l.from} → ${l.to}` : null))
+      : l.type === 'booking' ? (l.from && l.to ? `${l.from} → ${l.to}` : null) : null;
+    if (key) tally[key] = (tally[key] || 0) + 1;
+  });
+  const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]);
+  if (sorted.length) {
+    document.getElementById('stat-toproute').textContent = sorted[0][0];
+    document.getElementById('stat-toproute-count').textContent = `${sorted[0][1]} request${sorted[0][1] === 1 ? '' : 's'}`;
+  } else {
+    document.getElementById('stat-toproute').textContent = 'No data yet';
+    document.getElementById('stat-toproute-count').textContent = '—';
+  }
+}
+
+function renderRecent() {
+  const tbody = document.getElementById('recentBody');
+  const data = allLeads.slice(0, 6);
+  if (!data.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="4"><div class="empty-icon">📭</div>No leads yet</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map(l => `
+    <tr class="data-row">
+      <td style="color:var(--mute);font-size:12px;white-space:nowrap">${fmtDate(l.createdAt)}</td>
+      <td>${statusTag(l.status)} <span class="tag tag-blue" style="margin-left:4px">${esc((l.type || 'contact').toUpperCase())}</span></td>
+      <td><div style="font-weight:700">${esc(l.name)}</div><div style="color:var(--mute);font-size:12px">${esc(l.phone)}</div></td>
+      <td>${leadDetail(l)}</td>
+    </tr>`).join('');
+}
+
+function leadDetail(l) {
+  if (l.type === 'booking') {
+    const parts = [[l.category, l.mode].filter(Boolean).join(' · ')];
+    if (l.from || l.to) parts.push(`${l.from || '—'} → ${l.to || '—'}`);
+    if (l.vehicle) parts.push(`${l.vehicle}${l.price ? ' (' + l.price + ')' : ''}`);
+    return parts.filter(Boolean).join('<br>');
+  }
+  if (l.type === 'tour') {
+    const parts = [l.tourTitle || (l.from && l.to ? `${l.from} → ${l.to}` : null), [l.date, l.time].filter(Boolean).join(' ')];
+    return parts.filter(Boolean).join('<br>') || '—';
+  }
+  return esc(l.message);
+}
+
+function filterLeads(type, searchId, statusId) {
+  const q = (document.getElementById(searchId).value || '').toLowerCase();
+  const status = document.getElementById(statusId).value;
+  let data = allLeads.filter(l => l.type === type);
+  if (status) data = data.filter(l => (l.status || 'new') === status);
+  if (q) data = data.filter(l => [l.name, l.phone, l.from, l.to, l.vehicle, l.tourTitle, l.message].filter(Boolean).join(' ').toLowerCase().includes(q));
+  return data;
+}
+
+window.renderBookings = function () {
+  const data = filterLeads('booking', 'bookSearch', 'bookStatusFilter');
+  document.getElementById('bookCount').textContent = data.length + ' record(s)';
+  const tbody = document.getElementById('bookingsBody');
+  if (!data.length) { tbody.innerHTML = `<tr class="empty-row"><td colspan="8"><div class="empty-icon">🚕</div>No bookings found</td></tr>`; return; }
+  tbody.innerHTML = data.map(l => `
+    <tr class="data-row" data-id="${l.id}">
+      <td><div style="font-weight:700">${esc(l.name)}</div><div style="color:var(--mute);font-size:12px">${esc(l.phone)} ${waLink(l.phone)}</div></td>
+      <td>${esc([l.category, l.mode].filter(Boolean).join(' · '))}</td>
+      <td>${esc(l.from)} → ${esc(l.to)}</td>
+      <td>${esc(l.vehicle)}${l.price ? '<br><span style="color:var(--mute);font-size:12px">' + esc(l.price) + '</span>' : ''}</td>
+      <td style="white-space:nowrap">${esc(l.date)}<br><small style="color:var(--mute)">${esc(l.time)}</small></td>
+      <td>${statusSelect(l)}</td>
+      <td style="color:var(--mute);font-size:12px;white-space:nowrap">${fmtDate(l.createdAt)}</td>
+      <td><button class="del-btn" onclick="deleteLead('${l.id}')"><i class="fas fa-trash"></i></button></td>
+    </tr>`).join('');
+};
+
+window.renderTours = function () {
+  const data = filterLeads('tour', 'tourSearch', 'tourStatusFilter');
+  document.getElementById('tourCount').textContent = data.length + ' record(s)';
+  const tbody = document.getElementById('toursBody');
+  if (!data.length) { tbody.innerHTML = `<tr class="empty-row"><td colspan="6"><div class="empty-icon">🗺️</div>No tour enquiries found</td></tr>`; return; }
+  tbody.innerHTML = data.map(l => `
+    <tr class="data-row" data-id="${l.id}">
+      <td><div style="font-weight:700">${esc(l.name)}</div><div style="color:var(--mute);font-size:12px">${esc(l.phone)} ${waLink(l.phone)}</div></td>
+      <td>${esc(l.tourTitle || (l.from && l.to ? l.from + ' → ' + l.to : null))}</td>
+      <td style="white-space:nowrap">${esc(l.date)}<br><small style="color:var(--mute)">${esc(l.time)}</small></td>
+      <td>${statusSelect(l)}</td>
+      <td style="color:var(--mute);font-size:12px;white-space:nowrap">${fmtDate(l.createdAt)}</td>
+      <td><button class="del-btn" onclick="deleteLead('${l.id}')"><i class="fas fa-trash"></i></button></td>
+    </tr>`).join('');
+};
+
+window.renderContacts = function () {
+  const data = filterLeads('contact', 'contactSearch', 'contactStatusFilter');
+  document.getElementById('contactCount').textContent = data.length + ' record(s)';
+  const tbody = document.getElementById('contactsBody');
+  if (!data.length) { tbody.innerHTML = `<tr class="empty-row"><td colspan="5"><div class="empty-icon">💬</div>No contact enquiries found</td></tr>`; return; }
+  tbody.innerHTML = data.map(l => `
+    <tr class="data-row" data-id="${l.id}">
+      <td><div style="font-weight:700">${esc(l.name)}</div><div style="color:var(--mute);font-size:12px">${esc(l.phone)} ${waLink(l.phone)}</div></td>
+      <td>${esc(l.message)}</td>
+      <td>${statusSelect(l)}</td>
+      <td style="color:var(--mute);font-size:12px;white-space:nowrap">${fmtDate(l.createdAt)}</td>
+      <td><button class="del-btn" onclick="deleteLead('${l.id}')"><i class="fas fa-trash"></i></button></td>
+    </tr>`).join('');
+};
+
+function statusSelect(l) {
+  const s = l.status || 'new';
+  return `<select class="status-select status-${s}" onchange="updateStatus('${l.id}', this.value, this)">
+    <option value="new" ${s === 'new' ? 'selected' : ''}>New</option>
+    <option value="contacted" ${s === 'contacted' ? 'selected' : ''}>Contacted</option>
+    <option value="done" ${s === 'done' ? 'selected' : ''}>Done</option>
+  </select>`;
+}
+
+window.updateStatus = async function (id, status, el) {
+  el.className = `status-select status-${status}`;
+  try { await updateDoc(doc(db, 'leads', id), { status }); }
+  catch (err) { showToast('⚠ Could not update status: ' + err.message); }
+};
+
+window.deleteLead = async function (id) {
+  if (!confirm('Delete this lead permanently?')) return;
+  try { await deleteDoc(doc(db, 'leads', id)); showToast('Lead deleted'); }
+  catch (err) { showToast('⚠ Could not delete: ' + err.message); }
+};
+
+window.clearType = async function (type) {
+  const targets = type === 'all' ? allLeads : allLeads.filter(l => l.type === type);
+  if (!targets.length) { showToast('Nothing to clear'); return; }
+  if (!confirm(`Permanently delete ${targets.length} record(s)? This cannot be undone.`)) return;
+  try {
+    await Promise.all(targets.map(l => deleteDoc(doc(db, 'leads', l.id))));
+    showToast('Records cleared');
+  } catch (err) { showToast('⚠ Could not clear: ' + err.message); }
+};
+
+window.exportCSV = function (type) {
+  const data = type === 'all' ? allLeads : allLeads.filter(l => l.type === type);
+  if (!data.length) { showToast('Nothing to export'); return; }
+  const rows = [['Type', 'Name', 'Phone', 'From', 'To', 'Vehicle', 'Price', 'Date', 'Time', 'Message', 'Status', 'Page', 'Received']];
+  data.forEach(l => rows.push([l.type, l.name, l.phone, l.from, l.to, l.vehicle, l.price, l.date, l.time, l.message, l.status || 'new', l.page, fmtDate(l.createdAt)]));
+  const csv = rows.map(r => r.map(c => `"${(c || '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `aac_leads_${type}_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  showToast('CSV exported');
+};
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function renderAll() {
+  renderStats();
+  updateTicker();
+  renderRecent();
+  renderBookings();
+  renderTours();
+  renderContacts();
+}
+
+setInterval(() => { if (allLeads.length) updateTicker(); }, 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+/* Ahmedabad Airport Cab — shared site-wide overrides
+   1) Dark (black) footer background across both footer templates in use
+   2) Sticky bottom Call / WhatsApp bar, replacing the old round floating buttons
+   Linked from every page via <link rel="stylesheet" href="site-footer-cta.css">
+   placed after each page's own <style> blocks, so these rules win the cascade. */
+
+/* ---------------- Footer: shared "pro" layout (same footer as index.html on every page) ----------------
+   Placed here (not inline per-page) so every page — old .footer/.social-btn pages included —
+   renders the identical grid + circular social icons without editing each page's own <style>. */
+.site-footer{padding:54px 0 0;margin-top:36px}
+.footer-grid-pro{display:grid;grid-template-columns:1.35fr .8fr 1.25fr 1.35fr;gap:32px}
+.footer-brand-pro img{width:245px;height:106px;object-fit:contain;object-position:left center}
+.social-pro{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.social-pro a{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #e5dfef;transition:.2s;box-shadow:0 8px 20px rgba(64,42,110,.06);font-size:16px;padding:0;text-decoration:none!important;text-decoration-line:none!important}
+.social-pro a:hover{transform:translateY(-3px)}
+.social-pro a i{display:block;text-decoration:none!important;text-decoration-line:none!important}
+.social-pro a.sp-wa{border-color:#25d366;color:#25d366}
+.social-pro a.sp-wa:hover{background:#25d366;color:#fff}
+.social-pro a.sp-google{border-color:#6d24db;color:#6d24db}
+.social-pro a.sp-google:hover{background:#6d24db;color:#fff}
+.social-pro a.sp-ig{border-color:#e1306c;color:#e1306c}
+.social-pro a.sp-ig:hover{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);border-color:transparent;color:#fff}
+.social-pro a.sp-loc{border-color:#9291a6;color:#6d6d80}
+.social-pro a.sp-loc:hover{background:#6d6d80;color:#fff}
+.footer-col-pro h4{margin:0 0 14px;font-size:12px;letter-spacing:.09em;color:#f4f3fb}
+.footer-col-pro a{display:block;text-decoration:none;color:#b6b6cb;font-size:12px;margin:8px 0;transition:.2s}
+.footer-col-pro a:hover{color:#fff;transform:translateX(2px)}
+.footer-connect-pro p{font-size:12px;line-height:1.7;color:#a3a3ba;margin:0 0 12px}
+.footer-connect-pro strong{color:#e7e6f2}
+.footer-keywords-pro{text-align:center;border-top:1px solid #20202e;border-bottom:1px solid #20202e;padding:17px 8px;margin-top:26px;font-size:12px;line-height:1.8;color:#9393a9}
+.footer-bottom-pro{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center;padding-top:14px;font-size:12px;color:#8b8ba1}
+.footer-bottom-pro span:first-child{font-weight:700;color:#d6d5e6}
+@media(max-width:980px){.footer-grid-pro{grid-template-columns:1fr 1fr}.footer-brand-pro{grid-column:1/-1}}
+@media(max-width:680px){.footer-grid-pro{grid-template-columns:1fr}.footer-brand-pro{grid-column:auto}.footer-brand-pro img{width:224px;height:92px}.footer-bottom-pro{flex-direction:column;gap:6px}}
+
+/* ---------------- Bottom copyright bar ---------------- */
+.footer-bottom-bar{
+  background:#16161f;
+  border-top:1px solid #2a2a38;
+  margin-top:8px;
+  width:100%;
+}
+.footer-bottom-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:14px 0;
+  flex-wrap:wrap;
+}
+.footer-copyright{
+  font-size:12px;
+  color:#a0a0b5;
+  line-height:1.5;
+  flex:1 1 auto;
+  min-width:0;
+}
+.footer-copyright a{
+  color:#c8c8dc;
+  text-decoration:none;
+  font-weight:600;
+}
+.footer-copyright a:hover{color:#fff;text-decoration:underline}
+.footer-legal-links{
+  display:flex;
+  gap:22px;
+  align-items:center;
+  flex-shrink:0;
+}
+.footer-legal-links a{
+  color:#e8e8f0 !important;
+  text-decoration:none !important;
+  font-size:13px;
+  font-weight:600;
+  white-space:nowrap;
+  margin:0 !important;
+  display:inline !important;
+}
+.footer-legal-links a:hover{
+  color:#fff !important;
+  text-decoration:underline !important;
+}
+@media(max-width:720px){
+  .footer-bottom-inner{
+    flex-direction:column;
+    text-align:center;
+    gap:10px;
+    padding:16px 12px;
+  }
+  .footer-copyright{order:2;font-size:11px}
+  .footer-legal-links{order:1;justify-content:center;gap:18px}
+  .footer-legal-links a{font-size:13px}
+}
+
+
+/* ---------------- Footer: dark theme ---------------- */
+.footer,
+.site-footer{background:#0b0b13;border-top:1px solid #1c1c28;color:#c9c9dc}
+
+
+
+.footer-brand p,
+.footer-connect p,
+.footer-connect-pro p{color:#a3a3ba}
+
+.footer-col h4,
+.footer-col-pro h4{color:#f4f3fb}
+
+.footer-col a,
+.footer-col-pro a{color:#b6b6cb}
+.footer-col a:hover,
+.footer-col-pro a:hover{color:#fff}
+
+.footer-connect strong{color:#e7e6f2}
+
+.footer-keywords,
+.footer-keywords-pro{color:#9393a9;border-color:#20202e}
+
+.footer-bottom,
+.footer-bottom-pro{color:#8b8ba1;border-color:#20202e}
+.footer-bottom span:first-child,
+.footer-bottom-pro span:first-child{color:#d6d5e6}
+.footer-bottom-bar{background:#16161f;border-top-color:#2a2a38}
+
+/* Icon glyph keeps its own brand color (set on .sp-wa/.sp-google/.sp-ig/.sp-loc above);
+   only the circle's neutral dark base is set here. */
+.social-btn,
+.social-pro a{background:#15151f;border-color:#282838;box-shadow:none}
+.social-btn:hover,
+.social-pro a:hover{box-shadow:0 10px 22px rgba(0,0,0,.35)}
+
+/* ---------------- Sticky Call / WhatsApp bar ---------------- */
+.floaters{display:none!important}
+
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:150;display:flex;
+  box-shadow:0 -10px 26px rgba(8,6,18,.22)}
+.sticky-cta a{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:13px 10px;color:#fff;text-decoration:none}
+.sticky-cta svg{width:21px;height:21px;flex:none}
+.sticky-cta .cta-text{display:flex;flex-direction:column;line-height:1.22;text-align:left}
+.sticky-cta .cta-label{font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  opacity:.85;font-weight:700}
+.sticky-cta .cta-main{font-size:14px;font-weight:800}
+.sticky-cta .cta-call{background:linear-gradient(135deg,#1c2f6e,#111d45)}
+.sticky-cta .cta-wa{background:linear-gradient(135deg,#22b95d,#178a44)}
+.sticky-cta a:active{filter:brightness(.92)}
+
+body{padding-bottom:64px}
+
+/* ---------------- Desktop: floating round buttons instead of the full bottom bar ----------------
+   Mobile (<=720px) keeps the full-width Call/WhatsApp bar as-is.
+   Desktop/tablet (>720px) gets two stacked circular floating buttons, bottom-right. */
+@media(min-width:721px){
+  .sticky-cta{left:auto;right:26px;bottom:26px;flex-direction:column;gap:14px;box-shadow:none}
+  .sticky-cta a{flex:none;width:60px;height:60px;border-radius:50%;padding:0;
+    box-shadow:0 12px 28px rgba(8,6,18,.3)}
+  .sticky-cta a:hover{transform:translateY(-3px)}
+  .sticky-cta svg{width:24px;height:24px}
+  .sticky-cta .cta-text{display:none}
+  body{padding-bottom:0}
+}
+
+/* ---------------- Keep the bar floating ----------------
+   Pages animate <body> on load (pageIn / pageEnter / mainPageIn) using
+   `transform: translateY()` with fill-mode `both`. An element with a transform
+   animation becomes the containing block for position:fixed descendants, so the
+   bar was anchoring to the bottom of the whole page instead of the viewport.
+   Override with a fade-only entrance (opacity never affects fixed positioning).
+   !important is needed to beat each page's own inline <style> and its keyframes. */
+@keyframes ctaPageFade{from{opacity:0}to{opacity:1}}
+body,
+body.page-load,
+body.page-enter,
+body.page-smooth{animation:ctaPageFade .55s ease both!important;transform:none!important}
+
+/* ---------------- Index hero: make the background photo visible ----------------
+   The original hero covered the photo with a 78-90% white wash + desaturate filter + a purple glow.
+   Layers now (top to bottom): light top-only wash (keeps the title readable) -> Unsplash photo ->
+   local ertiga.webp as a fallback, so an image is ALWAYS visible even if the Unsplash link fails.
+   !important so this wins over any hero background edits made inside index.html. */
+.booking-hero::before{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.32) 38%,rgba(255,255,255,.04) 100%),
+    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=82') center/cover no-repeat,
+    url('ertiga.webp') center/cover no-repeat !important;
+  filter:none !important;
+}
+.booking-hero::after{display:none !important}
+/* keep hero text readable on top of the photo */
+.booking-hero .hero-title{text-shadow:0 2px 20px rgba(255,255,255,.75)}
+.booking-hero .hero-title span{text-shadow:none} /* gradient text is transparent; a shadow would wash it out */
+.booking-hero .hero-copy{color:#24243a;font-weight:600;text-shadow:0 1px 12px rgba(255,255,255,.9)}
+.booking-hero .kicker{text-shadow:0 1px 10px rgba(255,255,255,.9)}
+
+/* ---------------- Mobile navbar: tappable phone number instead of "Book …" / "Contact" ----------------
+   Desktop / tablet (>720px) keep the Book button, Contact hidden. Phone (<=720px) hides both
+   and shows the number (nav-btn-outline, already a tel: link) so tapping it dials directly. */
+.site-nav-actions .nav-btn-contact{display:none}
+@media(max-width:720px){
+  .site-nav-actions .nav-btn-primary{display:none}
+  .site-nav-actions .nav-btn-outline{display:inline-flex!important}
+}

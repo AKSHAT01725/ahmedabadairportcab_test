@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ahmedabad Airport Cab | Airport Taxi, One Way & Outstation Cab</title>
+<meta name="description" content="Ahmedabad Airport Cab — airport pickup and drop, one-way, round-trip, local, corporate and outstation cab services from Ahmedabad.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#191929;--muted:#707186;--purple:#6d24db;--blue:#416ff3;--soft:#f7f3ff;--line:#e6e1ef;--card:#fff;--wash:#fbfaff;--shadow:0 26px 80px rgba(63,33,115,.12);--radius:26px;--container:min(1240px,94vw)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.55}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}img{max-width:100%;display:block}.container{width:var(--container);margin:auto}
+.nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-bottom:1px solid #eeeaf4}.nav-inner{height:80px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand img{width:190px;height:62px;object-fit:contain}.nav-links{display:flex;gap:22px;align-items:center;font-size:13px;font-weight:700;color:#444457}.nav-links a:hover{color:var(--purple)}.nav-actions{display:flex;gap:10px;align-items:center}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);padding:12px 17px;border-radius:14px;font-weight:800;font-size:13px;cursor:pointer;transition:.2s;white-space:nowrap}.btn-primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:0;box-shadow:0 14px 30px rgba(109,36,219,.22)}.btn-primary:hover{transform:translateY(-2px)}.btn-outline{background:#fff}.btn-outline:hover{border-color:#c7b7e9;color:var(--purple)}.menu{display:none;border:0;background:none;font-size:25px;color:#252539}
+.booking-hero{position:relative;padding:48px 0 54px;min-height:520px;display:flex;align-items:center;overflow:hidden;background:#faf9fe}.booking-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.90),rgba(255,255,255,.78)),url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=82') center/cover;filter:saturate(.72);z-index:0}.booking-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(150,110,255,.09),transparent 40%);z-index:0}.booking-wrap{position:relative;z-index:2}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--purple);font-weight:900}.hero-title{font-family:Manrope,Inter,sans-serif;font-size:clamp(34px,4.5vw,60px);letter-spacing:-.05em;line-height:1.02;margin:8px 0 14px;text-align:center}.hero-title span{background:linear-gradient(90deg,#6820d0,#3e72f3);-webkit-background-clip:text;background-clip:text;color:transparent}.hero-copy{max-width:760px;margin:0 auto 26px;text-align:center;color:#5e6073;font-size:16px}
+.booking{background:rgba(255,255,255,.96);border:1px solid #e2dced;border-radius:30px;padding:24px;box-shadow:var(--shadow)}.booking-top{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:16px}.booking-top h2{font-family:Manrope,Inter,sans-serif;font-size:27px;letter-spacing:-.03em}.booking-note{font-size:12px;color:#717386;font-weight:700;text-align:right}.booking-types{display:grid;gap:4px;padding:4px;background:#f7f3fd;border:1px solid #ddd2ee;border-radius:18px}.booking-category{grid-template-columns:repeat(4,1fr);margin-bottom:16px}.booking-mode{grid-template-columns:repeat(2,1fr);max-width:520px;margin:0 auto 16px}.booking-types button{border:0;background:transparent;color:#6e6d80;padding:12px 8px;border-radius:13px;font-size:14px;font-weight:900;cursor:pointer}.booking-types button.active{background:linear-gradient(135deg,#7430e0,#5f22c8);color:#fff;box-shadow:0 8px 20px rgba(109,36,219,.18)}
+.fields{display:grid;grid-template-columns:2.35fr 1.02fr 1.02fr 1.02fr;gap:12px;align-items:stretch}.location-pair{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{position:relative;background:#fff;border:1.5px solid #ded9e8;border-radius:16px;padding:10px 14px;min-height:72px}.field:focus-within{border-color:#9b74df;box-shadow:0 0 0 4px rgba(109,36,219,.08)}.field label{display:block;color:#767689;font-size:11px;font-weight:800;margin-bottom:6px}.field input{width:100%;border:0;outline:0;color:#222130;background:none;font-size:14px;font-weight:800}.field input::placeholder{color:#a2a2b0}.swap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;width:42px;height:42px;border-radius:50%;border:1.5px solid #dfd9eb;background:#fff;color:var(--purple);font-size:20px;font-weight:900;box-shadow:0 12px 22px rgba(53,35,89,.12);cursor:pointer}.submit-row{text-align:center;margin-top:18px}.submit-row .btn{min-width:210px;min-height:52px;font-size:16px;border-radius:15px}
+.suggest{display:none;position:absolute;left:-1px;right:-1px;top:calc(100% + 7px);z-index:120;background:#fff;border:1px solid #dfd9ea;border-radius:14px;box-shadow:0 20px 40px rgba(53,35,89,.17);overflow:auto;max-height:290px}.suggest.open{display:block}.suggest button{width:100%;border:0;background:#fff;text-align:left;padding:11px 13px;cursor:pointer}.suggest button:hover{background:#f7f1ff}.suggest strong{display:block;font-size:13px}.suggest small{display:block;color:#77788b;margin-top:2px;font-size:11px}.picker{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:130;display:none;background:#fff;border:1px solid #dfd9ea;border-radius:16px;box-shadow:0 20px 40px rgba(53,35,89,.16);padding:12px}.picker.open{display:block}.time-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.time-grid select{border:1px solid #ddd8e7;border-radius:10px;padding:10px;background:#fff;color:#262535;font-weight:800}.picker-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}.picker-actions button{border:0;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}.picker-actions .apply{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff}.picker-actions .cancel{background:#f3f1f7;color:#5a586c}
+.section{padding:80px 0}.section.alt{background:#faf9fe}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:28px}.section-head h2{font-family:Manrope,Inter,sans-serif;font-size:clamp(30px,4vw,46px);letter-spacing:-.04em;line-height:1.05;margin-top:6px}.section-head p{max-width:580px;color:#6b6c7d}
+.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.rates-carousel{position:relative;overflow:hidden;padding:8px 46px 14px;margin:0 -6px}.rates-viewport{overflow:hidden}.rates-track{display:flex;gap:18px;transition:transform .7s cubic-bezier(.22,.61,.36,1);will-change:transform}.rate-card{flex:0 0 calc((100% - 54px)/4);border:1px solid var(--line);border-radius:24px;background:#fff;overflow:hidden;box-shadow:0 16px 42px rgba(50,31,84,.08);transition:transform .35s ease,box-shadow .35s ease}.rate-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(50,31,84,.13)}.rate-photo{height:185px;background-position:center;background-size:cover;display:flex;align-items:flex-end;padding:14px;position:relative}.rate-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(16,12,31,.24));pointer-events:none}.rate-photo span{display:none}.rate-body{padding:18px 18px 20px}.rate-body h3{font-size:19px}.meta{display:flex;gap:10px;color:#77788a;font-size:12px;margin:6px 0 14px}.price{border:1px solid #e8e3ef;background:linear-gradient(180deg,#fcfbfe,#f7f5fb);border-radius:17px;padding:14px;text-align:center;position:relative;overflow:hidden}.price::before{content:'';position:absolute;inset:auto -20% -55% -20%;height:100px;background:radial-gradient(circle at 50% 0,rgba(96,88,255,.13),transparent 62%);pointer-events:none}.price small{display:block;color:#77788a;font-size:10px;letter-spacing:.16em;text-transform:uppercase;position:relative;z-index:1}.price strong{display:block;font-size:30px;color:#c98f18;margin-top:4px;position:relative;z-index:1;font-weight:800}.price strong .rs{font-size:18px;vertical-align:top;margin-right:2px}.price strong .per{font-size:11px;color:#666779;font-weight:700;margin-left:4px}.rate-body .btn{width:100%;margin-top:14px}.tour-card a{display:block}.tour-photo{height:210px}.tour-card .price strong{font-size:18px;color:var(--purple);letter-spacing:.01em}.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid #e3ddeb;background:rgba(255,255,255,.96);box-shadow:0 12px 26px rgba(38,24,68,.13);display:grid;place-items:center;font-size:24px;color:#4322a2;cursor:pointer;transition:.25s ease}.carousel-arrow:hover{transform:translateY(-50%) scale(1.06);box-shadow:0 16px 34px rgba(38,24,68,.18)}.carousel-prev{left:2px}.carousel-next{right:2px}.carousel-meta{display:flex;align-items:center;gap:12px;font-size:11px;color:#77788a}.carousel-dots{display:flex;justify-content:center;gap:6px;margin-top:10px}.carousel-dot{width:7px;height:7px;border-radius:50%;background:#d9d3e4;border:0;padding:0}.carousel-dot.active{width:22px;border-radius:999px;background:linear-gradient(90deg,#7427e8,#4a69ef)}.review-card{display:flex;flex-direction:column;padding:24px 22px;min-height:238px}.review-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.review-who{display:flex;flex-direction:column;gap:2px}.review-who strong{font-size:14px;color:#242332}.review-who span{font-size:12px;color:#77788a}.google-mark{display:flex;flex:0 0 auto;font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:14px;letter-spacing:.2px}.google-mark span:nth-child(1){color:#4285F4}.google-mark span:nth-child(2){color:#EA4335}.google-mark span:nth-child(3){color:#FBBC05}.google-mark span:nth-child(4){color:#4285F4}.google-mark span:nth-child(5){color:#34A853}.google-mark span:nth-child(6){color:#EA4335}.review-stars{color:#f5a623;font-size:16px;letter-spacing:2px;margin:12px 0}.review-text{color:#4a4a5a;font-size:14.5px;line-height:1.65;flex:1}.review-posted{margin-top:16px;display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:12px;font-size:12px;font-weight:700;color:#77788a}.review-posted .g-badge{width:18px;height:18px;border-radius:5px;background:#4285F4;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}.seo-content{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 28px;box-shadow:0 16px 42px rgba(50,31,84,.06)}.seo-content-hidden{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s ease,opacity .4s ease}.seo-content-hidden.expanded{max-height:20000px;opacity:1}.seo-content h3,.seo-content-hidden h3{font-family:Manrope,Inter,sans-serif;font-size:19px;letter-spacing:-.01em;margin:24px 0 8px;color:#242332}.seo-content h3:first-child{margin-top:0}.seo-content p,.seo-content-hidden p{color:#55566b;font-size:14.5px;line-height:1.75;margin-bottom:10px}.seo-content ul,.seo-content ol,.seo-content-hidden ul,.seo-content-hidden ol{margin:6px 0 14px 20px;color:#55566b;font-size:14.5px;line-height:1.85}.seo-content li,.seo-content-hidden li{margin-bottom:3px}.seo-content ul.chip-list,.seo-content-hidden ul.chip-list{list-style:none;margin:8px 0 14px;display:flex;flex-wrap:wrap;gap:8px}.seo-content ul.chip-list li,.seo-content-hidden ul.chip-list li{background:#f4f1fb;border:1px solid #e8e3ef;color:#4a4a5a;font-size:12.5px;padding:6px 13px;border-radius:999px;margin:0}.read-more-btn{display:inline-flex;align-items:center;gap:6px;margin:16px 0 4px;padding:13px 26px;border-radius:999px;border:0;background:linear-gradient(90deg,#7427e8,#4a69ef);color:#fff;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 14px 30px rgba(74,105,239,.28);transition:transform .2s ease,box-shadow .2s ease}.read-more-btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(74,105,239,.34)}.fare-table-wrap{overflow-x:auto;margin:6px 0 20px;border-radius:14px;border:1px solid var(--line);box-shadow:0 10px 28px rgba(50,31,84,.05)}.fare-table{width:100%;border-collapse:collapse;font-size:13.5px}.fare-table caption{text-align:left;background:#f4f1fb;color:#4322a2;font-weight:700;font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--line)}.fare-table thead th{background:linear-gradient(90deg,#7427e8,#4a69ef);color:#fff;font-weight:700;text-align:left;padding:12px 14px;font-size:12.5px;white-space:nowrap}.fare-table thead th:not(:first-child){text-align:right}.fare-table tbody td{padding:11px 14px;border-bottom:1px solid var(--line);color:#4a4a5a;white-space:nowrap}.fare-table tbody td:not(:first-child){text-align:right;font-weight:700;color:#242332}.fare-table tbody tr:last-child td{border-bottom:0}.fare-table tbody tr:nth-child(even){background:#faf9fd}.fare-note{font-size:12.5px;color:#8a8b9c;font-style:italic;margin:-10px 0 20px}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.service-card{padding:22px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 10px 35px rgba(50,31,84,.05)}.service-card .icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#f0e7ff,#edf3ff);display:grid;place-items:center;font-size:19px;color:var(--purple)}.service-card h3{margin:16px 0 8px;font-size:18px}.service-card p{color:#6c6d7f;font-size:13px}.service-card a{display:inline-flex;margin-top:14px;color:var(--purple);font-size:12px;font-weight:900}
+.travel-services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.travel-service-card{border:1px solid var(--line);border-radius:24px;background:#fff;overflow:hidden;box-shadow:0 12px 35px rgba(50,31,84,.07);transition:transform .25s ease,box-shadow .25s ease}.travel-service-card:hover{transform:translateY(-5px);box-shadow:0 20px 42px rgba(50,31,84,.12)}.travel-service-card img{display:block;width:100%;height:220px;object-fit:cover}.travel-service-content{padding:20px 22px 22px}.travel-service-content h3{margin:0 0 8px;font-size:22px}.travel-service-content p{margin:0 0 14px;color:#6c6d7f;font-size:14px;line-height:1.55}.travel-service-list{display:grid;gap:10px}.travel-service-list div{display:flex;align-items:center;gap:10px;color:#555665;font-size:14px}.travel-service-list .check{width:27px;height:27px;flex:0 0 27px;border-radius:50%;display:grid;place-items:center;background:#7564d8;color:#fff;font-size:16px;font-weight:900}.routes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.route-card{display:block;padding:17px;border-radius:17px;border:1px solid var(--line);background:#fff;transition:.2s}.route-card:hover{transform:translateY(-3px);border-color:#cbb7eb;box-shadow:0 14px 35px rgba(71,39,120,.08)}.route-card small{color:#87889a;font-size:10px;text-transform:uppercase;letter-spacing:.09em}.route-card strong{display:block;margin:5px 0 3px;font-size:14px}.route-card span{color:var(--purple);font-size:11px;font-weight:900}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:20px}.about-card{border:1px solid var(--line);border-radius:26px;min-height:360px;overflow:hidden;position:relative;background:#fff}.about-photo{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(28,13,58,.65)),url('https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1400&q=82') center/cover}.about-copy{padding:30px}.about-copy h3{font-family:Manrope;font-size:31px;margin:6px 0 12px}.about-copy p{color:#6c6d7f}.ticks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.tick{font-size:13px;font-weight:800}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.faq{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}.faq button{width:100%;border:0;background:#fff;padding:16px 18px;text-align:left;display:flex;justify-content:space-between;gap:18px;font-weight:800;color:#242332;cursor:pointer}.ans{max-height:0;overflow:hidden;padding:0 18px;color:#707184;transition:max-height .22s,padding .22s}.faq.open .ans{max-height:130px;padding:0 18px 17px}
+.contact{display:grid;grid-template-columns:1fr .9fr;gap:18px}.contact-card,.message-card{border:1px solid var(--line);border-radius:24px;background:#fff;padding:28px}.contact-card h3{font-family:Manrope;font-size:30px;margin-top:5px}.contact-card p{color:#6d6e80;margin:10px 0 20px}.contact-lines{display:grid;gap:14px}.contact-lines strong{display:block;font-size:11px;color:#7a7b8d;text-transform:uppercase;letter-spacing:.08em}.contact-lines span{display:block;margin-top:4px;font-weight:700}.message-card{display:grid;gap:12px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.message-card textarea{min-height:130px;resize:vertical;border:1px solid #ded9e8;border-radius:14px;padding:12px;outline:none}.message-card textarea:focus{border-color:#9b74df;box-shadow:0 0 0 4px rgba(109,36,219,.08)}
+footer{border-top:1px solid var(--line);padding:54px 0 28px;background:#fff}.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:25px}.footer-brand img{width:180px}.footer-brand p{margin-top:12px;color:#727387;font-size:13px;max-width:310px}.footer h4{font-size:14px;margin-bottom:12px}.footer a{display:block;color:#747589;font-size:12px;margin:7px 0}.footer a:hover{color:var(--purple)}.footer-bottom{display:flex;justify-content:space-between;gap:15px;border-top:1px solid var(--line);padding-top:20px;margin-top:24px;color:#818293;font-size:11px}
+.floaters{position:fixed;right:18px;bottom:18px;display:grid;gap:10px;z-index:90}.float{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 14px 30px rgba(48,31,76,.18);font-size:19px}.wa{background:#16b96f}.call{background:linear-gradient(135deg,var(--purple),var(--blue))}
+.route-page{min-height:100vh;background:linear-gradient(180deg,#fff,#faf8ff)}.route-hero{padding:85px 0 50px;text-align:center}.route-hero h1{font-family:Manrope;font-size:clamp(36px,5vw,58px);letter-spacing:-.05em}.route-hero p{max-width:720px;margin:12px auto 0;color:#67687a}.route-box{margin-top:26px;padding:26px;border:1px solid var(--line);background:#fff;border-radius:26px;box-shadow:var(--shadow)}.route-line{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}.city{padding:18px;border:1px solid #e0dbe8;border-radius:16px}.city small{display:block;color:#77788a;font-size:10px;text-transform:uppercase;letter-spacing:.1em}.city strong{display:block;margin-top:3px;font-size:23px}.arrow{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-weight:900}.route-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}.route-info{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.info{padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}.info strong{display:block}.info span{display:block;color:#707184;font-size:12px;margin-top:4px}
+@media(max-width:1100px){.nav-links{display:none}.menu{display:block}.services-grid{grid-template-columns:repeat(2,1fr)}.rate-card{flex-basis:calc((100% - 18px)/2)}.routes-grid{grid-template-columns:repeat(3,1fr)}.footer-grid{grid-template-columns:1.5fr 1fr 1fr}.fields{grid-template-columns:1.5fr 1fr 1fr}.fields>.field:last-child{grid-column:1/-1;max-width:360px}.booking-mode{max-width:none}.about,.contact{grid-template-columns:1fr}.route-info{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.nav-inner{height:72px}.brand img{width:165px;height:58px}.nav-actions .btn-outline{display:none}.booking-hero{padding:28px 0 40px;min-height:0}.hero-title{font-size:36px}.hero-copy{font-size:14px}.booking{padding:16px;border-radius:22px}.booking-top{align-items:flex-start;flex-direction:column;gap:5px}.booking-note{text-align:left}.booking-category{margin-bottom:12px}.booking-mode{display:grid}.fields{grid-template-columns:1fr}.location-pair{grid-template-columns:1fr;gap:24px;padding-bottom:0}.swap{left:50%;top:50%;right:auto;bottom:auto;transform:translate(-50%,-50%);width:42px;height:42px}.fields>.field:last-child{max-width:none}.field{min-height:70px}.picker{max-width:100%;}.submit-row .btn{width:100%}.section{padding:62px 0}.section-head{align-items:flex-start;flex-direction:column}.rate-card{flex-basis:100%}.rates-carousel{padding-left:4px;padding-right:4px}.carousel-arrow{width:40px;height:40px;font-size:20px}.carousel-prev{left:-2px}.carousel-next{right:-2px}.services-grid,.travel-services-grid,.routes-grid,.faq-grid{grid-template-columns:1fr}.travel-service-card img{height:210px}.about{grid-template-columns:1fr}.about-photo{min-height:300px}.two{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.footer-bottom{flex-direction:column}.route-line{grid-template-columns:1fr}.arrow{margin:auto}.route-info{grid-template-columns:1fr}.time-grid{grid-template-columns:1fr 1fr 1fr}.seo-content{padding:22px 18px}.read-more-btn{width:100%;justify-content:center}.fare-table-wrap{overflow:visible}.fare-table{width:100%;table-layout:fixed;font-size:11px}.fare-table caption{font-size:10.5px;padding:8px 8px}.fare-table thead th{padding:8px 4px;font-size:9px;white-space:normal;line-height:1.2}.fare-table tbody td{padding:8px 4px;white-space:normal;word-break:break-word}.fare-table th:first-child,.fare-table td:first-child{width:30%}}
+
+@media(max-width:470px){.booking-category{font-size:12px}.booking-types button{font-size:12px;padding:10px 4px}.hero-title{font-size:32px}.footer-grid{grid-template-columns:1fr}.route-actions .btn{width:100%}}
+
+body.page-smooth{animation:mainPageIn .7s ease;scroll-behavior:smooth}.float svg{width:22px;height:22px;display:block}.float{font-size:0;transition:transform .25s,box-shadow .25s}.float:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(48,31,76,.24)}@keyframes mainPageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Global premium footer */
+.footer{padding:46px 0 22px;background:#fff;border-top:1px solid #e9e4f0}.footer-top-grid{display:grid;grid-template-columns:1.35fr .8fr 1.25fr 1.35fr;gap:32px;align-items:start}.footer-brand img{width:172px;height:72px;object-fit:contain;object-position:left center}.footer-brand p,.footer-connect p{font-size:12px;color:#77788a;line-height:1.7;margin:8px 0}.footer-col h4{font-size:12px;letter-spacing:.08em;margin:2px 0 13px;color:#262638}.footer-col a{display:block;color:#717286;font-size:12px;margin:8px 0;transition:.22s}.footer-col a:hover{color:var(--purple);transform:translateX(2px)}.social-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.social-btn{display:inline-flex!important;align-items:center;gap:6px!important;padding:8px 11px;border:1px solid #e5dfef;border-radius:11px;background:#fff;box-shadow:0 7px 18px rgba(55,38,96,.06);font-size:11px!important;font-weight:800;color:#4a475b!important;margin:0!important}.social-btn:hover{border-color:#cbb8e9;box-shadow:0 10px 22px rgba(91,50,170,.1)}.footer-connect strong{font-size:11px;color:#333344}.footer-keywords{margin-top:28px;padding:18px 10px 16px;text-align:center;border-top:1px solid var(--line);font-size:12px;line-height:1.8;color:#747586}.footer-bottom{display:flex;justify-content:center;gap:16px;text-align:center;flex-wrap:wrap;margin-top:0;padding-top:14px;border-top:1px solid var(--line);color:#88899a;font-size:11px}.footer-bottom span:first-child{font-weight:700;color:#68697a}
+@media(max-width:980px){.footer-top-grid{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
+@media(max-width:680px){.footer-top-grid{grid-template-columns:1fr}.footer-brand{grid-column:auto}.footer-brand img{width:160px;height:64px}.social-actions{max-width:420px}.social-btn{font-size:10.5px!important;padding:8px 10px}}
+</style>
+
+<style>
+.site-footer{background:#fff;border-top:1px solid #ebe7f2;padding:54px 0 20px;margin-top:36px}.footer-grid-pro{display:grid;grid-template-columns:1.35fr .8fr 1.25fr 1.35fr;gap:32px}.footer-brand-pro img{width:245px;height:106px;object-fit:contain;object-position:left center}.social-pro{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.social-pro a{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #e5dfef;background:#fff;transition:.2s;box-shadow:0 8px 20px rgba(64,42,110,.06);font-size:16px}.social-pro a:hover{transform:translateY(-3px)}.social-pro a.sp-wa{border-color:#25d366;color:#25d366}.social-pro a.sp-wa:hover{background:#25d366;color:#fff}.social-pro a.sp-google{border-color:#6d24db;color:#6d24db}.social-pro a.sp-google:hover{background:#6d24db;color:#fff}.social-pro a.sp-ig{border-color:#e1306c;color:#e1306c}.social-pro a.sp-ig:hover{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);border-color:transparent;color:#fff}.social-pro a.sp-loc{border-color:#9291a6;color:#6d6d80}.social-pro a.sp-loc:hover{background:#6d6d80;color:#fff}.footer-col-pro h4{margin:0 0 14px;font-size:12px;letter-spacing:.09em;color:#282638}.footer-col-pro a{display:block;text-decoration:none;color:#717286;font-size:12px;margin:8px 0;transition:.2s}.footer-col-pro a:hover{color:#6545cf;transform:translateX(2px)}.footer-connect-pro p{font-size:12px;line-height:1.7;color:#77788a;margin:0 0 12px}.footer-bottom-pro{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center;padding-top:20px;margin-top:26px;border-top:1px solid #eeeaf4;font-size:12px;color:#88899a}.footer-bottom-pro span:first-child{font-weight:700;color:#68697a}.footer-legal-links{display:flex;gap:8px;align-items:center;justify-content:center;font-size:15px}.footer-legal-links a{color:#88899a;text-decoration:none;transition:color .18s}.footer-legal-links a:hover{color:#6d24db}.footer-legal-sep{color:#c9c5d6}@media(max-width:980px){.footer-grid-pro{grid-template-columns:1fr 1fr}.footer-brand-pro{grid-column:1/-1}}@media(max-width:680px){.footer-grid-pro{grid-template-columns:1fr}.footer-brand-pro{grid-column:auto}.footer-brand-pro img{width:224px;height:92px}.footer-bottom-pro{flex-direction:column;gap:6px}}
+</style><style>
+.time-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.picker{z-index:1000;min-width:230px;background:#fff;border:1px solid #ded8e9;border-radius:16px;box-shadow:0 18px 40px rgba(46,31,82,.16);padding:12px}.picker select{width:100%;padding:11px 10px;border:1px solid #e4dfec;border-radius:10px;background:#fff;font:inherit}.picker-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}.picker-actions button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer}.picker-actions .apply{background:#6746d3;color:#fff}.picker-actions .cancel{background:#f4f1f8;color:#4d475d}
+@media(max-width:720px){.field .picker{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92vw,360px);max-width:none}.field .picker.open:before{content:'';position:fixed;inset:-200vh;z-index:-1;background:rgba(20,16,32,.18);backdrop-filter:blur(2px)}.time-grid{grid-template-columns:1fr 1fr 1fr}}
+.tour-photo{min-height:210px;background-size:cover;background-position:center}.tour-card>a{color:inherit;text-decoration:none;display:block;height:100%}
+</style>
+<style>.tour-photo{background-size:cover;background-position:center;min-height:180px;background-color:#f3f1f7;position:relative;overflow:hidden}.tour-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,16,28,.02),rgba(18,16,28,.12));pointer-events:none}</style>
+<style>
+/* Final Gujarat Tours polish */
+html{scroll-behavior:smooth}body{animation:pageEnter .6s cubic-bezier(.22,.61,.36,1)}@keyframes pageEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#gujarat-tours .rate-card.tour-card{height:100%;display:flex;flex-direction:column}.tour-card>a{height:100%;display:flex;flex-direction:column}.tour-card .rate-body{display:flex;flex-direction:column;flex:1}.tour-card .price{margin-top:auto}.tour-photo{height:210px;min-height:210px}.tour-card .rate-body h3{min-height:48px;display:flex;align-items:flex-start}.tour-card .meta{min-height:34px;align-items:flex-start}
+.section,.footer,.nav{animation:sectionFlow .7s ease}@keyframes sectionFlow{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style><style>
+/* === Unified site navbar (shared across all pages) === */
+.site-nav{position:sticky;top:0;z-index:120;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #eeeaf4}
+.site-nav-inner{width:min(1240px,94vw);margin:0 auto;height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px;box-sizing:border-box}
+.site-nav-inner a{text-decoration:none}
+.site-brand{display:inline-flex;align-items:center;flex:0 0 auto}
+.site-brand img{height:46px!important;width:auto!important;max-width:150px!important;object-fit:contain;display:block}
+.site-nav-links{display:flex;gap:22px;align-items:center;font-size:13.5px;font-weight:700}
+.site-nav-links a{color:#444457;white-space:nowrap;transition:color .18s}
+.site-nav-links a:hover,.site-nav-links a.active{color:#6d24db}
+.site-nav-actions{display:flex;gap:10px;align-items:center;flex:0 0 auto}
+.nav-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #e6e1ef;background:#fff;color:#252539;padding:11px 16px;border-radius:14px;font-weight:800;font-size:13px;line-height:1;cursor:pointer;transition:.2s;white-space:nowrap}
+.nav-btn-outline:hover{border-color:#c7b7e9;color:#6d24db}
+.nav-btn-primary{background:linear-gradient(135deg,#6d24db,#416ff3);color:#fff;border:0;box-shadow:0 14px 30px rgba(109,36,219,.22)}
+.nav-btn-primary:hover{transform:translateY(-2px)}
+.site-menu{display:none;border:0;background:none;font-size:24px;line-height:1;color:#252539;cursor:pointer;padding:4px 6px}
+@media(max-width:1100px){
+  .site-nav-links{display:none}
+  .site-menu{display:block}
+  .site-nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:16px;padding:18px 5vw 22px;background:#fff;border-bottom:1px solid #eeeaf4;box-shadow:0 18px 40px rgba(40,25,80,.10);font-size:15px}
+}
+@media(max-width:720px){
+  .site-nav-inner{height:64px}
+  .site-brand img{height:40px!important;max-width:130px!important}
+  .nav-btn-outline{display:none}
+  .nav-btn{padding:10px 14px;font-size:12.5px}
+}
+</style>
+<style>
+/* === FAQ readability: larger type, taller open panel === */
+.faq button{font-size:16px;line-height:1.45;align-items:flex-start}
+.faq button span:last-child{font-size:20px;line-height:1;flex:0 0 auto}
+.faq .answer,.faq .ans{font-size:15.5px;line-height:1.72}
+.faq.open .answer,.faq.open .ans{max-height:520px;padding-bottom:18px}
+@media(max-width:720px){
+  .faq button{font-size:15.5px}
+  .faq .answer,.faq .ans{font-size:15px;line-height:1.7}
+  .faq.open .answer,.faq.open .ans{max-height:620px}
+}
+</style>
+<style>
+/* swap button feedback */
+.swap{transition:transform .25s ease,box-shadow .2s}
+.swap:hover{box-shadow:0 14px 26px rgba(53,35,89,.20)}
+.swap.spun{animation:swapSpin .4s ease}
+@keyframes swapSpin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(180deg)}}
+.suggest button small{display:block;color:#8b8c9e;font-size:11.5px;margin-top:2px}
+.suggest button{width:100%;text-align:left;border:0;background:#fff;padding:10px 14px;cursor:pointer;font-size:14px}
+.suggest button:hover,.suggest button:focus{background:#f6f2ff;outline:none}
+</style>
+<link rel="stylesheet" href="site-footer-cta.css">
+<style>/* site-footer-cta.css sets the © line to 11px site-wide; make it 15px on this page only, matching this page's own footer-bottom-pro rule above */
+.footer-bottom-pro span .footer-credit-brand,.footer-bottom-pro span a{color:#6d24db;font-weight:700}
+.footer-bottom-pro span a:hover{color:#8a4bef}</style>
+<style id="return-date-css">
+/* Round-trip layout: keep all controls inside the booking card on every screen size. */
+.field-return-date{display:none}
+
+/* Desktop/tablet:
+   One Way: From + To + Pickup Date + Pickup Time + Phone all stay on one row.
+   Round Trip: From + To + Pickup Date + Return Date + Pickup Time stay on the first row; Phone moves below. */
+@media(min-width:721px){
+  .booking:not(.is-local) .location-pair{min-width:0}
+
+  .booking:not(.is-local):not(.is-round-trip) .fields{
+    grid-template-columns:minmax(0,2.15fr) repeat(3,minmax(0,1fr));
+    gap:12px;
+  }
+  .booking:not(.is-local):not(.is-round-trip) .field-phone{
+    grid-column:auto;
+    max-width:none;
+  }
+
+  .booking:not(.is-local).is-round-trip .fields{
+    grid-template-columns:minmax(0,2.15fr) repeat(3,minmax(0,1fr));
+    gap:12px;
+  }
+  .booking:not(.is-local).is-round-trip .field-phone{
+    grid-column:1 / span 2;
+    max-width:none;
+  }
+}
+
+/* Mobile: From and To are stacked; the two dates sit side-by-side; time and phone stay full width. */
+@media(max-width:720px){
+  .booking{width:100%;max-width:100%;overflow:visible}
+  .booking:not(.is-local) .fields{
+    width:100%;
+    min-width:0;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:12px;
+  }
+  .booking:not(.is-local) .location-pair,
+  .booking:not(.is-local) .field-package,
+  .booking:not(.is-local) .field-time,
+  .booking:not(.is-local) .field-phone{grid-column:1/-1}
+  .booking:not(.is-local) .field-pickup-date,
+  .booking:not(.is-local) .field-return-date{grid-column:span 1;min-width:0}
+  .booking:not(.is-local) .field,
+  .booking:not(.is-local) .field input{min-width:0;max-width:100%}
+  .booking:not(.is-local) .field input[type="date"]{
+    display:block;
+    width:100%;
+    min-width:0;
+    max-width:100%;
+    box-sizing:border-box;
+    font-size:14px;
+  }
+  .booking:not(.is-local) .field label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+</style>
+<style id="local-form-css">
+/* Local tab: From City · Package · Date · Time · Phone  (To / swap / One Way-Round Trip hidden) */
+.field-package,.lbl-local{display:none}
+.field-package select{width:100%;border:0;outline:0;background:none;color:#222130;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;-webkit-appearance:none;appearance:none;padding:0 24px 0 0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23222130' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 2px center;background-size:14px}
+.booking.is-local .field-package{display:block}
+.booking.is-local .lbl-local{display:inline}
+.booking.is-local .lbl-def{display:none}
+.booking.is-local .field-to,.booking.is-local .swap,.booking.is-local .booking-mode{display:none!important}
+.booking.is-local .location-pair{grid-template-columns:1fr}
+.booking.is-local .fields{grid-template-columns:repeat(5,1fr)}
+@media(max-width:1100px){.booking.is-local .fields{grid-template-columns:1fr 1fr}.booking.is-local .fields>.field:last-child{grid-column:1/-1;max-width:none}}
+@media(max-width:720px){.booking.is-local .fields{grid-template-columns:1fr}}
+</style>
+<style>
+.rate-modal-overlay{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(20,14,34,.5);backdrop-filter:blur(4px);padding:20px}
+.rate-modal-overlay.open{display:flex}
+.rate-modal-card{position:relative;width:min(400px,94vw);background:#fff;border-radius:24px;padding:28px 26px 24px;box-shadow:0 40px 100px rgba(30,15,60,.32)}
+.rate-modal-card .modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:16px;cursor:pointer;color:#4a4a5c}
+.rate-modal-card h3{font-family:Manrope,Inter,sans-serif;font-size:20px;letter-spacing:-.03em;margin-bottom:4px}
+.rate-modal-card .rate-modal-sub{color:#6e6f82;font-size:12.5px;margin-bottom:18px}
+.rate-modal-card .field{margin-bottom:16px}
+.rate-modal-card .btn{width:100%}
+body.modal-locked{overflow:hidden}
+</style>
+</head>
+<body class="page-smooth">
+<header class="site-nav"><div class="site-nav-inner"><a class="site-brand" href="index.html"><img src="logo.png" alt="Ahmedabad Airport Cab"></a><nav class="site-nav-links"><a href="index.html" class="active">Home</a><a href="#services">Our Services</a><a href="#routes">Routes</a><a href="#rates">Round Trip</a><a href="#gujarat-tours">Gujarat Tours</a><a href="about.html">About</a><a href="#contact">Contact</a></nav><div class="site-nav-actions"><a class="nav-btn nav-btn-outline" href="tel:+919724429334">+91 97244 29334</a><a class="nav-btn nav-btn-primary" href="#booking">Inquiry Now</a><a class="nav-btn nav-btn-primary nav-btn-contact" href="#contact">Contact</a></div><button class="site-menu" type="button" onclick="toggleSiteMenu(this)" aria-label="Open menu">&#9776;</button></div></header>
+<main>
+<section class="booking-hero" id="home"><div class="container booking-wrap">
+<div class="kicker" style="text-align:center">AHMEDABAD • AIRPORT • GUJARAT</div>
+<h1 class="hero-title">Book Your <span>Ahmedabad Cab</span> with confidence.</h1>
+<p class="hero-copy">Airport pickup, airport drop, one-way, round-trip, local, corporate and outstation travel — with a simple direct WhatsApp booking journey.</p>
+<form class="booking" id="booking" onsubmit="submitBooking(event)">
+  <div class="booking-top"><div><div class="kicker">BOOK YOUR RIDE</div><h2>Find your perfect ride</h2></div></div>
+  <div class="booking-types booking-category"><button type="button" class="active" data-trip="Outstation" onclick="setCategory(this)">Outstation</button><button type="button" data-trip="Local" onclick="setCategory(this)">Local</button><button type="button" data-trip="Airport" onclick="setCategory(this)">Airport</button><button type="button" data-trip="Corporate" onclick="setCategory(this)">Corporate</button></div>
+  <div class="booking-types booking-mode"><button type="button" class="active" data-mode="One Way" onclick="setMode(this)">One Way</button><button type="button" data-mode="Round Trip" onclick="setMode(this)">Round Trip</button></div>
+  <input id="trip" type="hidden" value="Outstation"><input id="tripMode" type="hidden" value="One Way">
+  <div class="fields">
+    <div class="location-pair">
+      <div class="field"><label for="from"><span class="lbl-def">From</span><span class="lbl-local">From City</span></label><input id="from" autocomplete="off" value="Ahmedabad" required placeholder="Search city or airport"><div class="suggest" id="fromSuggest"></div></div>
+      <div class="field field-to"><label for="to">To</label><input id="to" autocomplete="off" value="Ahmedabad" required placeholder="Search destination"><div class="suggest" id="toSuggest"></div></div>
+      <button class="swap" type="button" aria-label="Swap locations">⇄</button>
+    </div>
+    <div class="field field-package"><label for="package">Package</label><select id="package" disabled><option value="08 Hour 80 Km">08 Hour 80 Km</option><option value="12 Hour 120 Km">12 Hour 120 Km</option></select></div>
+    <div class="field field-pickup-date"><label for="date"><span class="lbl-def">Pickup Date</span><span class="lbl-local">Date</span></label><input id="date" type="date" required></div>
+    <div class="field field-return-date"><label for="returnDate">Return Date</label><input id="returnDate" type="date"></div>
+    <div class="field field-time"><label><span class="lbl-def">Pickup Time</span><span class="lbl-local">Time</span></label><input id="timeText" type="text" readonly value="6:30 PM" aria-label="Pickup time" onclick="openTimePicker()"><div class="picker" id="timePicker"><div class="time-grid"><select id="hourSel"></select><select id="minuteSel"></select><select id="ampmSel"><option>AM</option><option>PM</option></select></div><div class="picker-actions"><button type="button" class="cancel" onclick="closeTimePicker()">Cancel</button><button type="button" class="apply" onclick="applyTimePicker()">Apply</button></div></div></div>
+    <div class="field field-phone"><label for="phone">Phone Number</label><input id="phone" required type="tel" inputmode="numeric" maxlength="10" placeholder="Enter mobile number"></div>
+  </div>
+  <div class="submit-row"><button class="btn btn-primary" type="submit">Find Cabs</button></div>
+</form></div></section>
+
+<section class="section" id="rates"><div class="container"><div class="section-head"><div><div class="kicker">Round Trip</div><h2>Round Trip Rates</h2></div></div><div class="rates-carousel" id="ratesCarousel"><button class="carousel-arrow carousel-prev" type="button" onclick="moveRateSlide(-1)" aria-label="Previous vehicle">‹</button><div class="rates-viewport"><div class="rates-track" id="ratesTrack">
+  <article class="rate-card"><div class="rate-photo" style="background-image:url('swift-dzire.webp'),linear-gradient(135deg,#1b1730,#6a45dc)"></div><div class="rate-body"><h3>Swift Dzire</h3><div class="meta"><span>4 Persons</span><span>2 Bags</span></div><div class="price"><small>Round Trip Rate</small><strong><span class="rs">₹</span><span data-count="11">11</span><span class="per">/ km</span></strong></div><button type="button" class="btn btn-primary" onclick="bookRateOnWhatsApp('Swift Dzire','11')">Inquiry Now</button></div></article>
+  <article class="rate-card"><div class="rate-photo" style="background-image:url('ertiga.webp'),linear-gradient(135deg,#1c1830,#7a49d9)"></div><div class="rate-body"><h3>Maruti Ertiga</h3><div class="meta"><span>6 Persons</span><span>4 Bags</span></div><div class="price"><small>Round Trip Rate</small><strong><span class="rs">₹</span><span data-count="13">13</span><span class="per">/ km</span></strong></div><button type="button" class="btn btn-primary" onclick="bookRateOnWhatsApp('Maruti Ertiga','13')">Inquiry Now</button></div></article>
+  <article class="rate-card"><div class="rate-photo" style="background-image:url('innova-crysta.webp'),linear-gradient(135deg,#1c1830,#4b75ec)"></div><div class="rate-body"><h3>Innova Crysta</h3><div class="meta"><span>6 Persons</span><span>4 Bags</span></div><div class="price"><small>Round Trip Rate</small><strong><span class="rs">₹</span><span data-count="18">18</span><span class="per">/ km</span></strong></div><button type="button" class="btn btn-primary" onclick="bookRateOnWhatsApp('Innova Crysta','18')">Inquiry Now</button></div></article>
+  <article class="rate-card"><div class="rate-photo" style="background-image:url('tempo-traveller.webp'),linear-gradient(135deg,#1f1a33,#8560e7)"></div><div class="rate-body"><h3>Tempo Traveller</h3><div class="meta"><span>11 Persons</span><span>15 Bags</span></div><div class="price"><small>Round Trip Rate</small><strong><span class="rs">₹</span><span data-count="28">28</span><span class="per">/ km</span></strong></div><button type="button" class="btn btn-primary" onclick="bookRateOnWhatsApp('Tempo Traveller','28')">Inquiry Now</button></div></article>
+  <article class="rate-card"><div class="rate-photo" style="background-image:url('urbania.webp'),linear-gradient(135deg,#1f1a33,#3d69db)"></div><div class="rate-body"><h3>Urbania</h3><div class="meta"><span>16 Persons</span><span>20 Bags</span></div><div class="price"><small>Round Trip Rate</small><strong><span class="rs">₹</span><span data-count="32">32</span><span class="per">/ km</span></strong></div><button type="button" class="btn btn-primary" onclick="bookRateOnWhatsApp('Urbania','32')">Inquiry Now</button></div></article>
+</div></div><button class="carousel-arrow carousel-next" type="button" onclick="moveRateSlide(1)" aria-label="Next vehicle">›</button><div class="carousel-dots" id="rateDots" aria-label="Vehicle carousel pagination"></div></div></div></section>
+
+<section class="section alt" id="services"><div class="container"><div class="section-head"><div><div class="kicker">Our Services</div><h2>Travel services built around your journey.</h2></div></div><div class="services-grid">
+<article class="service-card"><div class="icon">✦</div><h3>Airport Transfer Taxi</h3><p>Airport transfers from Ahmedabad Airport to homes, hotels, offices and onward destinations, and back.</p><a href="airport-pickup.html">View Service →</a></article><article class="service-card"><div class="icon">✦</div><h3>One Way Cab</h3><p>Point-to-point intercity cab service for travel from Ahmedabad to your destination.</p><a href="one-way-cab.html">View Service →</a></article><article class="service-card"><div class="icon">✦</div><h3>Round Trip</h3><p>Flexible return travel for family, business, events and multi-day journeys.</p><a href="round-trip-cab.html">View Service →</a></article><article class="service-card"><div class="icon">✦</div><h3>Outstation Cab</h3><p>Long-distance travel across Gujarat and selected destinations in nearby states.</p><a href="outstation-cab.html">View Service →</a></article><article class="service-card"><div class="icon">✦</div><h3>Local Ahmedabad Cab</h3><p>City travel for meetings, shopping, sightseeing, events and multiple stops.</p><a href="local-ahmedabad-cab.html">View Service →</a></article><article class="service-card"><div class="icon">✦</div><h3>Corporate Travel</h3><p>Reliable business transportation for meetings, airport runs and client travel.</p><a href="corporate-travel.html">View Service →</a></article><article class="service-card"><div class="icon">✦</div><h3>Gujarat Tours</h3><p>Custom travel for sightseeing, family holidays, religious trips and weekend getaways.</p><a href="gujarat-tours.html">View Service →</a></article>
+</div></div></section>
+
+<section class="section" id="travel-services">
+<div class="container">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Travel & Booking Services</div>
+      <h2>More ways to travel with us.</h2>
+    </div>
+    <p>Convenient travel services for airport transfers, flights and railway tickets.</p>
+  </div>
+  <div class="travel-services-grid">
+    <article class="travel-service-card">
+      <img src="Airport-Transfer-Taxi.webp" alt="Airport Transfer Taxi" loading="lazy">
+      <div class="travel-service-content">
+        <h3>Airport Transfer Taxi</h3>
+        <p>Reliable pickup and drop service for airports.</p>
+        <div class="travel-service-list">
+          <div><span class="check">✓</span><span>24/7 Available</span></div>
+          <div><span class="check">✓</span><span>Flight Tracking</span></div>
+          <div><span class="check">✓</span><span>Meet &amp; Greet</span></div>
+        </div>
+      </div>
+    </article>
+    <article class="travel-service-card">
+      <img src="Flight-Ticket-Booking.webp" alt="Flight Ticket Booking" loading="lazy">
+      <div class="travel-service-content">
+        <h3>Flight Ticket Booking</h3>
+        <p>Book domestic and international flights at competitive prices.</p>
+        <div class="travel-service-list">
+          <div><span class="check">✓</span><span>Easy Online Booking</span></div>
+          <div><span class="check">✓</span><span>Multiple Airline Options</span></div>
+          <div><span class="check">✓</span><span>24/7 Customer Support</span></div>
+        </div>
+      </div>
+    </article>
+    <article class="travel-service-card">
+      <img src="Train-Ticket-Booking.webp" alt="Railway Ticket Booking" loading="lazy">
+      <div class="travel-service-content">
+        <h3>Railway Ticket Booking</h3>
+        <p>Book train tickets quickly and securely across India.</p>
+        <div class="travel-service-list">
+          <div><span class="check">✓</span><span>Instant Ticket Booking</span></div>
+          <div><span class="check">✓</span><span>PNR Status Check</span></div>
+          <div><span class="check">✓</span><span>24/7 Booking Support</span></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+</section>
+
+<section class="section" id="routes"><div class="container"><div class="section-head"><div><div class="kicker">Popular Routes</div><h2>Ahmedabad & intercity routes.</h2></div></div><div class="routes-grid">
+<a class="route-card" href="ahmedabad-to-surat-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Surat</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-rajkot-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Rajkot</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-udaipur-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Udaipur</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-gandhinagar-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Gandhinagar</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-mount-abu-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Mount Abu</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-bhuj-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Bhuj</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-dwarka-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Dwarka</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-somnath-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Somnath</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-mumbai-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Mumbai</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-jaipur-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Jaipur</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-indore-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Indore</strong><span>Open Route →</span></a><a class="route-card" href="ahmedabad-to-dhoraji-taxi.html"><small>Cab Route</small><strong>Ahmedabad to Dhoraji</strong><span>Open Route →</span></a><a class="route-card" href="rajkot-to-dhoraji-taxi.html"><small>Cab Route</small><strong>Rajkot to Dhoraji</strong><span>Open Route →</span></a><a class="route-card" href="rajkot-to-gondal-taxi.html"><small>Cab Route</small><strong>Rajkot to Gondal</strong><span>Open Route →</span></a><a class="route-card" href="somnath-to-porbandar-taxi.html"><small>Cab Route</small><strong>Somnath to Porbandar</strong><span>Open Route →</span></a><a class="route-card" href="diu-to-somnath-taxi.html"><small>Cab Route</small><strong>Diu to Somnath</strong><span>Open Route →</span></a><a class="route-card" href="dwarka-to-somnath-taxi.html"><small>Cab Route</small><strong>Dwarka to Somnath</strong><span>Open Route →</span></a><a class="route-card" href="vadodara-to-kevadiya-taxi.html"><small>Cab Route</small><strong>Vadodara to Kevadiya</strong><span>Open Route →</span></a><a class="route-card" href="vadodara-to-statue-of-unity-taxi.html"><small>Cab Route</small><strong>Vadodara to Statue of Unity</strong><span>Open Route →</span></a><a class="route-card" href="vadodara-to-pavagadh-taxi.html"><small>Cab Route</small><strong>Vadodara to Pavagadh</strong><span>Open Route →</span></a>
+</div></div></section>
+
+<section class="section alt" id="gujarat-tours"><div class="container"><div class="section-head"><div><div class="kicker">Gujarat Tours</div><h2>Explore Gujarat with Ahmedabad Airport Cab.</h2></div></div>
+<div class="rates-carousel" id="tourCarousel"><button class="carousel-arrow carousel-prev" type="button" onclick="moveTourSlide(-1)" aria-label="Previous Gujarat tour">‹</button><div class="rates-viewport"><div class="rates-track" id="tourTrack">
+<article class="rate-card tour-card"><a href="ahmedabad-to-mount-abu.html"><div class="rate-photo tour-photo" style="background-image:url('mount-abu.webp')"></div><div class="rate-body"><h3>Ahmedabad to Mount Abu</h3><div class="meta"><span>2 Nights / 3 Days</span><span>900 KM</span></div><div class="price"><small>Tour Package</small><strong>&#8377;12,800 <span class="per">onwards</span></strong></div></div></a></article>
+<article class="rate-card tour-card"><a href="ahmedabad-to-udaipur.html"><div class="rate-photo tour-photo" style="background-image:url('udaipur.webp')"></div><div class="rate-body"><h3>Ahmedabad to Udaipur</h3><div class="meta"><span>2 Nights / 3 Days</span><span>900 KM</span></div><div class="price"><small>Tour Package</small><strong>&#8377;12,800 <span class="per">onwards</span></strong></div></div></a></article>
+<article class="rate-card tour-card"><a href="dwarka-somnath-diu-5n6d.html"><div class="rate-photo tour-photo" style="background-image:url('dwarka-somnath.webp')"></div><div class="rate-body"><h3>Dwarka • Somnath • Diu</h3><div class="meta"><span>5 Nights / 6 Days</span><span>Approx. 1,750 KM</span></div><div class="price"><small>Tour Package</small><strong>&#8377;24,500 <span class="per">onwards</span></strong></div></div></a></article>
+<article class="rate-card tour-card"><a href="dwarka-somnath-diu-4n5d.html"><div class="rate-photo tour-photo" style="background-image:url('dwarla-somnath-diu.webp')"></div><div class="rate-body"><h3>Dwarka • Somnath • Diu</h3><div class="meta"><span>4 Nights / 5 Days</span><span>1,500 KM</span></div><div class="price"><small>Tour Package</small><strong>&#8377;20,500 <span class="per">onwards</span></strong></div></div></a></article>
+<article class="rate-card tour-card"><a href="dwarka-somnath-religious-3n4d.html"><div class="rate-photo tour-photo" style="background-image:url('dwarka-somnath-gir.webp')"></div><div class="rate-body"><h3>Dwarka • Somnath Darshan</h3><div class="meta"><span>3 Nights / 4 Days</span><span>1,200–1,350 KM</span></div><div class="price"><small>Tour Package</small><strong>&#8377;18,500 <span class="per">onwards</span></strong></div></div></a></article>
+</div></div><button class="carousel-arrow carousel-next" type="button" onclick="moveTourSlide(1)" aria-label="Next Gujarat tour">›</button><div class="carousel-dots" id="tourDots"></div></div></div></section>
+
+<section class="section" id="about"><div class="container"><div class="about-card about-copy"><div class="kicker">About Ahmedabad Airport Cab</div><h3>One booking point for airport and intercity travel.</h3><p>Reliable airport pickup, airport drop, local, one-way, round-trip and outstation cab services from Ahmedabad.</p><div style="margin-top:20px"><a class="btn btn-primary" href="about.html">Explore About Us</a></div></div></div></section>
+
+
+
+<section class="section" id="about-service"><div class="container"><div class="section-head"><div><div class="kicker">Why Choose Us</div><h2>Hassle-Free Cab Booking With Ahmedabad Airport Cab</h2><p class="section-sub">Everything you need to know about our airport, local and outstation cab services in one place — read the full details or expand for more.</p></div></div>
+<div class="seo-content" id="seoContent">
+<p>Looking for a reliable, comfortable and hassle-free cab service in Ahmedabad? Ahmedabad Airport Cab provides professional taxi and cab services for airport transfers, local Ahmedabad travel, one-way intercity journeys, round trips and outstation trips. Whether you need a cab from Sardar Vallabhbhai Patel International Airport (AMD), a pickup from your home or hotel, a local taxi for city travel, or a comfortable cab for a long-distance journey, our service is designed to make your travel simple and convenient.</p>
+<p>We provide cab services across Ahmedabad and nearby areas with options suitable for individuals, families, business travellers and groups. Our focus is on comfortable vehicles, professional drivers, clear booking communication and dependable pickup and drop service. For airport travel, you can schedule your pickup or drop in advance and share your flight details so the journey can be planned according to your travel timing.</p>
+<h3>Our Taxi Services In Ahmedabad</h3>
+<h3>Ahmedabad Airport Taxi Service</h3>
+<p>Sardar Vallabhbhai Patel International Airport (AMD) connects Ahmedabad with major cities across India and international destinations. Ahmedabad Airport Cab provides convenient airport pickup and drop services from the airport to Ahmedabad city, hotels, residential areas, business locations and nearby destinations.</p>
+<p>Whether you are arriving at Ahmedabad Airport or travelling from Ahmedabad to catch an early-morning or late-night flight, you can pre-book your airport taxi for a smoother journey. Airport cab service is available for passengers travelling alone, families, senior citizens, business travellers and groups.</p>
+<p>Our Ahmedabad airport taxi service covers important areas such as SG Highway, Satellite, Prahlad Nagar, Vastrapur, Bopal, South Bopal, Science City, Gota, Thaltej, Navrangpura, Maninagar, Naroda, Chandkheda, Gandhinagar and other parts of Ahmedabad.</p>
+<p>Ahmedabad Airport Cab can be booked for:</p>
+<ul>
+<li>Ahmedabad Airport Pickup</li>
+<li>Ahmedabad Airport Drop</li>
+<li>Airport To Hotel Transfer</li>
+<li>Hotel To Ahmedabad Airport Transfer</li>
+<li>Home To Airport Cab</li>
+<li>Airport To Home Taxi</li>
+<li>Business &amp; Corporate Airport Transfers</li>
+<li>Family Airport Transfers</li>
+<li>Early Morning Airport Cab</li>
+<li>Late Night Airport Taxi</li>
+<li>One-Way Airport Transfers</li>
+<li>Airport Round Trip Cab Service</li>
+</ul>
+<p>For airport bookings, provide your pickup location, travel date, pickup time and flight details when required. Call +91 97244 29334 to check availability and book your Ahmedabad airport cab.</p>
+<div class="fare-table-wrap"><table class="fare-table"><caption>Ahmedabad Airport Taxi Fare – Zone-Wise Rates</caption><thead><tr><th>Area / Locality</th><th>Approx Distance</th><th>Sedan</th><th>SUV</th><th>Innova</th></tr></thead><tbody>
+<tr><td>SG Highway / Prahlad Nagar</td><td>~12 km</td><td>₹450</td><td>₹600</td><td>₹800</td></tr>
+<tr><td>Satellite / Anandnagar / Jodhpur</td><td>~15 km</td><td>₹500</td><td>₹650</td><td>₹850</td></tr>
+<tr><td>Ashram Road / CG Road / Ellis Bridge</td><td>~20 km</td><td>₹600</td><td>₹780</td><td>₹1,000</td></tr>
+<tr><td>Maninagar / Kankaria / Isanpur</td><td>~28 km</td><td>₹750</td><td>₹950</td><td>₹1,200</td></tr>
+<tr><td>Science City / Sola / Gota</td><td>~10 km</td><td>₹400</td><td>₹550</td><td>₹720</td></tr>
+<tr><td>Gandhinagar</td><td>~38 km</td><td>₹900</td><td>₹1,100</td><td>₹1,400</td></tr>
+<tr><td>Bopal / South Bopal</td><td>~22 km</td><td>₹650</td><td>₹820</td><td>₹1,050</td></tr>
+<tr><td>Naroda / Narol / Vatva</td><td>~30 km</td><td>₹800</td><td>₹1,000</td><td>₹1,280</td></tr>
+</tbody></table></div>
+<p class="fare-note">Night surcharge (11 PM – 5 AM): ₹100–₹200 extra. Rates are estimated one-way fares; final pricing may vary depending on the exact pickup and drop location, vehicle type, tolls, taxes and other applicable charges.</p>
+<h3>Ahmedabad One Way Cab Service</h3>
+<p>Our Ahmedabad one way cab service is a convenient option for travellers who need to travel from Ahmedabad to another city without booking a return journey. One-way taxi service is suitable for business travel, family trips, relocation, railway station transfers, college travel and intercity transportation.</p>
+<p>You can book a one-way cab from Ahmedabad to destinations such as Vadodara, Surat, Rajkot, Udaipur, Mount Abu, Dwarka, Somnath, Bhuj, Mumbai, Jaipur and other cities depending on availability.</p>
+<p>With a pre-booked one-way taxi, you can select the vehicle according to your travel requirements and confirm the fare before the journey. The exact fare can depend on the route, vehicle type, tolls, taxes, parking, additional kilometres and other applicable charges, so the final price should be confirmed at the time of booking.</p>
+<p>Book Ahmedabad to outstation destinations with a comfortable private cab and travel according to your schedule.</p>
+<h3>Ahmedabad Outstation Cab Service</h3>
+<button class="read-more-btn" id="readMoreBtn" type="button" onclick="toggleReadMore()">Read More <span id="readMoreIcon">+</span></button>
+<div class="seo-content-hidden" id="seoContentHidden">
+<p>Planning a trip outside Ahmedabad? Ahmedabad Airport Cab also provides outstation taxi services for one-way and round-trip journeys from Ahmedabad to popular destinations across Gujarat and nearby states.</p>
+<p>Popular routes include:</p>
+<ul class='chip-list'>
+<li>Ahmedabad to Dwarka Cab</li>
+<li>Ahmedabad to Somnath Cab</li>
+<li>Ahmedabad to Rajkot Cab</li>
+<li>Ahmedabad to Surat Cab</li>
+<li>Ahmedabad to Vadodara Cab</li>
+<li>Ahmedabad to Udaipur Cab</li>
+<li>Ahmedabad to Mount Abu Cab</li>
+<li>Ahmedabad to Bhuj Cab</li>
+<li>Ahmedabad to Mumbai Cab</li>
+<li>Ahmedabad to Jaipur Cab</li>
+<li>Ahmedabad to Indore Cab</li>
+<li>Ahmedabad to Gandhinagar Cab</li>
+</ul>
+<div class="fare-table-wrap"><table class="fare-table"><caption>Ahmedabad To Outstation Taxi Fare</caption><thead><tr><th>Route</th><th>Distance</th><th>Sedan</th><th>Ertiga (SUV)</th><th>Innova Crysta</th></tr></thead><tbody>
+<tr><td>Ahmedabad to Surat</td><td>~260 km</td><td>₹3,400</td><td>₹4,000</td><td>₹8,500</td></tr>
+<tr><td>Ahmedabad to Rajkot</td><td>~215 km</td><td>₹2,400</td><td>₹3,000</td><td>₹8,600</td></tr>
+<tr><td>Ahmedabad to Udaipur</td><td>~269 km</td><td>₹3,400</td><td>₹4,000</td><td>₹9,500</td></tr>
+<tr><td>Ahmedabad to Gandhinagar</td><td>~26 km</td><td>₹800</td><td>₹1,100</td><td>₹2,200</td></tr>
+<tr><td>Ahmedabad to Dwarka</td><td>~448 km</td><td>₹7,000</td><td>₹8,300</td><td>₹14,920</td></tr>
+<tr><td>Ahmedabad to Somnath</td><td>~424 km</td><td>₹6,784</td><td>₹8,480</td><td>₹13,960</td></tr>
+<tr><td>Ahmedabad to Mumbai</td><td>~533 km</td><td>₹7,528</td><td>₹8,660</td><td>₹18,500</td></tr>
+<tr><td>Ahmedabad to Mount Abu</td><td>~229 km</td><td>₹3,664</td><td>₹4,580</td><td>₹9,160</td></tr>
+<tr><td>Ahmedabad to Jaipur</td><td>~659 km</td><td>₹11,862</td><td>₹16,475</td><td>₹26,360</td></tr>
+<tr><td>Ahmedabad to Bhuj</td><td>~334 km</td><td>₹4,500</td><td>₹5,580</td><td>₹13,360</td></tr>
+<tr><td>Ahmedabad to Indore</td><td>~388 km</td><td>₹6,208</td><td>₹7,760</td><td>₹15,520</td></tr>
+</tbody></table></div>
+<p class="fare-note">Prices are estimated one-way fares. State taxes, toll charges, parking charges and night charges may be applicable depending on the route and booking. Please confirm the final fare at the time of booking.</p>
+<p>Outstation cab service is suitable for family vacations, religious trips, business travel, weekend travel, sightseeing tours and long-distance journeys. You can choose one-way or round-trip travel depending on your itinerary.</p>
+<p>For longer journeys, vehicle selection can include comfortable sedan and SUV options, subject to availability. Contact Ahmedabad Airport Cab at +91 97244 29334 for route-specific pricing and vehicle availability.</p>
+<h3>Ahmedabad Local Taxi Service</h3>
+<p>Need a cab for travelling within Ahmedabad? Our local taxi service can be used for city travel, meetings, shopping, medical visits, airport transfers, family travel, sightseeing and multiple-stop journeys.</p>
+<p>Local cab packages can be booked according to the required duration and kilometre limit. Depending on the package and vehicle selected, options may include sedan and SUV vehicles.</p>
+<div class="fare-table-wrap"><table class="fare-table"><caption>Local Ahmedabad Cab Package</caption><thead><tr><th>Package</th><th>Sedan Cab AC</th><th>Ertiga Cab AC</th><th>Crysta Cab AC</th></tr></thead><tbody>
+<tr><td>4 Hours / 40 KM</td><td>₹1,500</td><td>₹2,200</td><td>₹3,000</td></tr>
+<tr><td>8 Hours / 80 KM</td><td>₹2,000</td><td>₹2,800</td><td>₹4,000</td></tr>
+<tr><td>12 Hours / 120 KM</td><td>₹2,800</td><td>₹3,600</td><td>₹5,000</td></tr>
+</tbody></table></div>
+<div class="fare-table-wrap"><table class="fare-table"><caption>If Extra KM Used</caption><thead><tr><th>Extra Usage</th><th>Sedan</th><th>Ertiga</th><th>Crysta</th></tr></thead><tbody>
+<tr><td>Extra KM</td><td>₹11</td><td>₹15</td><td>₹20</td></tr>
+<tr><td>Extra Hour</td><td>₹180</td><td>₹200</td><td>₹250</td></tr>
+<tr><td>Parking Charges</td><td>Extra</td><td>Extra</td><td>Extra</td></tr>
+</tbody></table></div>
+<p class="fare-note">Additional kilometres may be charged according to the selected vehicle. Night charges may apply for late-night or early-morning travel. Confirm applicable charges while booking.</p>
+<p>Local taxi service is available for areas including:</p>
+<ul class='chip-list'>
+<li>Satellite</li>
+<li>SG Highway</li>
+<li>Prahlad Nagar</li>
+<li>Vastrapur</li>
+<li>Bopal</li>
+<li>South Bopal</li>
+<li>Gota</li>
+<li>Science City</li>
+<li>Thaltej</li>
+<li>Navrangpura</li>
+<li>Naranpura</li>
+<li>Maninagar</li>
+<li>Kankaria</li>
+<li>Naroda</li>
+<li>Nikol</li>
+<li>Chandkheda</li>
+<li>Bapunagar</li>
+<li>Rakhial</li>
+<li>Gandhinagar</li>
+</ul>
+<p>And surrounding Ahmedabad areas</p>
+<p>For the latest local cab package and fare, contact us directly before booking.</p>
+<h3>Ahmedabad Airport To Gandhinagar Cab Service</h3>
+<p>Ahmedabad Airport Cab provides taxi service between Sardar Vallabhbhai Patel International Airport and Gandhinagar. This service is useful for passengers travelling to hotels, offices, residential locations, business destinations and other places in Gandhinagar.</p>
+<p>You can pre-book an airport pickup from AMD Airport to Gandhinagar or schedule a cab from Gandhinagar to Ahmedabad Airport for your departure.</p>
+<p>Airport to Gandhinagar cab bookings can be made by calling +91 97244 29334.</p>
+<h3>Ahmedabad Airport To City Cab Service</h3>
+<p>Travelling from Ahmedabad Airport to the city? Book a private airport taxi for a direct transfer from Sardar Vallabhbhai Patel International Airport to your destination.</p>
+<p>We provide airport transfer options for passengers travelling towards areas such as:</p>
+<ul class='chip-list'>
+<li>SG Highway</li>
+<li>Prahlad Nagar</li>
+<li>Satellite</li>
+<li>Vastrapur</li>
+<li>Bopal</li>
+<li>South Bopal</li>
+<li>Science City</li>
+<li>Gota</li>
+<li>Thaltej</li>
+<li>Navrangpura</li>
+<li>Maninagar</li>
+<li>Naroda</li>
+<li>Nikol</li>
+<li>Chandkheda</li>
+<li>Gandhinagar</li>
+<li>Ahmedabad City</li>
+</ul>
+<p>Instead of arranging transportation after landing, pre-book your Ahmedabad airport taxi and have your pickup planned before your journey.</p>
+<h3>Ahmedabad Airport Pickup &amp; Drop Service</h3>
+<p>A smooth airport transfer starts with timely planning. Ahmedabad Airport Cab offers pre-booked airport pickup and drop services for passengers travelling to and from Ahmedabad Airport.</p>
+<p>For airport pickup, provide your arrival date, approximate arrival time, flight details and destination whenever required. For airport drop, provide your pickup location and flight departure time so that an appropriate pickup time can be planned.</p>
+<p>Airport transfers are available for:</p>
+<ul>
+<li>Domestic Flight Passengers</li>
+<li>International Flight Passengers</li>
+<li>Families</li>
+<li>Senior Citizens</li>
+<li>Business Travellers</li>
+<li>Students</li>
+<li>Hotel Guests</li>
+<li>Corporate Travellers</li>
+<li>Group Travel</li>
+</ul>
+<p>Availability and vehicle allocation depend on the booking details and vehicle requirements.</p>
+<h3>Ahmedabad Cab Service For Families</h3>
+<p>Families travelling around Ahmedabad or planning an outstation journey can book a private cab according to their travel requirements. A private taxi provides direct travel without sharing the vehicle with other passengers.</p>
+<p>Ahmedabad Airport Cab can be used for airport transfers, family functions, sightseeing, religious trips, weekend travel, medical visits and intercity journeys.</p>
+<p>For family travel, customers can discuss vehicle requirements, luggage needs, number of passengers and route details while booking.</p>
+<h3>Ahmedabad Corporate Cab Service</h3>
+<p>Businesses and professionals often require dependable transportation for airport transfers, meetings, office visits, client travel and intercity business journeys.</p>
+<p>Ahmedabad Airport Cab provides cab booking for corporate travel within Ahmedabad and for travel to other cities. Businesses can contact us for regular transportation requirements, airport transfers and multiple-vehicle requirements, subject to availability.</p>
+<p>Corporate cab bookings can be planned for:</p>
+<ul>
+<li>Airport Transfers</li>
+<li>Client Pickup &amp; Drop</li>
+<li>Business Meetings</li>
+<li>Employee Travel</li>
+<li>Intercity Business Travel</li>
+<li>Corporate Events</li>
+<li>Hotel Transfers</li>
+<li>Outstation Business Trips</li>
+</ul>
+<p>For corporate cab requirements, contact +91 97244 29334.</p>
+<h3>Ahmedabad Sightseeing Cab Service</h3>
+<p>Ahmedabad is a popular destination for business, tourism, heritage travel and family trips. A local cab can make it easier to travel between multiple sightseeing locations during the day.</p>
+<p>Popular places that travellers may visit include:</p>
+<ul class='chip-list'>
+<li>Sabarmati Ashram</li>
+<li>Sabarmati Riverfront</li>
+<li>Adalaj Stepwell</li>
+<li>Kankaria Lake</li>
+<li>Science City</li>
+<li>Sidi Saiyyed Mosque</li>
+<li>Hutheesing Jain Temple</li>
+<li>ISKCON Ahmedabad</li>
+<li>Old Ahmedabad</li>
+<li>Heritage areas</li>
+<li>Manek Chowk</li>
+</ul>
+<p>A private sightseeing cab can be booked for multiple stops according to your travel plan and available local taxi packages.</p>
+<h3>Ahmedabad To Dwarka Cab Service</h3>
+<p>Planning a religious journey from Ahmedabad to Dwarka? Book a private cab for a comfortable journey from Ahmedabad to Dwarka.</p>
+<p>Ahmedabad to Dwarka taxi service is suitable for families, senior citizens, pilgrims and groups. Depending on the itinerary, travellers can also plan extended Gujarat routes covering Somnath, Porbandar, Gir and other destinations.</p>
+<p>For Ahmedabad to Dwarka one-way or round-trip cab booking, contact Ahmedabad Airport Cab for the latest fare and vehicle availability.</p>
+<h3>Ahmedabad To Somnath Cab Service</h3>
+<p>Ahmedabad to Somnath is a popular religious travel route in Gujarat. A private cab provides direct transportation for travellers planning a pilgrimage, family trip or Gujarat tour.</p>
+<p>You can choose one-way or round-trip travel depending on your itinerary. For a multi-day Gujarat journey, additional destinations can also be discussed while planning the trip.</p>
+<p>Call +91 97244 29334 to enquire about Ahmedabad to Somnath taxi service.</p>
+<h3>Ahmedabad To Udaipur Cab Service</h3>
+<p>Ahmedabad to Udaipur cab service is suitable for weekend trips, family vacations, business travel and sightseeing journeys.</p>
+<p>Travel by private taxi from Ahmedabad to Udaipur and plan your journey according to your schedule. One-way and round-trip options may be available depending on the route and vehicle requirements.</p>
+<p>Contact Ahmedabad Airport Cab for the current Ahmedabad to Udaipur cab fare.</p>
+<h3>Ahmedabad To Mount Abu Cab Service</h3>
+<p>Mount Abu is a popular weekend destination for travellers from Ahmedabad and Gujarat. Ahmedabad to Mount Abu taxi service can be booked for family trips, couples, group travel and weekend holidays.</p>
+<p>Choose a one-way or round-trip cab depending on your travel plan and discuss your preferred vehicle before booking.</p>
+<h3>Why Choose Ahmedabad Airport Cab?</h3>
+<p>Choosing the right taxi service can make airport and outstation travel much easier. Ahmedabad Airport Cab focuses on convenient booking, professional communication and comfortable private transportation.</p>
+<ul>
+<li>Airport Pickup &amp; Drop: Pre-book your cab for Ahmedabad Airport transfers.</li>
+<li>Ahmedabad-Wide Service: Cab booking available across major Ahmedabad areas and nearby locations.</li>
+<li>One-Way &amp; Round Trip: Choose the journey type according to your travel requirement.</li>
+<li>Local &amp; Outstation Travel: Book taxis for city travel as well as long-distance routes.</li>
+<li>Comfortable Vehicles: Vehicle options can be selected according to passenger and luggage requirements, subject to availability.</li>
+<li>Professional Drivers: Driver details and vehicle information can be shared according to the booking process.</li>
+<li>Transparent Booking: Confirm the applicable fare, inclusions and additional charges before starting the journey.</li>
+<li>Family-Friendly Travel: Private cab options are suitable for families, senior citizens and group travel.</li>
+<li>Airport Travel Support: Schedule airport pickups and drops according to your flight timing.</li>
+<li>Easy Booking: Call +91 97244 29334 to discuss your travel requirement and confirm availability.</li>
+</ul>
+<h3>How To Book An Ahmedabad Airport Cab</h3>
+<p>Booking an Ahmedabad airport taxi is simple.</p>
+<ol>
+<li>Call +91 97244 29334.</li>
+<li>Share your pickup location.</li>
+<li>Provide your destination.</li>
+<li>Tell us your travel date and pickup time.</li>
+<li>For airport transfers, share your flight details when required.</li>
+<li>Select your preferred vehicle based on availability.</li>
+<li>Confirm the applicable fare and booking details.</li>
+<li>Receive the required driver and vehicle information before the journey.</li>
+</ol>
+<p>Whether you need an Ahmedabad Airport pickup, Ahmedabad Airport drop, local taxi, one-way cab or outstation taxi, contact Ahmedabad Airport Cab to check availability and booking details.</p>
+<h3>Book Ahmedabad Airport Cab Today</h3>
+<p>Need a taxi from Ahmedabad Airport? Planning an outstation trip from Ahmedabad? Looking for a local cab for city travel?</p>
+<p>Ahmedabad Airport Cab provides airport taxi, local cab, one-way taxi, round-trip cab and outstation taxi services for travellers across Ahmedabad.</p>
+<p>From Ahmedabad Airport to your home, hotel or office, or from Ahmedabad to popular destinations such as Dwarka, Somnath, Udaipur, Mount Abu, Rajkot, Surat, Vadodara and beyond, you can contact us to plan your journey.</p>
+<p>Ahmedabad Airport Cab – Reliable Airport Transfers, Local Taxi &amp; Outstation Cab Service In Ahmedabad.</p>
+</div>
+</div>
+</div></section>
+
+<section class="section alt" id="reviews"><div class="container"><div class="section-head"><div><div class="kicker">Reviews</div><h2>What our customers say.</h2><p class="section-sub">Real experiences from riders who booked airport transfers, local trips and outstation journeys with us. Every review reflects an actual completed ride, not a paid placement.</p></div></div><div class="rates-carousel" id="reviewCarousel"><button class="carousel-arrow carousel-prev" type="button" onclick="moveReviewSlide(-1)" aria-label="Previous review">‹</button><div class="rates-viewport"><div class="rates-track" id="reviewTrack">
+  <article class="rate-card review-card"><div class="review-top"><div class="review-who"><strong>Priya Mehta</strong><span>Airport Pickup</span></div><span class="google-mark" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div><div class="review-stars">★★★★★</div><p class="review-text">Booked an airport pickup at midnight and the driver was already waiting outside arrivals. Smooth ride straight to Gandhinagar.</p><div class="review-posted"><span class="g-badge"><i class="fab fa-google"></i></span>Posted on Google</div></article>
+  <article class="rate-card review-card"><div class="review-top"><div class="review-who"><strong>Kunal Shah</strong><span>Round Trip</span></div><span class="google-mark" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div><div class="review-stars">★★★★★</div><p class="review-text">Used them for a Rajkot round trip. Clean Swift Dzire, polite driver and the fare matched exactly what was quoted on WhatsApp.</p><div class="review-posted"><span class="g-badge"><i class="fab fa-google"></i></span>Posted on Google</div></article>
+  <article class="rate-card review-card"><div class="review-top"><div class="review-who"><strong>Ravi &amp; Family</strong><span>Gujarat Tour</span></div><span class="google-mark" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div><div class="review-stars">★★★★★</div><p class="review-text">Our Dwarka Somnath Diu tour was very well planned. The Innova was comfortable for 6 of us over 5 nights on the road.</p><div class="review-posted"><span class="g-badge"><i class="fab fa-google"></i></span>Posted on Google</div></article>
+  <article class="rate-card review-card"><div class="review-top"><div class="review-who"><strong>Sneha Patel</strong><span>One Way Cab</span></div><span class="google-mark" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div><div class="review-stars">★★★★★</div><p class="review-text">Needed a last-minute one-way cab to Udaipur. Booking on WhatsApp took two minutes and the cab arrived right on time.</p><div class="review-posted"><span class="g-badge"><i class="fab fa-google"></i></span>Posted on Google</div></article>
+  <article class="rate-card review-card"><div class="review-top"><div class="review-who"><strong>Amit Desai</strong><span>Corporate Travel</span></div><span class="google-mark" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div><div class="review-stars">★★★★★</div><p class="review-text">Reliable for our office's corporate travel. Drivers are professional and billing is always transparent, no hidden charges.</p><div class="review-posted"><span class="g-badge"><i class="fab fa-google"></i></span>Posted on Google</div></article>
+  <article class="rate-card review-card"><div class="review-top"><div class="review-who"><strong>Neha Joshi</strong><span>Local Ahmedabad Cab</span></div><span class="google-mark" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div><div class="review-stars">★★★★★</div><p class="review-text">Local sightseeing cab for a full day in Ahmedabad was great value. Driver knew all the spots and waited patiently at each stop.</p><div class="review-posted"><span class="g-badge"><i class="fab fa-google"></i></span>Posted on Google</div></article>
+</div></div><button class="carousel-arrow carousel-next" type="button" onclick="moveReviewSlide(1)" aria-label="Next review">›</button><div class="carousel-dots" id="reviewDots"></div></div></div></section>
+
+<section class="section"><div class="container"><div class="section-head"><div><div class="kicker">FAQ</div><h2>Quick answers.</h2></div></div><div class="faq-grid">
+<div class="faq"><button onclick="toggleFaq(this)">Do you provide Ahmedabad Airport pickup?<span>+</span></button><div class="ans">Yes. Use the booking form to request an airport pickup and share your destination. Do share your flight number so the driver can plan the pickup.</div></div>
+<div class="faq"><button onclick="toggleFaq(this)">Can I book a one-way cab?<span>+</span></button><div class="ans">Yes. Select One Way, choose your route and submit the booking form. You are charged for a single side only, not the return trip.</div></div>
+<div class="faq"><button onclick="toggleFaq(this)">Can I select a future date?<span>+</span></button><div class="ans">Yes. Past dates are disabled. Today and future dates remain available. Booking in advance helps us confirm your preferred vehicle in time.</div></div>
+<div class="faq"><button onclick="toggleFaq(this)">Does the time use 12-hour format?<span>+</span></button><div class="ans">Yes. Pickup time is selected using 1–12 hours with minutes and AM/PM. Please double-check AM and PM before you submit the booking form.</div></div>
+<div class="faq"><button onclick="toggleFaq(this)">Can I search cities outside Gujarat?<span>+</span></button><div class="ans">Yes. The From and To fields use worldwide location search. Only the main city/location name is placed into the form. You can also type the city name manually if search feels slow.</div></div>
+<div class="faq"><button onclick="toggleFaq(this)">How do I book on WhatsApp?<span>+</span></button><div class="ans">Enter your trip details and press Find Cabs. The booking summary opens in WhatsApp. Send that message across and we will reply with a confirmation.</div></div>
+</div></div></section>
+
+<section class="section alt" id="contact"><div class="container"><div class="contact"><div class="contact-card"><div class="kicker">Contact</div><h3>Ready for your next ride?</h3><p>Call or message Ahmedabad Airport Cab directly for availability and booking support.</p><div class="contact-lines"><div><strong>Phone</strong><span>+91 97244 29334</span></div><div><strong>Location</strong><span>Shop No 10, Near Jangiram Dharmshala, Bunglow Area, Kuber Nagar, Ahmedabad, Gujarat 382340</span></div><div><strong>Booking</strong><span>Call or WhatsApp</span></div></div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><a class="btn btn-primary" href="tel:+91 97244 29334">Call Now</a><a class="btn btn-outline" href="https://wa.me/919724429334?text=Hello%20Ahmedabad%20Airport%20Cab%2C%20I%20want%20to%20book%20a%20cab.">WhatsApp</a></div></div><form class="message-card" onsubmit="submitContact(event)"><div class="kicker">Quick Message</div><div class="two"><div class="field"><label>Name</label><input id="cname" required placeholder="Your name"></div><div class="field"><label>Phone</label><input id="cphone" required placeholder="Mobile number"></div></div><textarea id="cmessage" required placeholder="Tell us about your trip"></textarea><button class="btn btn-primary" type="submit">Send on WhatsApp</button></form></div></div></section>
+</main>
+<footer class="site-footer"><div class="container footer-grid-pro">
+<div class="footer-brand-pro"><img src="logo-footer.png" alt="Ahmedabad Airport Cab"><div class="social-pro"><a class="sp-wa" href="https://wa.me/919724429334" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a><a class="sp-google" href="https://www.google.com/search?q=Ahmedabad+Airport+Cab+Google+reviews" target="_blank" rel="noopener" aria-label="Google Reviews"><i class="fas fa-star"></i></a><a class="sp-ig" href="https://www.instagram.com/ahmedabadairportcab/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a class="sp-loc" href="https://www.google.com/maps/search/?api=1&query=Ahmedabad+Airport+Cab+1600+Bhavsar+No+Khacho+Ahmedabad+380018" target="_blank" rel="noopener" aria-label="Location"><i class="fas fa-location-dot"></i></a></div></div>
+<div class="footer-col-pro"><h4>COMPANY</h4><a href="index.html#booking">Book Online</a><a href="blog.html">Blog</a><a href="about.html">About Us</a><a href="index.html#reviews">Reviews</a><a href="driver-verification.html">Driver Verification</a><a href="cancellation-policy.html">Cancellation &amp; Return Policy</a><a href="index.html#contact">Contact</a></div>
+<div class="footer-col-pro"><h4>OUR SERVICE</h4><a href="ahmedabad-to-rajkot-taxi.html">Ahmedabad To Rajkot</a><a href="ahmedabad-to-surat-taxi.html">Ahmedabad To Surat</a><a href="ahmedabad-to-mumbai-taxi.html">Ahmedabad To Mumbai</a><a href="ahmedabad-to-bhuj-taxi.html">Ahmedabad To Bhuj</a><a href="ahmedabad-to-dwarka-taxi.html">Ahmedabad To Dwarka</a><a href="ahmedabad-to-somnath-taxi.html">Ahmedabad To Somnath</a><a href="ahmedabad-to-udaipur-taxi.html">Ahmedabad To Udaipur</a><a href="ahmedabad-to-mount-abu-taxi.html">Ahmedabad To Mount Abu</a><a href="ahmedabad-to-jaipur-taxi.html">Ahmedabad To Jaipur</a></div>
+<div class="footer-col-pro footer-connect-pro"><h4>CONNECT WITH US</h4><p>Safe &amp; Reliable Cab Service Across Gujarat —<br>Ahmedabad Based Travel Partner</p><p>Shop No 10, Near Jangiram Dharmshala, Bunglow Area, Kuber Nagar, Ahmedabad, Gujarat 382340</p><p><strong>Email</strong><br><a href="mailto:ahmedabadairportcab@gmail.com">ahmedabadairportcab@gmail.com</a></p><p><strong>Contact</strong><br><a href="tel:+91 97244 29334">+91 97244 29334</a></p></div>
+</div><div class="footer-bottom-bar">
+<div class="container footer-bottom-inner">
+  <div class="footer-copyright">Copyright © 2026 by <a href="index.html">Ahmedabad Airport Cab</a> Developed by <a href="https://workwithakshat.github.io/" target="_blank" rel="noopener">Akshat Shah</a> All rights reserved!</div>
+  <div class="footer-legal-links">
+    <a href="terms-conditions.html">Terms &amp; Conditions</a>
+    <a href="privacy-policy.html">Privacy Policies</a>
+  </div>
+</div>
+</div></footer><div class="sticky-cta"><a class="cta-call" href="tel:+91 97244 29334"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2c.28-.28.67-.37 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2Z"/></svg><span class="cta-text"><span class="cta-label">Call Us</span><span class="cta-main">Book a Cab</span></span></a><a class="cta-wa" href="https://wa.me/919724429334" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.53 0 .2 5.3.2 11.85c0 2.09.55 4.14 1.6 5.94L.1 23.9l6.26-1.64a11.84 11.84 0 0 0 5.71 1.46h.01c6.54 0 11.87-5.3 11.87-11.85 0-3.16-1.3-6.15-3.43-8.39Zm-8.44 18.18h-.01a9.8 9.8 0 0 1-5-1.36l-.36-.21-3.71.98.99-3.61-.23-.37a9.83 9.83 0 0 1-1.51-5.24C2.25 6.42 6.66 2.05 12.08 2.05c2.62 0 5.09 1.02 6.94 2.87a9.72 9.72 0 0 1 2.89 6.94c0 5.41-4.4 9.8-9.83 9.8Zm5.38-7.35c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.2.3-.75.95-.92 1.14-.17.2-.34.22-.63.07-.29-.15-1.22-.45-2.32-1.43-.86-.76-1.44-1.71-1.6-2-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.51-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.5-.66-.5h-.56c-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.43 0 1.43 1.05 2.81 1.19 3 .15.2 2.06 3.14 4.99 4.4.7.3 1.24.48 1.67.61.7.22 1.34.19 1.84.12.56-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.2-.55-.34Z"/></svg><span class="cta-text"><span class="cta-label">WhatsApp</span><span class="cta-main">Chat Now</span></span></a></div>
+<script>
+const controllers={from:null,to:null},timers={from:null,to:null};
+function todayISO(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function setCategory(b){document.querySelectorAll('.booking-category button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('trip').value=b.dataset.trip;applyLocalMode();}
+function applyLocalMode(){const local=document.getElementById('trip').value==='Local';document.getElementById('booking').classList.toggle('is-local',local);const to=document.getElementById('to'),pkg=document.getElementById('package');to.required=!local;pkg.disabled=!local;pkg.required=local;updateReturnDateVisibility();}
+function updateReturnDateVisibility(){const booking=document.getElementById('booking'),field=document.querySelector('.field-return-date'),input=document.getElementById('returnDate');if(!field||!input)return;const round=document.getElementById('tripMode').value==='Round Trip'&&document.getElementById('trip').value!=='Local';booking.classList.toggle('is-round-trip',round);field.style.display=round?'block':'none';input.required=round;const pickup=document.getElementById('date').value;input.min=pickup||todayISO();if(round&&pickup&&(!input.value||input.value<pickup))input.value=pickup;}
+function setMode(b){document.querySelectorAll('.booking-mode button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('tripMode').value=b.dataset.mode;updateReturnDateVisibility();}
+function setModeByName(name){const b=[...document.querySelectorAll('.booking-mode button')].find(x=>x.dataset.mode===name);if(b){setMode(b);}}
+function safe(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function initDate(){const d=document.getElementById('date'),r=document.getElementById('returnDate');d.min=todayISO();d.value=todayISO();r.min=d.value;r.value=d.value;d.addEventListener('change',()=>{r.min=d.value;if(r.value<d.value)r.value=d.value;});updateReturnDateVisibility();}
+function getCurrentParts(){const n=new Date();let h=n.getHours();const ap=h>=12?'PM':'AM';h=h%12||12;let m=Math.ceil(n.getMinutes()/5)*5;if(m===60){m=0;h=h===12?1:h+1;}return {h,m:String(m).padStart(2,'0'),ap};}
+function initTime(){const hs=document.getElementById('hourSel'),ms=document.getElementById('minuteSel'),as=document.getElementById('ampmSel');for(let h=1;h<=12;h++)hs.insertAdjacentHTML('beforeend',`<option value="${h}">${h}</option>`);for(let m=0;m<60;m+=5)ms.insertAdjacentHTML('beforeend',`<option value="${String(m).padStart(2,'0')}">${String(m).padStart(2,'0')}</option>`);const p=getCurrentParts();hs.value=p.h;ms.value=p.m;as.value=p.ap;document.getElementById('timeText').value=`${p.h}:${p.m} ${p.ap}`;}
+function openTimePicker(){const p=document.getElementById('timePicker');p.classList.add('open');}function closeTimePicker(){document.getElementById('timePicker').classList.remove('open')}function applyTimePicker(){const h=document.getElementById('hourSel').value,m=document.getElementById('minuteSel').value,a=document.getElementById('ampmSel').value;document.getElementById('timeText').value=`${h}:${m} ${a}`;closeTimePicker();}
+document.addEventListener('click',e=>{const f=document.getElementById('timeText').closest('.field');if(!f.contains(e.target))closeTimePicker();});
+function bookingDataFromForm(){const local=document.getElementById('trip').value==='Local';const round=!local&&document.getElementById('tripMode').value==='Round Trip';const d={category:document.getElementById('trip').value,mode:document.getElementById('tripMode').value,from:document.getElementById('from').value.trim(),to:local?'':document.getElementById('to').value.trim(),date:document.getElementById('date').value,time:document.getElementById('timeText').value,phone:document.getElementById('phone').value.trim()};if(round)d.returnDate=document.getElementById('returnDate').value;if(local)d.package=document.getElementById('package').value;return d;}
+function submitBooking(e){e.preventDefault();const phone=document.getElementById('phone').value.trim();if(phone.replace(/\D/g,'').length!==10){alert('Please enter a valid 10-digit mobile number.');document.getElementById('phone').focus();return}const date=document.getElementById('date').value;if(!date||date<todayISO()){alert('Past dates are not allowed. Please select today or a future date.');document.getElementById('date').focus();return}updateReturnDateVisibility();const round=document.getElementById('tripMode').value==='Round Trip'&&document.getElementById('trip').value!=='Local';const returnDate=document.getElementById('returnDate').value;if(round&&(!returnDate||returnDate<date)){alert('Please select a return date on or after the pickup date.');document.getElementById('returnDate').focus();return}const data=bookingDataFromForm();const qs=new URLSearchParams(data);window.location.href=`booking-results.html?${qs.toString()}`;}
+let rateModalVehicle='',rateModalRate='';
+function bookRateOnWhatsApp(vehicle,rate){rateModalVehicle=vehicle;rateModalRate=rate;document.getElementById('rateModalTitle').textContent='Book '+vehicle;document.getElementById('rateModalSub').textContent='Share your mobile number for the ₹'+rate+'/km round trip rate — we\'ll continue on WhatsApp.';document.getElementById('rateModalPhone').value='';document.getElementById('rateModal').classList.add('open');document.body.classList.add('modal-locked');return false}
+function closeRateBookModal(){document.getElementById('rateModal').classList.remove('open');document.body.classList.remove('modal-locked')}
+function submitRateBookModal(e){e.preventDefault();const phone=document.getElementById('rateModalPhone').value.trim();if(phone.replace(/\D/g,'').length!==10){alert('Please enter a valid 10-digit mobile number.');return}const vehicle=rateModalVehicle,rate=rateModalRate;const text=`Hello Ahmedabad Airport Cab, I would like to book a ${vehicle} for a round trip at the ₹${rate}/km rate.\n\nMobile Number: ${phone}\n\nPlease share availability and the final fare.`;if(window.AACLeads){window.AACLeads.submit({type:'booking',category:'Outstation',mode:'Round Trip',vehicle,price:`₹${rate}/km`,phone});}closeRateBookModal();window.open(`https://wa.me/919724429334?text=${encodeURIComponent(text)}`,'_blank')}
+function submitContact(e){e.preventDefault();const name=document.getElementById('cname').value.trim();const phone=document.getElementById('cphone').value.trim();const message=document.getElementById('cmessage').value.trim();if(window.AACLeads){window.AACLeads.submit({type:'contact',name,phone,message});}const text=`Hello Ahmedabad Airport Cab, I have an enquiry.\n\nName: ${name}\nPhone: ${phone}\nMessage: ${message}`;window.open(`https://wa.me/919724429334?text=${encodeURIComponent(text)}`,'_blank')}
+function toggleFaq(b){b.parentElement.classList.toggle('open');b.querySelector('span').textContent=b.parentElement.classList.contains('open')?'−':'+';}
+function toggleReadMore(){const el=document.getElementById('seoContentHidden');const btn=document.getElementById('readMoreBtn');const icon=document.getElementById('readMoreIcon');const open=el.classList.toggle('expanded');btn.firstChild.textContent=open?'Read Less ':'Read More ';icon.textContent=open?'−':'+';if(open){el.parentNode.appendChild(btn);}else{el.parentNode.insertBefore(btn,el);}btn.scrollIntoView({behavior:'smooth',block:'center'});}
+function toggleMenu(){const n=document.querySelector('.nav-links');if(getComputedStyle(n).display==='none'){n.style.display='flex';n.style.position='absolute';n.style.top='72px';n.style.left='0';n.style.right='0';n.style.padding='16px';n.style.flexDirection='column';n.style.background='#fff';n.style.borderBottom='1px solid #eeeaf4';}else n.removeAttribute('style');}
+const ratesTrack=document.getElementById('ratesTrack');const rateCards=[...document.querySelectorAll('#ratesTrack .rate-card')];const rateDots=document.getElementById('rateDots');let rateIndex=0;let rateTimer=null;let ratePaused=false;function visibleRateCount(){if(window.innerWidth<=720)return 1;if(window.innerWidth<=1100)return 2;return 4;}function maxRateIndex(){return Math.max(0,rateCards.length-visibleRateCount());}function renderRateDots(){rateDots.innerHTML='';const max=maxRateIndex();for(let i=0;i<=max;i++){const d=document.createElement('button');d.type='button';d.className='carousel-dot'+(i===Math.min(rateIndex,max)?' active':'');d.onclick=()=>{rateIndex=i;renderRateCarousel();restartRateTimer();};rateDots.appendChild(d);}}function animateRateNumbers(){rateCards.forEach(card=>{const n=card.querySelector('[data-count]');if(!n)return;const target=Number(n.dataset.count);n.textContent='0';let start=null;function frame(ts){if(start===null)start=ts;const p=Math.min((ts-start)/550,1);n.textContent=String(Math.floor(target*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(frame);}requestAnimationFrame(frame);});}function renderRateCarousel(){const gap=18;const visible=visibleRateCount();const cardWidth=(ratesTrack.parentElement.clientWidth-(visible-1)*gap)/visible;rateCards.forEach(c=>c.style.flexBasis=cardWidth+'px');const max=maxRateIndex();if(rateIndex>max)rateIndex=0;const offset=rateIndex*(cardWidth+gap);ratesTrack.style.transform=`translateX(-${offset}px)`;[...rateDots.children].forEach((d,i)=>d.classList.toggle('active',i===rateIndex));animateRateNumbers();}function moveRateSlide(dir){rateIndex+=dir;const max=maxRateIndex();if(rateIndex>max)rateIndex=0;if(rateIndex<0)rateIndex=max;renderRateCarousel();restartRateTimer();}function restartRateTimer(){clearInterval(rateTimer);rateTimer=setInterval(()=>{if(!ratePaused)moveRateSlide(1);},2000);}const ratesCarousel=document.getElementById('ratesCarousel');ratesCarousel.addEventListener('mouseenter',()=>ratePaused=true);ratesCarousel.addEventListener('mouseleave',()=>ratePaused=false);ratesCarousel.addEventListener('focusin',()=>ratePaused=true);ratesCarousel.addEventListener('focusout',()=>ratePaused=false);let touchStartX=0;ratesCarousel.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].clientX;},{passive:true});ratesCarousel.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)>45)moveRateSlide(dx<0?1:-1);},{passive:true});window.addEventListener('resize',()=>{renderRateDots();renderRateCarousel();});renderRateDots();renderRateCarousel();restartRateTimer();
+// Gujarat tour carousel
+const tourTrack=document.getElementById('tourTrack');const tourCards=[...document.querySelectorAll('#tourTrack .rate-card')];const tourDots=document.getElementById('tourDots');let tourIndex=0;let tourTimer=null;let tourPaused=false;function tourVisible(){if(window.innerWidth<=720)return 1;if(window.innerWidth<=1100)return 2;return 4;}function tourMax(){return Math.max(0,tourCards.length-tourVisible());}function renderTourDots(){tourDots.innerHTML='';for(let i=0;i<=tourMax();i++){const d=document.createElement('button');d.type='button';d.className='carousel-dot'+(i===Math.min(tourIndex,tourMax())?' active':'');d.onclick=()=>{tourIndex=i;renderTourCarousel();restartTourTimer();};tourDots.appendChild(d);}}function renderTourCarousel(){const visible=tourVisible(),gap=18,avail=tourTrack.parentElement.clientWidth,cardWidth=(avail-(visible-1)*gap)/visible;tourCards.forEach(c=>c.style.flexBasis=cardWidth+'px');const max=tourMax();if(tourIndex>max)tourIndex=0;tourTrack.style.transform=`translateX(-${tourIndex*(cardWidth+gap)}px)`;[...tourDots.children].forEach((d,i)=>d.classList.toggle('active',i===tourIndex));}function moveTourSlide(dir){tourIndex+=dir;const max=tourMax();if(tourIndex>max)tourIndex=0;if(tourIndex<0)tourIndex=max;renderTourCarousel();restartTourTimer();}function restartTourTimer(){clearInterval(tourTimer);tourTimer=setInterval(()=>{if(!tourPaused)moveTourSlide(1);},2000);}const tourCarousel=document.getElementById('tourCarousel');tourCarousel.addEventListener('mouseenter',()=>tourPaused=true);tourCarousel.addEventListener('mouseleave',()=>tourPaused=false);let tourTouch=0;tourCarousel.addEventListener('touchstart',e=>tourTouch=e.changedTouches[0].clientX,{passive:true});tourCarousel.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tourTouch;if(Math.abs(dx)>45)moveTourSlide(dx<0?1:-1);},{passive:true});window.addEventListener('resize',()=>{renderTourDots();renderTourCarousel();});renderTourDots();renderTourCarousel();restartTourTimer();
+// Reviews carousel
+const reviewTrack=document.getElementById('reviewTrack');const reviewCards=[...document.querySelectorAll('#reviewTrack .review-card')];const reviewDots=document.getElementById('reviewDots');let reviewIndex=0;let reviewTimer=null;let reviewPaused=false;function reviewVisible(){if(window.innerWidth<=720)return 1;if(window.innerWidth<=1100)return 2;return 3;}function reviewMax(){return Math.max(0,reviewCards.length-reviewVisible());}function renderReviewDots(){reviewDots.innerHTML='';const max=reviewMax();for(let i=0;i<=max;i++){const d=document.createElement('button');d.type='button';d.className='carousel-dot'+(i===Math.min(reviewIndex,max)?' active':'');d.onclick=()=>{reviewIndex=i;renderReviewCarousel();restartReviewTimer();};reviewDots.appendChild(d);}}function renderReviewCarousel(){const visible=reviewVisible(),gap=18,avail=reviewTrack.parentElement.clientWidth,cardWidth=(avail-(visible-1)*gap)/visible;reviewCards.forEach(c=>c.style.flexBasis=cardWidth+'px');const max=reviewMax();if(reviewIndex>max)reviewIndex=0;reviewTrack.style.transform=`translateX(-${reviewIndex*(cardWidth+gap)}px)`;[...reviewDots.children].forEach((d,i)=>d.classList.toggle('active',i===reviewIndex));}function moveReviewSlide(dir){reviewIndex+=dir;const max=reviewMax();if(reviewIndex>max)reviewIndex=0;if(reviewIndex<0)reviewIndex=max;renderReviewCarousel();restartReviewTimer();}function restartReviewTimer(){clearInterval(reviewTimer);reviewTimer=setInterval(()=>{if(!reviewPaused)moveReviewSlide(1);},2600);}const reviewCarousel=document.getElementById('reviewCarousel');reviewCarousel.addEventListener('mouseenter',()=>reviewPaused=true);reviewCarousel.addEventListener('mouseleave',()=>reviewPaused=false);reviewCarousel.addEventListener('focusin',()=>reviewPaused=true);reviewCarousel.addEventListener('focusout',()=>reviewPaused=false);let reviewTouch=0;reviewCarousel.addEventListener('touchstart',e=>reviewTouch=e.changedTouches[0].clientX,{passive:true});reviewCarousel.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-reviewTouch;if(Math.abs(dx)>45)moveReviewSlide(dx<0?1:-1);},{passive:true});window.addEventListener('resize',()=>{renderReviewDots();renderReviewCarousel();});renderReviewDots();renderReviewCarousel();restartReviewTimer();
+initDate();initTime();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="module" src="firebase-leads.js"></script>
+<script>
+function toggleSiteMenu(btn){var w=btn.closest('.site-nav');if(!w)return;var n=w.querySelector('.site-nav-links');if(n)n.classList.toggle('open');}
+document.addEventListener('click',function(e){
+  var lnk=e.target.closest('.site-nav-links a');
+  if(lnk){var n=lnk.closest('.site-nav-links');if(n)n.classList.remove('open');return;}
+  if(!e.target.closest('.site-nav')){document.querySelectorAll('.site-nav-links.open').forEach(function(n){n.classList.remove('open');});}
+});
+</script>
+<script src="india-locations.js"></script>
+<script src="location-search.js"></script>
+<script src="time-dropdown.js"></script>
+<div class="rate-modal-overlay" id="rateModal" onclick="if(event.target===this)closeRateBookModal()">
+  <div class="rate-modal-card">
+    <button type="button" class="modal-close" onclick="closeRateBookModal()" aria-label="Close">&#10005;</button>
+    <h3 id="rateModalTitle">Book This Vehicle</h3>
+    <p class="rate-modal-sub" id="rateModalSub">Share your mobile number and we'll continue on WhatsApp.</p>
+    <form id="rateModalForm" onsubmit="submitRateBookModal(event)">
+      <div class="field"><label>Mobile Number</label><input id="rateModalPhone" type="tel" inputmode="numeric" maxlength="10" required placeholder="Enter mobile number"></div>
+      <button class="btn btn-primary" type="submit">Continue on WhatsApp</button>
+    </form>
+  </div>
+</div>
+</body></html>
