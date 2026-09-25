@@ -9,7 +9,7 @@
 // This never blocks or breaks the existing WhatsApp redirect — every failure
 // is caught and logged to the console only.
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {
   getFirestore,
   collection,
@@ -32,7 +32,7 @@ const EMAILJS_SERVICE_ID = "service_xcyzcbr";
 const EMAILJS_TEMPLATE_ID = "template_ugqgur9";
 const NOTIFY_EMAIL = "ahmedabadairportcab@gmail.com";
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const LEADS_COLLECTION = "leads";
 
