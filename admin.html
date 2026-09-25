@@ -263,6 +263,7 @@ tr.data-row:hover td{background:rgba(255,255,255,.018)}
     <div class="nav-item" onclick="showPage('bookings',this)"><i class="fas fa-car"></i> Bookings <span class="nav-count" id="navCountBookings">0</span></div>
     <div class="nav-item" onclick="showPage('tours',this)"><i class="fas fa-route"></i> Tour Enquiries <span class="nav-count" id="navCountTours">0</span></div>
     <div class="nav-item" onclick="showPage('contacts',this)"><i class="fas fa-comment-dots"></i> Contact Enquiries <span class="nav-count" id="navCountContacts">0</span></div>
+    <div class="nav-item" onclick="showPage('rates',this)"><i class="fas fa-tags"></i> Round Trip Rates</div>
     <div class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-gear"></i> Settings</div>
     <div class="sidebar-bottom">
       <div class="admin-id" id="adminEmailLabel">—</div>
@@ -451,6 +452,86 @@ tr.data-row:hover td{background:rgba(255,255,255,.018)}
       </div>
     </div>
 
+
+    <!-- ROUND TRIP RATES -->
+    <div class="page" id="page-rates">
+      <div class="table-card" style="margin-bottom:22px">
+        <div class="table-header">
+          <h3 style="margin:0;font-size:16px"><i class="fas fa-plus-circle" style="color:var(--purple);margin-right:8px"></i><span id="rateFormTitle">Add Vehicle Rate Card</span></h3>
+        </div>
+        <form id="rateForm" style="padding:18px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px 16px;align-items:end">
+          <input type="hidden" id="rateEditId" value="">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Vehicle Name *</label>
+            <input id="rateName" required placeholder="e.g. Swift Dzire" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Rate ₹ / km *</label>
+            <input id="ratePrice" type="number" min="1" step="1" required placeholder="11" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Sort Order</label>
+            <input id="rateOrder" type="number" min="0" step="1" placeholder="0" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Persons</label>
+            <input id="ratePersons" type="number" min="1" step="1" placeholder="4" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Bags</label>
+            <input id="rateBags" type="number" min="0" step="1" placeholder="2" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Image file</label>
+            <select id="rateImage" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+              <option value="swift-dzire.webp">swift-dzire.webp</option>
+              <option value="ertiga.webp">ertiga.webp</option>
+              <option value="innova-crysta.webp">innova-crysta.webp</option>
+              <option value="tempo-traveller.webp">tempo-traveller.webp</option>
+              <option value="urbania.webp">urbania.webp</option>
+              <option value="custom">Custom path…</option>
+            </select>
+          </div>
+          <div id="rateImageCustomWrap" style="display:none;grid-column:1/-1">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Custom image path or URL</label>
+            <input id="rateImageCustom" placeholder="my-car.webp or https://…" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div style="grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;padding-top:4px">
+            <button type="submit" class="btn-sm btn-purple" id="rateSaveBtn"><i class="fas fa-floppy-disk"></i> Save Rate Card</button>
+            <button type="button" class="btn-sm btn-danger-outline" id="rateCancelBtn" style="display:none" onclick="cancelRateEdit()"><i class="fas fa-xmark"></i> Cancel Edit</button>
+            <button type="button" class="btn-sm" style="background:rgba(255,255,255,.06);color:var(--ice);border:1px solid var(--line)" onclick="seedDefaultRates()"><i class="fas fa-magic"></i> Load Default 5 Vehicles</button>
+          </div>
+          <p style="grid-column:1/-1;margin:0;font-size:12px;color:var(--mute-2);line-height:1.55">
+            Changes appear on the homepage <b>Round Trip Rates</b> section after save. Images must already be uploaded on the site (or use a full image URL).
+          </p>
+        </form>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h3 style="margin:0;font-size:16px"><i class="fas fa-car-side" style="color:var(--purple);margin-right:8px"></i>Current Rate Cards <span class="nav-count" id="ratesCount" style="margin-left:8px">0</span></h3>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Vehicle</th>
+                <th>₹ / km</th>
+                <th>Persons</th>
+                <th>Bags</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ratesTableBody">
+              <tr><td colspan="7" style="text-align:center;color:var(--mute);padding:28px">No rate cards yet. Add one above or load defaults.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -462,7 +543,8 @@ import {
   getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import {
-  getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc
+  getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc,
+  addDoc, setDoc, getDocs, writeBatch, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -515,11 +597,14 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById('settingsEmail').textContent = user.email;
     updateBriefing(user.email);
     startLeadsListener();
+    startRatesListener();
   } else {
     adminApp.style.display = 'none';
     loginScreen.style.display = 'flex';
     if (unsubscribeLeads) { unsubscribeLeads(); unsubscribeLeads = null; }
+    if (unsubscribeRates) { unsubscribeRates(); unsubscribeRates = null; }
     allLeads = [];
+    allRates = [];
   }
 });
 
@@ -559,7 +644,7 @@ window.showPage = function (name, el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   if (el) el.classList.add('active');
-  const titles = { dashboard: 'Dashboard', bookings: 'Bookings', tours: 'Tour Enquiries', contacts: 'Contact Enquiries', settings: 'Settings' };
+  const titles = { dashboard: 'Dashboard', bookings: 'Bookings', tours: 'Tour Enquiries', contacts: 'Contact Enquiries', rates: 'Round Trip Rates', settings: 'Settings' };
   document.getElementById('pageTitle').textContent = titles[name] || name;
   document.getElementById('sidebar').classList.remove('open');
 };
@@ -803,6 +888,181 @@ function renderAll() {
   renderTours();
   renderContacts();
 }
+
+
+/* ========== ROUND TRIP RATES (Firestore: roundTripRates) ========== */
+let unsubscribeRates = null;
+let allRates = [];
+
+const DEFAULT_RATES = [
+  { name: 'Swift Dzire', price: 11, persons: 4, bags: 2, image: 'swift-dzire.webp', order: 0, gradient: 'linear-gradient(135deg,#1b1730,#6a45dc)' },
+  { name: 'Maruti Ertiga', price: 13, persons: 6, bags: 4, image: 'ertiga.webp', order: 1, gradient: 'linear-gradient(135deg,#1c1830,#7a49d9)' },
+  { name: 'Innova Crysta', price: 18, persons: 6, bags: 4, image: 'innova-crysta.webp', order: 2, gradient: 'linear-gradient(135deg,#1a1628,#5f3fcf)' },
+  { name: 'Tempo Traveller', price: 28, persons: 11, bags: 15, image: 'tempo-traveller.webp', order: 3, gradient: 'linear-gradient(135deg,#181524,#5538b8)' },
+  { name: 'Urbania', price: 32, persons: 16, bags: 20, image: 'urbania.webp', order: 4, gradient: 'linear-gradient(135deg,#16131f,#4a2fa8)' }
+];
+
+function startRatesListener() {
+  const q = query(collection(db, 'roundTripRates'), orderBy('order', 'asc'));
+  unsubscribeRates = onSnapshot(q, (snap) => {
+    allRates = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderRatesTable();
+  }, (err) => {
+    console.error('[rates]', err);
+    const body = document.getElementById('ratesTableBody');
+    if (body) body.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--red);padding:24px">Could not load rates: ${esc(err.message)}<br><small>Check Firestore rules for collection "roundTripRates".</small></td></tr>`;
+  });
+}
+
+function renderRatesTable() {
+  const body = document.getElementById('ratesTableBody');
+  const countEl = document.getElementById('ratesCount');
+  if (!body) return;
+  if (countEl) countEl.textContent = allRates.length;
+  if (!allRates.length) {
+    body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--mute);padding:28px">No rate cards yet. Add one above or load defaults.</td></tr>';
+    return;
+  }
+  body.innerHTML = allRates.map(r => `
+    <tr>
+      <td>${esc(r.order ?? 0)}</td>
+      <td><strong>${esc(r.name)}</strong></td>
+      <td>₹${esc(r.price)}</td>
+      <td>${esc(r.persons ?? '—')}</td>
+      <td>${esc(r.bags ?? '—')}</td>
+      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--mute)">${esc(r.image || '—')}</td>
+      <td style="white-space:nowrap">
+        <button class="btn-sm btn-purple" onclick="editRate('${r.id}')" title="Edit"><i class="fas fa-pen"></i></button>
+        <button class="btn-sm btn-danger-outline" onclick="deleteRate('${r.id}','${String(r.name||'').replace(/'/g,"\\'")}')" title="Delete"><i class="fas fa-trash-can"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function resolveRateImage() {
+  const sel = document.getElementById('rateImage').value;
+  if (sel === 'custom') {
+    return (document.getElementById('rateImageCustom').value || '').trim();
+  }
+  return sel;
+}
+
+document.getElementById('rateImage')?.addEventListener('change', function () {
+  document.getElementById('rateImageCustomWrap').style.display = this.value === 'custom' ? 'block' : 'none';
+});
+
+document.getElementById('rateForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('rateName').value.trim();
+  const price = Number(document.getElementById('ratePrice').value);
+  const persons = Number(document.getElementById('ratePersons').value) || 0;
+  const bags = Number(document.getElementById('rateBags').value) || 0;
+  const order = Number(document.getElementById('rateOrder').value);
+  const image = resolveRateImage();
+  const editId = document.getElementById('rateEditId').value;
+
+  if (!name || !price) {
+    showToast('Name and price are required');
+    return;
+  }
+  if (!image) {
+    showToast('Please choose or enter an image');
+    return;
+  }
+
+  const payload = {
+    name,
+    price,
+    persons,
+    bags,
+    image,
+    order: Number.isFinite(order) ? order : allRates.length,
+    gradient: 'linear-gradient(135deg,#1b1730,#6a45dc)',
+    updatedAt: serverTimestamp()
+  };
+
+  const btn = document.getElementById('rateSaveBtn');
+  btn.disabled = true;
+  try {
+    if (editId) {
+      await updateDoc(doc(db, 'roundTripRates', editId), payload);
+      showToast('Rate card updated');
+    } else {
+      payload.createdAt = serverTimestamp();
+      await addDoc(collection(db, 'roundTripRates'), payload);
+      showToast('Rate card added');
+    }
+    cancelRateEdit();
+    document.getElementById('rateForm').reset();
+    document.getElementById('rateImageCustomWrap').style.display = 'none';
+  } catch (err) {
+    console.error(err);
+    showToast('Save failed: ' + (err.message || err));
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+window.editRate = function (id) {
+  const r = allRates.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('rateEditId').value = id;
+  document.getElementById('rateName').value = r.name || '';
+  document.getElementById('ratePrice').value = r.price ?? '';
+  document.getElementById('ratePersons').value = r.persons ?? '';
+  document.getElementById('rateBags').value = r.bags ?? '';
+  document.getElementById('rateOrder').value = r.order ?? 0;
+  const img = r.image || 'swift-dzire.webp';
+  const sel = document.getElementById('rateImage');
+  const known = [...sel.options].some(o => o.value === img);
+  if (known) {
+    sel.value = img;
+    document.getElementById('rateImageCustomWrap').style.display = 'none';
+  } else {
+    sel.value = 'custom';
+    document.getElementById('rateImageCustomWrap').style.display = 'block';
+    document.getElementById('rateImageCustom').value = img;
+  }
+  document.getElementById('rateFormTitle').textContent = 'Edit Vehicle Rate Card';
+  document.getElementById('rateCancelBtn').style.display = 'inline-flex';
+  document.getElementById('rateSaveBtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Update Rate Card';
+  document.getElementById('page-rates').scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+window.cancelRateEdit = function () {
+  document.getElementById('rateEditId').value = '';
+  document.getElementById('rateForm').reset();
+  document.getElementById('rateImageCustomWrap').style.display = 'none';
+  document.getElementById('rateFormTitle').textContent = 'Add Vehicle Rate Card';
+  document.getElementById('rateCancelBtn').style.display = 'none';
+  document.getElementById('rateSaveBtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Save Rate Card';
+};
+
+window.deleteRate = async function (id, name) {
+  if (!confirm('Delete rate card "' + (name || id) + '"? This cannot be undone.')) return;
+  try {
+    await deleteDoc(doc(db, 'roundTripRates', id));
+    showToast('Rate card deleted');
+    if (document.getElementById('rateEditId').value === id) cancelRateEdit();
+  } catch (err) {
+    showToast('Delete failed: ' + (err.message || err));
+  }
+};
+
+window.seedDefaultRates = async function () {
+  if (allRates.length && !confirm('Rate cards already exist. Add the 5 default vehicles anyway?')) return;
+  try {
+    const batch = writeBatch(db);
+    DEFAULT_RATES.forEach((r, i) => {
+      const ref = doc(collection(db, 'roundTripRates'));
+      batch.set(ref, { ...r, order: r.order ?? i, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+    });
+    await batch.commit();
+    showToast('Default vehicles loaded');
+  } catch (err) {
+    showToast('Seed failed: ' + (err.message || err));
+  }
+};
 
 setInterval(() => { if (allLeads.length) updateTicker(); }, 30000);
 </script>
