@@ -254,6 +254,47 @@ function rateCardHTML(v){
 const ONE_WAY_VEHICLE_IDS=['dzire','ertiga','innova'];
 function visibleVehicles(){return data.mode==='One Way'?VEHICLES.filter(v=>ONE_WAY_VEHICLE_IDS.includes(v.id)):VEHICLES;}
 function renderVehicleList(){document.getElementById('rateList').innerHTML=visibleVehicles().map(rateCardHTML).join('');}
+
+/* Sync ₹/km rates from Admin → Firestore (roundTripRates) via round-trip-rates.js */
+function matchVehicleId(adminName){
+  const n=String(adminName||'').toLowerCase();
+  if(n.includes('urbania')) return 'urbania';
+  if(n.includes('tempo')) return 'tempo';
+  if(n.includes('innova')||n.includes('crysta')) return 'innova';
+  if(n.includes('ertiga')) return 'ertiga';
+  if(n.includes('dzire')||n.includes('swift')||n.includes('sedan')) return 'dzire';
+  return null;
+}
+function applyAdminRates(rates){
+  if(!Array.isArray(rates)||!rates.length) return;
+  let changed=false;
+  rates.forEach(r=>{
+    const id=matchVehicleId(r.name);
+    if(!id) return;
+    const v=VEHICLES.find(x=>x.id===id);
+    if(!v) return;
+    const price=Number(r.price);
+    if(!Number.isFinite(price)||price<=0) return;
+    if(v.rate!==price){v.rate=price;changed=true;}
+    if(r.persons!=null&&r.persons!=='') v.seats=Number(r.persons)||v.seats;
+    if(r.bags!=null&&r.bags!=='') v.bags=Number(r.bags)||v.bags;
+    if(r.image) v.img=r.image;
+    if(r.gradient) v.gradient=r.gradient;
+  });
+  renderVehicleList();
+  // refresh km/fare numbers on the new cards if distance already known
+  if(typeof window.__aacRefreshFares==='function'){try{window.__aacRefreshFares();}catch(e){}}
+  if(changed) console.log('[booking-results] rates updated from admin', VEHICLES.map(v=>({id:v.id,rate:v.rate})));
+}
+document.addEventListener('aac-rates-updated',function(e){applyAdminRates(e.detail||[]);});
+// In case rates loaded before this script ran
+if(window.AAC_ROUND_TRIP_RATES) applyAdminRates(window.AAC_ROUND_TRIP_RATES);
+// Short poll in case module loads slightly later
+(function waitRates(n){
+  if(window.AAC_ROUND_TRIP_RATES){applyAdminRates(window.AAC_ROUND_TRIP_RATES);return;}
+  if(n>0) setTimeout(function(){waitRates(n-1);},300);
+})(20);
+
 document.addEventListener('click',e=>{
   const toggleBtn=e.target.closest('[data-toggle]');
   if(toggleBtn){toggleBtn.closest('.rate-card').classList.toggle('expanded');return;}
@@ -304,6 +345,9 @@ async function fillFares(){
 renderVehicleList();
 init();
 fillFares();
+window.__aacRefreshFares = function(){ fillFares().catch(function(){}); };
+// Re-apply admin rates once more after first paint (module order safe)
+if(window.AAC_ROUND_TRIP_RATES) applyAdminRates(window.AAC_ROUND_TRIP_RATES);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="module" src="firebase-leads.js"></script>
