@@ -264,6 +264,7 @@ tr.data-row:hover td{background:rgba(255,255,255,.018)}
     <div class="nav-item" onclick="showPage('tours',this)"><i class="fas fa-route"></i> Tour Enquiries <span class="nav-count" id="navCountTours">0</span></div>
     <div class="nav-item" onclick="showPage('contacts',this)"><i class="fas fa-comment-dots"></i> Contact Enquiries <span class="nav-count" id="navCountContacts">0</span></div>
     <div class="nav-item" onclick="showPage('rates',this)"><i class="fas fa-tags"></i> Round Trip Rates</div>
+    <div class="nav-item" onclick="showPage('blogs',this)"><i class="fas fa-newspaper"></i> Blogs</div>
     <div class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-gear"></i> Settings</div>
     <div class="sidebar-bottom">
       <div class="admin-id" id="adminEmailLabel">—</div>
@@ -532,6 +533,75 @@ tr.data-row:hover td{background:rgba(255,255,255,.018)}
       </div>
     </div>
 
+
+    <!-- BLOGS -->
+    <div class="page" id="page-blogs">
+      <div class="table-card" style="margin-bottom:22px">
+        <div class="table-header">
+          <h3 style="margin:0;font-size:16px"><i class="fas fa-plus-circle" style="color:var(--purple);margin-right:8px"></i><span id="blogFormTitle">Add Blog Card</span></h3>
+        </div>
+        <form id="blogForm" style="padding:18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;align-items:end">
+          <input type="hidden" id="blogEditId" value="">
+          <div style="grid-column:1/-1">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Headline *</label>
+            <input id="blogTitle" required placeholder="Blog title / heading" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div style="grid-column:1/-1">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Paragraph *</label>
+            <textarea id="blogParagraph" required rows="3" placeholder="Short description shown on the card" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px;resize:vertical;font-family:inherit"></textarea>
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Page URL *</label>
+            <input id="blogUrl" required placeholder="my-blog-page.html" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Sort Order</label>
+            <input id="blogOrder" type="number" min="0" step="1" placeholder="0" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Image</label>
+            <select id="blogImage" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+              <option value="custom">Custom path / URL…</option>
+            </select>
+          </div>
+          <div id="blogImageCustomWrap">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Image file or URL</label>
+            <input id="blogImageCustom" placeholder="blog-my-post.webp or https://…" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div style="grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;padding-top:4px">
+            <button type="submit" class="btn-sm btn-purple" id="blogSaveBtn"><i class="fas fa-floppy-disk"></i> Save Blog Card</button>
+            <button type="button" class="btn-sm btn-danger-outline" id="blogCancelBtn" style="display:none" onclick="cancelBlogEdit()"><i class="fas fa-xmark"></i> Cancel Edit</button>
+            <button type="button" class="btn-sm" style="background:rgba(255,255,255,.06);color:var(--ice);border:1px solid var(--line)" onclick="seedDefaultBlogs()"><i class="fas fa-magic"></i> Load Current 20 Blogs</button>
+          </div>
+          <p style="grid-column:1/-1;margin:0;font-size:12px;color:var(--mute-2);line-height:1.55">
+            Cards appear on <b>blog.html</b>. Image files should already be on the site (e.g. <code>blog-….webp</code>), or use a full image URL. Page URL is the link when the card is clicked.
+          </p>
+        </form>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h3 style="margin:0;font-size:16px"><i class="fas fa-newspaper" style="color:var(--purple);margin-right:8px"></i>Blog Cards <span class="nav-count" id="blogsCount" style="margin-left:8px">0</span></h3>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Image</th>
+                <th>Headline</th>
+                <th>URL</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="blogsTableBody">
+              <tr><td colspan="5" style="text-align:center;color:var(--mute);padding:28px">No blogs yet. Add one above or load defaults.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -598,13 +668,16 @@ onAuthStateChanged(auth, (user) => {
     updateBriefing(user.email);
     startLeadsListener();
     startRatesListener();
+    startBlogsListener();
   } else {
     adminApp.style.display = 'none';
     loginScreen.style.display = 'flex';
     if (unsubscribeLeads) { unsubscribeLeads(); unsubscribeLeads = null; }
     if (unsubscribeRates) { unsubscribeRates(); unsubscribeRates = null; }
+    if (unsubscribeBlogs) { unsubscribeBlogs(); unsubscribeBlogs = null; }
     allLeads = [];
     allRates = [];
+    allBlogs = [];
   }
 });
 
@@ -644,7 +717,7 @@ window.showPage = function (name, el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   if (el) el.classList.add('active');
-  const titles = { dashboard: 'Dashboard', bookings: 'Bookings', tours: 'Tour Enquiries', contacts: 'Contact Enquiries', rates: 'Round Trip Rates', settings: 'Settings' };
+  const titles = { dashboard: 'Dashboard', bookings: 'Bookings', tours: 'Tour Enquiries', contacts: 'Contact Enquiries', rates: 'Round Trip Rates', blogs: 'Blogs', settings: 'Settings' };
   document.getElementById('pageTitle').textContent = titles[name] || name;
   document.getElementById('sidebar').classList.remove('open');
 };
@@ -1059,6 +1132,182 @@ window.seedDefaultRates = async function () {
     });
     await batch.commit();
     showToast('Default vehicles loaded');
+  } catch (err) {
+    showToast('Seed failed: ' + (err.message || err));
+  }
+};
+
+
+/* ========== BLOGS (Firestore: blogs) ========== */
+let unsubscribeBlogs = null;
+let allBlogs = [];
+
+const DEFAULT_BLOGS = [{"image": "blog-ahmedabad-airport-cab-service.webp", "title": "Ahmedabad Airport Cab Service: Complete Guide to Airport Taxi Booking", "paragraph": "Looking for an Ahmedabad Airport Cab? Learn about airport pickup, airport drop, booking, vehicle options, fares and airport transfers.", "url": "ahmedabad-airport-cab-service.html", "order": 0}, {"image": "blog-ahmedabad-airport-taxi-booking.webp", "title": "Ahmedabad Airport Taxi Booking: How to Book an Airport Cab Easily", "paragraph": "Learn how to book an Ahmedabad Airport Taxi for pickup, drop, hotel transfer, city travel and outstation airport journeys.", "url": "ahmedabad-airport-taxi-booking.html", "order": 1}, {"image": "blog-ahmedabad-airport-pickup-cab.webp", "title": "Ahmedabad Airport Pickup Cab: Complete Guide for Arriving Passengers", "paragraph": "Book an Ahmedabad Airport Pickup Cab with flight details, passenger information and destination. Complete guide for airport arrivals.", "url": "ahmedabad-airport-pickup-cab.html", "order": 2}, {"image": "blog-ahmedabad-airport-drop-cab.webp", "title": "Ahmedabad Airport Drop Cab: Complete Guide to Booking a Taxi to Ahmedabad Airport", "paragraph": "Plan your Ahmedabad Airport Drop Cab with the right pickup time, vehicle and route. Complete guide for airport departure transfers.", "url": "ahmedabad-airport-drop-cab.html", "order": 3}, {"image": "blog-ahmedabad-airport-to-ahmedabad-city-cab.webp", "title": "Ahmedabad Airport to Ahmedabad City Cab: Complete Airport Transfer Guide", "paragraph": "Need an Ahmedabad Airport to City Cab? Learn about airport transfers to homes, hotels, offices and major areas of Ahmedabad.", "url": "ahmedabad-airport-to-ahmedabad-city-cab.html", "order": 4}, {"image": "blog-ahmedabad-airport-to-sg-highway-cab.webp", "title": "Ahmedabad Airport to SG Highway Cab: Airport Taxi Booking Guide", "paragraph": "Book an Ahmedabad Airport to SG Highway Cab for hotels, offices, homes and business travel. Learn what to confirm before booking.", "url": "ahmedabad-airport-to-sg-highway-cab.html", "order": 5}, {"image": "blog-ahmedabad-airport-to-gandhinagar-cab.webp", "title": "Ahmedabad Airport to Gandhinagar Cab: Complete Airport Taxi Guide", "paragraph": "Need an Ahmedabad Airport to Gandhinagar Cab? Learn about airport pickup, hotel transfers, business travel and airport drop booking.", "url": "ahmedabad-airport-to-gandhinagar-cab.html", "order": 6}, {"image": "blog-ahmedabad-airport-to-vadodara-cab.webp", "title": "Ahmedabad Airport to Vadodara Cab: One-Way and Round-Trip Guide", "paragraph": "Planning Ahmedabad Airport to Vadodara travel? Learn how to book an airport-origin cab for one-way or round-trip journeys.", "url": "ahmedabad-airport-to-vadodara-cab.html", "order": 7}, {"image": "blog-ahmedabad-airport-to-surat-cab.webp", "title": "Ahmedabad Airport to Surat Cab: Complete Outstation Airport Taxi Guide", "paragraph": "Need an Ahmedabad Airport to Surat Cab? Learn how to plan an airport-origin taxi, choose a vehicle and confirm one-way or round-trip terms.", "url": "ahmedabad-airport-to-surat-cab.html", "order": 8}, {"image": "blog-ahmedabad-airport-to-rajkot-cab.webp", "title": "Ahmedabad Airport to Rajkot Cab: Airport-Origin Taxi Booking Guide", "paragraph": "Book an Ahmedabad Airport to Rajkot Cab for one-way or round-trip travel. Learn what to confirm before an airport-origin outstation journey.", "url": "ahmedabad-airport-to-rajkot-cab.html", "order": 9}, {"image": "blog-ahmedabad-airport-to-anand-cab.webp", "title": "Ahmedabad Airport to Anand Cab: Airport Taxi and Transfer Guide", "paragraph": "Looking for an Ahmedabad Airport to Anand Cab? Learn about airport pickup, one-way travel, family transfers and booking details.", "url": "ahmedabad-airport-to-anand-cab.html", "order": 10}, {"image": "blog-ahmedabad-airport-to-nadiad-cab.webp", "title": "Ahmedabad Airport to Nadiad Cab: Complete Airport Transfer Guide", "paragraph": "Plan an Ahmedabad Airport to Nadiad Cab for airport pickup, one-way travel, family trips and return airport transfers.", "url": "ahmedabad-airport-to-nadiad-cab.html", "order": 11}, {"image": "blog-ahmedabad-airport-to-statue-of-unity-cab.webp", "title": "Ahmedabad Airport to Statue of Unity Cab: Complete Travel and Booking Guide", "paragraph": "Planning Ahmedabad Airport to Statue of Unity travel? Learn how to book an airport cab to Kevadia, plan luggage and choose one-way or return travel.", "url": "ahmedabad-airport-to-statue-of-unity-cab.html", "order": 12}, {"image": "blog-ahmedabad-airport-to-dwarka-cab.webp", "title": "Ahmedabad Airport to Dwarka Cab: Complete Outstation Airport Taxi Guide", "paragraph": "Planning an Ahmedabad Airport to Dwarka Cab? Learn how to arrange airport pickup, choose one-way or round-trip travel and plan the journey.", "url": "ahmedabad-airport-to-dwarka-cab.html", "order": 13}, {"image": "blog-ahmedabad-airport-to-somnath-cab.webp", "title": "Ahmedabad Airport to Somnath Cab: Complete Airport Taxi Booking Guide", "paragraph": "Book an Ahmedabad Airport to Somnath Cab for pilgrimage and family travel. Learn about one-way, round-trip and airport pickup planning.", "url": "ahmedabad-airport-to-somnath-cab.html", "order": 14}, {"image": "blog-ahmedabad-airport-cab-fare.webp", "title": "Ahmedabad Airport Cab Fare: What Determines Ahmedabad Airport Taxi Price?", "paragraph": "Learn what affects Ahmedabad Airport Cab fare, including distance, vehicle type, one-way travel, tolls, parking and waiting charges.", "url": "ahmedabad-airport-cab-fare.html", "order": 15}, {"image": "blog-ahmedabad-airport-one-way-round-trip-cab.webp", "title": "Ahmedabad Airport One-Way vs Round-Trip Cab: Which Booking Type Do You Need?", "paragraph": "Compare one-way and round-trip Ahmedabad Airport Cab bookings and learn which details to confirm before airport travel.", "url": "ahmedabad-airport-one-way-round-trip-cab.html", "order": 16}, {"image": "blog-ahmedabad-airport-cab-for-families.webp", "title": "Ahmedabad Airport Cab for Families: Choosing the Right Taxi for Luggage", "paragraph": "Travelling with family from Ahmedabad Airport? Learn how to choose an airport cab based on passengers, children, luggage and trip type.", "url": "ahmedabad-airport-cab-for-families.html", "order": 17}, {"image": "blog-early-morning-late-night-ahmedabad-airport-cab.webp", "title": "Early Morning and Late Night Ahmedabad Airport Cab: Booking Guide", "paragraph": "Need an early morning or late night Ahmedabad Airport Cab? Learn how to plan airport pickup and drop when your flight is outside normal hours.", "url": "early-morning-late-night-ahmedabad-airport-cab.html", "order": 18}, {"image": "blog-book-ahmedabad-airport-cab-online.webp", "title": "How to Book an Ahmedabad Airport Cab Online: Step-by-Step Guide", "paragraph": "Learn how to book an Ahmedabad Airport Cab online for pickup, drop, city transfers and outstation travel with a simple checklist.", "url": "book-ahmedabad-airport-cab-online.html", "order": 19}];
+
+const BLOG_IMAGE_OPTIONS = ["blog-ahmedabad-airport-cab-fare.webp", "blog-ahmedabad-airport-cab-for-families.webp", "blog-ahmedabad-airport-cab-service.webp", "blog-ahmedabad-airport-drop-cab.webp", "blog-ahmedabad-airport-one-way-round-trip-cab.webp", "blog-ahmedabad-airport-pickup-cab.webp", "blog-ahmedabad-airport-taxi-booking.webp", "blog-ahmedabad-airport-to-ahmedabad-city-cab.webp", "blog-ahmedabad-airport-to-anand-cab.webp", "blog-ahmedabad-airport-to-dwarka-cab.webp", "blog-ahmedabad-airport-to-gandhinagar-cab.webp", "blog-ahmedabad-airport-to-nadiad-cab.webp", "blog-ahmedabad-airport-to-rajkot-cab.webp", "blog-ahmedabad-airport-to-sg-highway-cab.webp", "blog-ahmedabad-airport-to-somnath-cab.webp", "blog-ahmedabad-airport-to-statue-of-unity-cab.webp", "blog-ahmedabad-airport-to-surat-cab.webp", "blog-ahmedabad-airport-to-vadodara-cab.webp", "blog-book-ahmedabad-airport-cab-online.webp", "blog-early-morning-late-night-ahmedabad-airport-cab.webp"];
+
+function populateBlogImageSelect() {
+  const sel = document.getElementById('blogImage');
+  if (!sel || sel.dataset.ready === '1') return;
+  const cur = sel.value;
+  sel.innerHTML = BLOG_IMAGE_OPTIONS.map(img => `<option value="${img}">${img}</option>`).join('')
+    + '<option value="custom">Custom path / URL…</option>';
+  sel.dataset.ready = '1';
+  if (cur) sel.value = cur;
+  sel.addEventListener('change', function () {
+    document.getElementById('blogImageCustomWrap').style.display = this.value === 'custom' ? 'block' : 'none';
+  });
+}
+
+function startBlogsListener() {
+  populateBlogImageSelect();
+  const q = query(collection(db, 'blogs'), orderBy('order', 'asc'));
+  unsubscribeBlogs = onSnapshot(q, (snap) => {
+    allBlogs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderBlogsTable();
+  }, (err) => {
+    console.error('[blogs]', err);
+    const body = document.getElementById('blogsTableBody');
+    if (body) body.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--red);padding:24px">Could not load blogs: ${esc(err.message)}<br><small>Add Firestore rules for collection "blogs".</small></td></tr>`;
+  });
+}
+
+function renderBlogsTable() {
+  const body = document.getElementById('blogsTableBody');
+  const countEl = document.getElementById('blogsCount');
+  if (!body) return;
+  if (countEl) countEl.textContent = allBlogs.length;
+  if (!allBlogs.length) {
+    body.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--mute);padding:28px">No blogs yet. Add one above or load defaults.</td></tr>';
+    return;
+  }
+  body.innerHTML = allBlogs.map(b => `
+    <tr>
+      <td>${esc(b.order ?? 0)}</td>
+      <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--mute)">${esc(b.image || '—')}</td>
+      <td><strong>${esc(b.title || '')}</strong><div style="font-size:12px;color:var(--mute);margin-top:4px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(b.paragraph || '')}</div></td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px"><a href="${esc(b.url || '#')}" target="_blank" rel="noopener" style="color:var(--purple)">${esc(b.url || '—')}</a></td>
+      <td style="white-space:nowrap">
+        <button class="btn-sm btn-purple" onclick="editBlog('${b.id}')" title="Edit"><i class="fas fa-pen"></i></button>
+        <button class="btn-sm btn-danger-outline" onclick="deleteBlog('${b.id}')" title="Delete"><i class="fas fa-trash-can"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function resolveBlogImage() {
+  const sel = document.getElementById('blogImage');
+  if (!sel || sel.value === 'custom') {
+    return (document.getElementById('blogImageCustom').value || '').trim();
+  }
+  return sel.value;
+}
+
+document.getElementById('blogForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('blogTitle').value.trim();
+  const paragraph = document.getElementById('blogParagraph').value.trim();
+  const url = document.getElementById('blogUrl').value.trim();
+  const orderRaw = document.getElementById('blogOrder').value;
+  const order = orderRaw === '' ? allBlogs.length : Number(orderRaw);
+  const image = resolveBlogImage();
+  const editId = document.getElementById('blogEditId').value;
+
+  if (!title || !paragraph || !url) {
+    showToast('Headline, paragraph and URL are required');
+    return;
+  }
+  if (!image) {
+    showToast('Please choose or enter an image');
+    return;
+  }
+
+  const payload = {
+    title,
+    paragraph,
+    url,
+    image,
+    order: Number.isFinite(order) ? order : allBlogs.length,
+    updatedAt: serverTimestamp()
+  };
+
+  const btn = document.getElementById('blogSaveBtn');
+  btn.disabled = true;
+  try {
+    if (editId) {
+      await updateDoc(doc(db, 'blogs', editId), payload);
+      showToast('Blog card updated');
+    } else {
+      payload.createdAt = serverTimestamp();
+      await addDoc(collection(db, 'blogs'), payload);
+      showToast('Blog card added');
+    }
+    cancelBlogEdit();
+  } catch (err) {
+    console.error(err);
+    showToast('Save failed: ' + (err.message || err));
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+window.editBlog = function (id) {
+  const b = allBlogs.find(x => x.id === id);
+  if (!b) return;
+  populateBlogImageSelect();
+  document.getElementById('blogEditId').value = id;
+  document.getElementById('blogTitle').value = b.title || '';
+  document.getElementById('blogParagraph').value = b.paragraph || '';
+  document.getElementById('blogUrl').value = b.url || '';
+  document.getElementById('blogOrder').value = b.order ?? 0;
+  const img = b.image || '';
+  const sel = document.getElementById('blogImage');
+  const known = [...sel.options].some(o => o.value === img);
+  if (known && img) {
+    sel.value = img;
+    document.getElementById('blogImageCustomWrap').style.display = 'none';
+  } else {
+    sel.value = 'custom';
+    document.getElementById('blogImageCustomWrap').style.display = 'block';
+    document.getElementById('blogImageCustom').value = img;
+  }
+  document.getElementById('blogFormTitle').textContent = 'Edit Blog Card';
+  document.getElementById('blogCancelBtn').style.display = 'inline-flex';
+  document.getElementById('blogSaveBtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Update Blog Card';
+  document.getElementById('page-blogs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+window.cancelBlogEdit = function () {
+  document.getElementById('blogEditId').value = '';
+  document.getElementById('blogForm').reset();
+  document.getElementById('blogImageCustomWrap').style.display = 'block';
+  document.getElementById('blogFormTitle').textContent = 'Add Blog Card';
+  document.getElementById('blogCancelBtn').style.display = 'none';
+  document.getElementById('blogSaveBtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Save Blog Card';
+};
+
+window.deleteBlog = async function (id) {
+  const b = allBlogs.find(x => x.id === id);
+  if (!confirm('Delete blog "' + ((b && b.title) || id) + '"?')) return;
+  try {
+    await deleteDoc(doc(db, 'blogs', id));
+    showToast('Blog deleted');
+    if (document.getElementById('blogEditId').value === id) cancelBlogEdit();
+  } catch (err) {
+    showToast('Delete failed: ' + (err.message || err));
+  }
+};
+
+window.seedDefaultBlogs = async function () {
+  if (allBlogs.length && !confirm('Blog cards already exist. Add the default 20 blogs anyway?')) return;
+  try {
+    const batch = writeBatch(db);
+    DEFAULT_BLOGS.forEach((b, i) => {
+      const ref = doc(collection(db, 'blogs'));
+      batch.set(ref, { ...b, order: b.order ?? i, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+    });
+    await batch.commit();
+    showToast('Default blogs loaded');
   } catch (err) {
     showToast('Seed failed: ' + (err.message || err));
   }
