@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Console — Ahmedabad Airport Cab</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --navy:#120b22; --ink:#181030; --ink-2:#20153e;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
+  --purple:#8b5cf6; --purple-dim:rgba(139,92,246,.16);
+  --blue:#5b8cff; --blue-dim:rgba(91,140,255,.14);
+  --teal:#3ddc97; --teal-dim:rgba(61,220,151,.14);
+  --red:#ff5c5c; --red-dim:rgba(255,92,92,.14);
+  --ice:#f1eefb; --mute:#9691b0; --mute-2:#6c6790;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',Arial,sans-serif;background:var(--navy);
+  background-image:radial-gradient(circle at 15% 0%,rgba(139,92,246,.08),transparent 45%),
+    radial-gradient(circle at 100% 30%,rgba(91,140,255,.06),transparent 50%);
+  color:var(--ice);min-height:100vh}
+.mono,.num{font-family:'Manrope',monospace}
+button,input,select{font:inherit}
+
+/* ---------- Login ---------- */
+#loginScreen{position:fixed;inset:0;background:var(--navy);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.02) 40px),
+    radial-gradient(circle at 50% 20%,rgba(139,92,246,.10),transparent 55%);
+  display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px}
+.login-logo{display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.login-logo img{width:100px;height:100px;}
+.login-box{width:400px;max-width:100%;background:var(--ink);border:1px solid var(--line-2);
+  border-radius:var(--radius);padding:40px 34px;box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative}
+.login-box::before{content:'';position:absolute;top:0;left:18%;right:18%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.login-eyebrow{font-family:'Manrope';font-size:11px;letter-spacing:2.5px;color:var(--purple);
+  text-transform:uppercase;margin-bottom:10px}
+.login-box h1{font-family:'Manrope';font-size:25px;font-weight:800;margin-bottom:6px}
+.login-box .sub{color:var(--mute);font-size:13.5px;margin-bottom:30px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;color:var(--mute);margin-bottom:7px;
+  text-transform:uppercase;letter-spacing:1px}
+.field input{width:100%;padding:13px 15px;background:rgba(255,255,255,.04);
+  border:1px solid var(--line);border-radius:9px;color:var(--ice);font-size:14.5px;outline:none;transition:.2s}
+.field input:focus{border-color:var(--purple);background:rgba(139,92,246,.06)}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--blue));
+  color:#fff;border:none;border-radius:9px;font-weight:700;font-size:15px;cursor:pointer;
+  margin-top:8px;transition:.2s;font-family:'Manrope'}
+.login-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.login-btn:disabled{opacity:.55;cursor:default;transform:none}
+#loginError{color:var(--red);font-size:13px;margin-top:14px;display:none;padding:10px 13px;
+  background:var(--red-dim);border-radius:8px;border:1px solid rgba(255,92,92,.25)}
+
+/* ---------- Shell ---------- */
+#adminApp{display:none}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--ink);
+  border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:100;transition:.3s}
+.brand{padding:24px 22px 20px;border-bottom:1px solid var(--line)}
+.brand-mark{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.brand-mark img{width:34px;height:34px;border-radius:8px;background:#fff;padding:2px;flex-shrink:0}
+.brand-mark .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);
+  box-shadow:0 0 0 4px var(--teal-dim);animation:pulse 2s infinite;margin-left:auto}
+@keyframes pulse{50%{opacity:.4}}
+.brand h2{font-family:'Manrope';font-size:14.5px;letter-spacing:.4px}
+.brand span{font-size:11.5px;color:var(--mute);display:block;margin-top:5px}
+.nav-item{display:flex;align-items:center;gap:13px;padding:14px 22px;color:var(--mute);
+  cursor:pointer;transition:.18s;font-size:13.5px;font-weight:500;border-left:3px solid transparent}
+.nav-item:hover{color:var(--ice);background:rgba(255,255,255,.03)}
+.nav-item.active{color:var(--purple);border-left-color:var(--purple);background:var(--purple-dim)}
+.nav-item i{width:16px;text-align:center;font-size:13px}
+.nav-count{margin-left:auto;background:rgba(255,255,255,.08);color:var(--mute);font-size:11px;
+  padding:1px 7px;border-radius:10px;font-family:'Manrope'}
+.nav-item.active .nav-count{background:rgba(139,92,246,.22);color:var(--purple)}
+.sidebar-bottom{margin-top:auto;padding:18px 22px;border-top:1px solid var(--line)}
+.admin-id{font-size:11.5px;color:var(--mute-2);margin-bottom:12px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.logout-btn{display:flex;align-items:center;gap:9px;color:var(--red);cursor:pointer;
+  font-size:13px;font-weight:600}
+.logout-btn:hover{opacity:.8}
+
+.main{margin-left:240px;padding:28px 32px 50px;min-height:100vh}
+
+.ticker{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,var(--ink-2),var(--ink));
+  border:1px solid var(--line);border-radius:11px;padding:11px 18px;margin-bottom:24px;
+  font-size:12.5px;overflow:hidden}
+.ticker-label{font-family:'Manrope';font-size:10.5px;letter-spacing:1.5px;color:var(--teal);
+  text-transform:uppercase;flex-shrink:0;display:flex;align-items:center;gap:7px}
+.ticker-label .pip{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 1.4s infinite}
+.ticker-msg{color:var(--mute);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticker-msg b{color:var(--ice);font-weight:600}
+.ticker-time{color:var(--mute-2);font-family:'Manrope';flex-shrink:0}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;
+  flex-wrap:wrap;gap:14px}
+.topbar h1{font-family:'Manrope';font-size:22px;font-weight:800}
+.refresh-btn{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--mute);
+  padding:9px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;display:flex;align-items:center;
+  gap:7px;transition:.2s}
+.refresh-btn:hover{color:var(--ice);border-color:var(--line-2)}
+.refresh-btn.spinning i{animation:spin .8s linear infinite}
+@keyframes spin{100%{transform:rotate(360deg)}}
+
+.page{display:none}
+.page.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- Briefing ---------- */
+.briefing{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--ink-2) 0%,var(--navy) 100%);
+  border:1px solid var(--line-2);border-radius:18px;padding:28px 30px;margin-bottom:22px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.briefing::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.briefing::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;
+  border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.16),transparent 70%);pointer-events:none}
+.briefing-date{font-family:'Manrope';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--teal);margin-bottom:8px;display:flex;align-items:center;gap:7px;position:relative;z-index:1}
+.briefing-date .pip{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 1.4s infinite}
+.briefing h2{font-family:'Manrope';font-size:23px;font-weight:800;margin-bottom:6px;position:relative;z-index:1}
+.briefing p{color:var(--mute);font-size:13.5px;max-width:420px;position:relative;z-index:1}
+.briefing-actions{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.briefing-btn{display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:10px;
+  font-size:13px;font-weight:700;cursor:pointer;transition:.2s;border:1px solid var(--line-2);
+  background:rgba(255,255,255,.04);color:var(--ice);white-space:nowrap}
+.briefing-btn:hover{border-color:var(--purple);color:var(--purple)}
+.briefing-btn.primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border-color:transparent}
+.briefing-btn.primary:hover{filter:brightness(1.1);color:#fff}
+
+/* ---------- Stat cards ---------- */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:26px}
+.stat-card{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 22px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--purple))}
+.stat-card::after{content:'';position:absolute;right:-30px;top:-30px;width:100px;height:100px;
+  border-radius:50%;background:var(--accent-glow,rgba(139,92,246,.08));filter:blur(10px)}
+.stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.stat-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.stat-icon.purple{background:var(--purple-dim);color:var(--purple)}
+.stat-icon.teal{background:var(--teal-dim);color:var(--teal)}
+.stat-icon.blue{background:var(--blue-dim);color:var(--blue)}
+.stat-icon.red{background:var(--red-dim);color:var(--red)}
+.stat-num{font-family:'Manrope';font-size:29px;font-weight:800;line-height:1;position:relative;z-index:1}
+.stat-label{font-size:12px;color:var(--mute);margin-top:6px;position:relative;z-index:1}
+.stat-foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;
+  padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;position:relative;z-index:1}
+.stat-foot a{color:var(--purple);text-decoration:none;font-weight:600;cursor:pointer}
+.stat-foot a:hover{text-decoration:underline}
+.stat-foot .trend{color:var(--mute-2);font-family:'Manrope'}
+.stat-foot .trend.up{color:var(--teal)}
+
+/* ---------- Table card ---------- */
+.table-card{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;margin-bottom:22px}
+.table-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;
+  border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px}
+.table-header h3{font-family:'Manrope';font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:9px}
+.table-header h3 i{color:var(--purple)}
+.settings-val{color:var(--mute);font-size:13px;font-family:'Manrope'}
+.btn-sm{padding:8px 14px;border-radius:8px;border:none;font-size:12.5px;font-weight:700;cursor:pointer;
+  transition:.2s;display:flex;align-items:center;gap:6px}
+.btn-purple{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff}
+.btn-purple:hover{filter:brightness(1.08)}
+.btn-outline{background:transparent;border:1px solid var(--line-2);color:var(--ice)}
+.btn-outline:hover{border-color:var(--purple);color:var(--purple)}
+.btn-danger-outline{background:transparent;border:1px solid rgba(255,92,92,.35);color:var(--red)}
+.btn-danger-outline:hover{background:var(--red);color:#fff;border-color:var(--red)}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:rgba(255,255,255,.02);padding:11px 16px;text-align:left;color:var(--mute);
+  font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;
+  font-family:'Manrope'}
+td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top}
+tr.data-row:hover td{background:rgba(255,255,255,.018)}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:700;
+  letter-spacing:.3px;font-family:'Manrope'}
+.tag-purple{background:var(--purple-dim);color:var(--purple)}
+.tag-blue{background:var(--blue-dim);color:var(--blue)}
+.tag-teal{background:var(--teal-dim);color:var(--teal)}
+.status-select{background:rgba(255,255,255,.04);border:1px solid var(--line-2);border-radius:8px;
+  padding:6px 9px;font-size:11.5px;font-weight:700;color:var(--ice);cursor:pointer}
+.status-new{color:var(--red)}
+.status-contacted{color:#e0a742}
+.status-done{color:var(--teal)}
+.del-btn{background:transparent;border:1px solid rgba(255,92,92,.3);color:var(--red);padding:6px 10px;
+  border-radius:7px;cursor:pointer;font-size:12px;transition:.2s}
+.del-btn:hover{background:var(--red);color:#fff}
+.call-link{color:var(--purple);text-decoration:none;font-family:'Manrope'}
+.empty-row td{text-align:center;padding:46px;color:var(--mute)}
+.empty-icon{font-size:32px;margin-bottom:10px;opacity:.6}
+.loading-row td{text-align:center;padding:46px;color:var(--mute)}
+
+/* ---------- Search bar ---------- */
+.search-bar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.search-bar input{flex:1;min-width:200px;padding:11px 16px;background:var(--ink);border:1px solid var(--line);
+  border-radius:9px;color:var(--ice);font-size:13.5px;outline:none;transition:.2s}
+.search-bar input:focus{border-color:var(--purple)}
+.search-bar select{padding:11px 14px;background:var(--ink);border:1px solid var(--line);border-radius:9px;
+  color:var(--ice);font-size:13.5px;outline:none;cursor:pointer}
+
+/* ---------- Settings ---------- */
+.settings-card{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px;margin-bottom:18px}
+.settings-card h3{font-family:'Manrope';font-size:14.5px;margin-bottom:18px;color:var(--purple);
+  display:flex;align-items:center;gap:9px}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;
+  border-bottom:1px solid var(--line);gap:14px;flex-wrap:wrap}
+.settings-row:last-child{border:none}
+.settings-row label{font-size:13.5px}
+.settings-row span{font-size:11.5px;color:var(--mute);margin-top:3px;display:block}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;top:22px;right:22px;background:var(--ink-2);border:1px solid var(--line-2);
+  border-left:3px solid var(--purple);color:#fff;padding:14px 20px;border-radius:10px;font-size:13.5px;
+  z-index:99999;opacity:0;transform:translateX(30px);transition:.3s;pointer-events:none;max-width:320px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.toast.show{opacity:1;transform:translateX(0)}
+
+/* ---------- Mobile ---------- */
+.hamburger-admin{display:none;font-size:20px;cursor:pointer;color:var(--ice)}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0);box-shadow:20px 0 50px rgba(0,0,0,.5)}
+  .main{margin-left:0;padding:22px 16px 50px}
+  .hamburger-admin{display:block}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .ticker-msg{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo"><img src="logo-footer.png" alt="Ahmedabad Airport Cab"></div>
+    <div class="login-eyebrow">Restricted Access</div>
+    <h1>Admin Console</h1>
+    <p class="sub">Ahmedabad Airport Cab — Admin Sign In</p>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input id="loginEmail" type="email" required autocomplete="username" placeholder="admin@example.com"></div>
+      <div class="field"><label>Password</label><input id="loginPassword" type="password" required autocomplete="current-password" placeholder="••••••••"></div>
+      <button class="login-btn" id="loginBtn" type="submit"><i class="fas fa-arrow-right-to-bracket"></i>&nbsp; Sign In</button>
+      <div id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="adminApp">
+
+  <nav class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><img src="logo.png" alt="Ahmedabad Airport Cab"><div class="dot"></div></div>
+      <h2>ADMIN CONSOLE</h2>
+      <span>Ahmedabad Airport Cab</span>
+    </div>
+    <div class="nav-item active" onclick="showPage('dashboard',this)"><i class="fas fa-gauge-high"></i> Dashboard</div>
+    <div class="nav-item" onclick="showPage('bookings',this)"><i class="fas fa-car"></i> Bookings <span class="nav-count" id="navCountBookings">0</span></div>
+    <div class="nav-item" onclick="showPage('tours',this)"><i class="fas fa-route"></i> Tour Enquiries <span class="nav-count" id="navCountTours">0</span></div>
+    <div class="nav-item" onclick="showPage('contacts',this)"><i class="fas fa-comment-dots"></i> Contact Enquiries <span class="nav-count" id="navCountContacts">0</span></div>
+    <div class="nav-item" onclick="showPage('rates',this)"><i class="fas fa-tags"></i> Round Trip Rates</div>
+    <div class="nav-item" onclick="showPage('blogs',this)"><i class="fas fa-newspaper"></i> Blogs</div>
+    <div class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-gear"></i> Settings</div>
+    <div class="sidebar-bottom">
+      <div class="admin-id" id="adminEmailLabel">—</div>
+      <div class="logout-btn" onclick="doLogout()"><i class="fas fa-power-off"></i> Sign Out</div>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="hamburger-admin" onclick="toggleSidebar()"><i class="fas fa-bars"></i></span>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()"><i class="fas fa-rotate"></i> Refresh</button>
+    </div>
+
+    <div class="ticker">
+      <div class="ticker-label"><span class="pip"></span> Live Feed</div>
+      <div class="ticker-msg" id="tickerMsg">Connecting to the leads database…</div>
+      <div class="ticker-time" id="tickerTime"></div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="briefing">
+        <div>
+          <div class="briefing-date"><span class="pip"></span><span id="briefingDate">—</span></div>
+          <h2 id="briefingGreeting">Welcome back</h2>
+          <p>Here's what's moving across bookings, tour enquiries and contact requests right now.</p>
+        </div>
+        <div class="briefing-actions">
+          <button class="briefing-btn" onclick="manualRefresh()"><i class="fas fa-rotate"></i> Refresh</button>
+          <button class="briefing-btn primary" onclick="goToPage('bookings')"><i class="fas fa-car"></i> View Bookings</button>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card" style="--accent-glow:rgba(139,92,246,.12);--accent:var(--purple)">
+          <div class="stat-top"><div class="stat-icon purple"><i class="fas fa-car"></i></div></div>
+          <div class="stat-num num" id="stat-bookings">—</div>
+          <div class="stat-label">Bookings</div>
+          <div class="stat-foot"><a onclick="goToPage('bookings')">View all →</a><span class="trend" id="stat-bookings-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(61,220,151,.12);--accent:var(--teal)">
+          <div class="stat-top"><div class="stat-icon teal"><i class="fas fa-route"></i></div></div>
+          <div class="stat-num num" id="stat-tours">—</div>
+          <div class="stat-label">Tour Enquiries</div>
+          <div class="stat-foot"><a onclick="goToPage('tours')">View all →</a><span class="trend" id="stat-tours-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(91,140,255,.12);--accent:var(--blue)">
+          <div class="stat-top"><div class="stat-icon blue"><i class="fas fa-comment-dots"></i></div></div>
+          <div class="stat-num num" id="stat-contacts">—</div>
+          <div class="stat-label">Contact Enquiries</div>
+          <div class="stat-foot"><a onclick="goToPage('contacts')">View all →</a><span class="trend" id="stat-contacts-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(255,92,92,.12);--accent:var(--red)">
+          <div class="stat-top"><div class="stat-icon red"><i class="fas fa-list-check"></i></div></div>
+          <div class="stat-num num" id="stat-new">—</div>
+          <div class="stat-label">New (unread)</div>
+          <div class="stat-foot"><span class="trend" id="stat-new-trend">—</span></div>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card" style="--accent-glow:rgba(139,92,246,.12);--accent:var(--purple)">
+          <div class="stat-top"><div class="stat-icon purple"><i class="fas fa-list-ol"></i></div></div>
+          <div class="stat-num num" id="stat-total">—</div>
+          <div class="stat-label">All Leads</div>
+          <div class="stat-foot"><span class="trend" id="stat-total-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(61,220,151,.12);--accent:var(--teal)">
+          <div class="stat-top"><div class="stat-icon teal"><i class="fas fa-calendar-days"></i></div></div>
+          <div class="stat-num num" id="stat-month">—</div>
+          <div class="stat-label">Leads This Month</div>
+          <div class="stat-foot"><span class="trend" id="stat-month-trend">—</span></div>
+        </div>
+        <div class="stat-card" style="--accent-glow:rgba(91,140,255,.12);--accent:var(--blue)">
+          <div class="stat-top"><div class="stat-icon blue"><i class="fas fa-map-location-dot"></i></div></div>
+          <div class="stat-num" id="stat-toproute" style="font-family:'Manrope';font-size:17px;font-weight:800;line-height:1.3">—</div>
+          <div class="stat-label">Most Requested Route</div>
+          <div class="stat-foot"><span class="trend" id="stat-toproute-count">—</span></div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h3><i class="fas fa-clock"></i>Recent Leads</h3>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Received</th><th>Type</th><th>Name / Phone</th><th>Details</th></tr></thead>
+            <tbody id="recentBody"><tr class="loading-row"><td colspan="4">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKINGS -->
+    <div class="page" id="page-bookings">
+      <div class="search-bar">
+        <input type="text" id="bookSearch" placeholder="Search name, phone, from/to, vehicle…" oninput="renderBookings()">
+        <select id="bookStatusFilter" onchange="renderBookings()">
+          <option value="">All Statuses</option><option value="new">New</option>
+          <option value="contacted">Contacted</option><option value="done">Done</option>
+        </select>
+        <button class="btn-sm btn-danger-outline" onclick="clearType('booking')"><i class="fas fa-trash"></i> Clear All</button>
+        <button class="btn-sm btn-purple" onclick="exportCSV('booking')"><i class="fas fa-download"></i> Export</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3><i class="fas fa-car"></i>Bookings</h3><span class="settings-val" id="bookCount"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name / Phone</th><th>Trip</th><th>Route</th><th>Vehicle</th><th>Date &amp; Time</th><th>Status</th><th>Received</th><th>Action</th></tr></thead>
+            <tbody id="bookingsBody"><tr class="loading-row"><td colspan="8">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOURS -->
+    <div class="page" id="page-tours">
+      <div class="search-bar">
+        <input type="text" id="tourSearch" placeholder="Search name, phone, route…" oninput="renderTours()">
+        <select id="tourStatusFilter" onchange="renderTours()">
+          <option value="">All Statuses</option><option value="new">New</option>
+          <option value="contacted">Contacted</option><option value="done">Done</option>
+        </select>
+        <button class="btn-sm btn-danger-outline" onclick="clearType('tour')"><i class="fas fa-trash"></i> Clear All</button>
+        <button class="btn-sm btn-purple" onclick="exportCSV('tour')"><i class="fas fa-download"></i> Export</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3><i class="fas fa-route"></i>Tour Enquiries</h3><span class="settings-val" id="tourCount"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name / Phone</th><th>Route / Tour</th><th>Date &amp; Time</th><th>Status</th><th>Received</th><th>Action</th></tr></thead>
+            <tbody id="toursBody"><tr class="loading-row"><td colspan="6">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTS -->
+    <div class="page" id="page-contacts">
+      <div class="search-bar">
+        <input type="text" id="contactSearch" placeholder="Search name, phone, message…" oninput="renderContacts()">
+        <select id="contactStatusFilter" onchange="renderContacts()">
+          <option value="">All Statuses</option><option value="new">New</option>
+          <option value="contacted">Contacted</option><option value="done">Done</option>
+        </select>
+        <button class="btn-sm btn-danger-outline" onclick="clearType('contact')"><i class="fas fa-trash"></i> Clear All</button>
+        <button class="btn-sm btn-purple" onclick="exportCSV('contact')"><i class="fas fa-download"></i> Export</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3><i class="fas fa-comment-dots"></i>Contact Enquiries</h3><span class="settings-val" id="contactCount"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name / Phone</th><th>Message</th><th>Status</th><th>Received</th><th>Action</th></tr></thead>
+            <tbody id="contactsBody"><tr class="loading-row"><td colspan="5">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="settings-card">
+        <h3><i class="fas fa-circle-info"></i>Account</h3>
+        <div class="settings-row"><div><label>Signed in as</label></div><div class="settings-val" id="settingsEmail">—</div></div>
+        <div class="settings-row"><div><label>Authentication</label><span>Managed by Firebase Authentication</span></div><div class="settings-val">Email / Password</div></div>
+      </div>
+      <div class="settings-card">
+        <h3><i class="fas fa-building"></i>Business Info</h3>
+        <div class="settings-row"><div><label>Phone Number</label></div><div class="settings-val">+91 97244 29334</div></div>
+        <div class="settings-row"><div><label>Database</label></div><div class="settings-val">Firebase Firestore — "leads" collection</div></div>
+      </div>
+      <div class="settings-card">
+        <h3><i class="fas fa-database"></i>Data Management</h3>
+        <div class="settings-row">
+          <div><label>Clear All Records</label><span>Permanently delete every booking, tour and contact lead</span></div>
+          <button class="btn-sm btn-danger-outline" onclick="clearType('all')"><i class="fas fa-trash-can"></i> Clear All Data</button>
+        </div>
+        <div class="settings-row">
+          <div><label>Export All Data</label><span>Download every lead as a single CSV file</span></div>
+          <button class="btn-sm btn-purple" onclick="exportCSV('all')"><i class="fas fa-file-csv"></i> Export All</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ROUND TRIP RATES -->
+    <div class="page" id="page-rates">
+      <div class="table-card" style="margin-bottom:22px">
+        <div class="table-header">
+          <h3 style="margin:0;font-size:16px"><i class="fas fa-plus-circle" style="color:var(--purple);margin-right:8px"></i><span id="rateFormTitle">Add Vehicle Rate Card</span></h3>
+        </div>
+        <form id="rateForm" style="padding:18px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px 16px;align-items:end">
+          <input type="hidden" id="rateEditId" value="">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Vehicle Name *</label>
+            <input id="rateName" required placeholder="e.g. Swift Dzire" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Rate ₹ / km *</label>
+            <input id="ratePrice" type="number" min="1" step="1" required placeholder="11" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Sort Order</label>
+            <input id="rateOrder" type="number" min="0" step="1" placeholder="0" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Persons</label>
+            <input id="ratePersons" type="number" min="1" step="1" placeholder="4" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Bags</label>
+            <input id="rateBags" type="number" min="0" step="1" placeholder="2" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Image file</label>
+            <select id="rateImage" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+              <option value="swift-dzire.webp">swift-dzire.webp</option>
+              <option value="ertiga.webp">ertiga.webp</option>
+              <option value="innova-crysta.webp">innova-crysta.webp</option>
+              <option value="tempo-traveller.webp">tempo-traveller.webp</option>
+              <option value="urbania.webp">urbania.webp</option>
+              <option value="custom">Custom path…</option>
+            </select>
+          </div>
+          <div id="rateImageCustomWrap" style="display:none;grid-column:1/-1">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Custom image path or URL</label>
+            <input id="rateImageCustom" placeholder="my-car.webp or https://…" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div style="grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;padding-top:4px">
+            <button type="submit" class="btn-sm btn-purple" id="rateSaveBtn"><i class="fas fa-floppy-disk"></i> Save Rate Card</button>
+            <button type="button" class="btn-sm btn-danger-outline" id="rateCancelBtn" style="display:none" onclick="cancelRateEdit()"><i class="fas fa-xmark"></i> Cancel Edit</button>
+            <button type="button" class="btn-sm" style="background:rgba(255,255,255,.06);color:var(--ice);border:1px solid var(--line)" onclick="seedDefaultRates()"><i class="fas fa-magic"></i> Load Default 5 Vehicles</button>
+          </div>
+          <p style="grid-column:1/-1;margin:0;font-size:12px;color:var(--mute-2);line-height:1.55">
+            Changes appear on the homepage <b>Round Trip Rates</b> section after save. Images must already be uploaded on the site (or use a full image URL).
+          </p>
+        </form>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h3 style="margin:0;font-size:16px"><i class="fas fa-car-side" style="color:var(--purple);margin-right:8px"></i>Current Rate Cards <span class="nav-count" id="ratesCount" style="margin-left:8px">0</span></h3>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Vehicle</th>
+                <th>₹ / km</th>
+                <th>Persons</th>
+                <th>Bags</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ratesTableBody">
+              <tr><td colspan="7" style="text-align:center;color:var(--mute);padding:28px">No rate cards yet. Add one above or load defaults.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- BLOGS -->
+    <div class="page" id="page-blogs">
+      <div class="table-card" style="margin-bottom:22px">
+        <div class="table-header">
+          <h3 style="margin:0;font-size:16px"><i class="fas fa-plus-circle" style="color:var(--purple);margin-right:8px"></i><span id="blogFormTitle">Add Blog Card</span></h3>
+        </div>
+        <form id="blogForm" style="padding:18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;align-items:end">
+          <input type="hidden" id="blogEditId" value="">
+          <div style="grid-column:1/-1">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Headline *</label>
+            <input id="blogTitle" required placeholder="Blog title / heading" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div style="grid-column:1/-1">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Paragraph *</label>
+            <textarea id="blogParagraph" required rows="3" placeholder="Short description shown on the card" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px;resize:vertical;font-family:inherit"></textarea>
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Page URL *</label>
+            <input id="blogUrl" required placeholder="my-blog-page.html" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Sort Order</label>
+            <input id="blogOrder" type="number" min="0" step="1" placeholder="0" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Image</label>
+            <select id="blogImage" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+              <option value="custom">Custom path / URL…</option>
+            </select>
+          </div>
+          <div id="blogImageCustomWrap">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--mute);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Image file or URL</label>
+            <input id="blogImageCustom" placeholder="blog-my-post.webp or https://…" style="width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--ink-2);color:var(--ice);font-size:13.5px">
+          </div>
+          <div style="grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;padding-top:4px">
+            <button type="submit" class="btn-sm btn-purple" id="blogSaveBtn"><i class="fas fa-floppy-disk"></i> Save Blog Card</button>
+            <button type="button" class="btn-sm btn-danger-outline" id="blogCancelBtn" style="display:none" onclick="cancelBlogEdit()"><i class="fas fa-xmark"></i> Cancel Edit</button>
+            <button type="button" class="btn-sm" style="background:rgba(255,255,255,.06);color:var(--ice);border:1px solid var(--line)" onclick="seedDefaultBlogs()"><i class="fas fa-magic"></i> Load Current 20 Blogs</button>
+          </div>
+          <p style="grid-column:1/-1;margin:0;font-size:12px;color:var(--mute-2);line-height:1.55">
+            Cards appear on <b>blog.html</b>. Image files should already be on the site (e.g. <code>blog-….webp</code>), or use a full image URL. Page URL is the link when the card is clicked.
+          </p>
+        </form>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <h3 style="margin:0;font-size:16px"><i class="fas fa-newspaper" style="color:var(--purple);margin-right:8px"></i>Blog Cards <span class="nav-count" id="blogsCount" style="margin-left:8px">0</span></h3>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Image</th>
+                <th>Headline</th>
+                <th>URL</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="blogsTableBody">
+              <tr><td colspan="5" style="text-align:center;color:var(--mute);padding:28px">No blogs yet. Add one above or load defaults.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {
+  getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc,
+  addDoc, setDoc, getDocs, writeBatch, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDDMqMXdar86EawwYdMhwSdKKDU-eijSRc",
+  authDomain: "ahmedabad-airport-cab.firebaseapp.com",
+  projectId: "ahmedabad-airport-cab",
+  storageBucket: "ahmedabad-airport-cab.firebasestorage.app",
+  messagingSenderId: "82570456282",
+  appId: "1:82570456282:web:4302c9c3e9a6c7ae7949e3",
+  measurementId: "G-JTYJHB16VD"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const loginScreen = document.getElementById('loginScreen');
+const adminApp = document.getElementById('adminApp');
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+const loginBtn = document.getElementById('loginBtn');
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginError.style.display = 'none';
+  loginBtn.disabled = true;
+  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp; Signing in…';
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    loginError.textContent = 'Sign-in failed. Check your email and password.';
+    loginError.style.display = 'block';
+  } finally {
+    loginBtn.disabled = false;
+    loginBtn.innerHTML = '<i class="fas fa-arrow-right-to-bracket"></i>&nbsp; Sign In';
+  }
+});
+window.doLogout = () => signOut(auth);
+
+let unsubscribeLeads = null;
+let allLeads = [];
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginScreen.style.display = 'none';
+    adminApp.style.display = 'block';
+    document.getElementById('adminEmailLabel').textContent = user.email;
+    document.getElementById('settingsEmail').textContent = user.email;
+    updateBriefing(user.email);
+    startLeadsListener();
+    startRatesListener();
+    startBlogsListener();
+  } else {
+    adminApp.style.display = 'none';
+    loginScreen.style.display = 'flex';
+    if (unsubscribeLeads) { unsubscribeLeads(); unsubscribeLeads = null; }
+    if (unsubscribeRates) { unsubscribeRates(); unsubscribeRates = null; }
+    if (unsubscribeBlogs) { unsubscribeBlogs(); unsubscribeBlogs = null; }
+    allLeads = [];
+    allRates = [];
+    allBlogs = [];
+  }
+});
+
+function startLeadsListener() {
+  const q = query(collection(db, 'leads'), orderBy('createdAt', 'desc'));
+  unsubscribeLeads = onSnapshot(q, (snap) => {
+    allLeads = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderAll();
+  }, (err) => {
+    document.getElementById('tickerMsg').textContent = 'Could not load leads: ' + err.message;
+  });
+}
+
+window.manualRefresh = function () {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  renderAll();
+  showToast('Data is live — already up to date');
+  setTimeout(() => btn.classList.remove('spinning'), 500);
+};
+
+function updateBriefing(email) {
+  const now = new Date();
+  const hour = now.getHours();
+  const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const prefix = (email || 'Admin').split('@')[0];
+  document.getElementById('briefingGreeting').textContent = `${greet}, ${prefix}`;
+  document.getElementById('briefingDate').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+window.goToPage = function (name) {
+  const el = document.querySelector(`.nav-item[onclick*="'${name}'"]`);
+  if (el) el.click();
+};
+window.showPage = function (name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  const titles = { dashboard: 'Dashboard', bookings: 'Bookings', tours: 'Tour Enquiries', contacts: 'Contact Enquiries', rates: 'Round Trip Rates', blogs: 'Blogs', settings: 'Settings' };
+  document.getElementById('pageTitle').textContent = titles[name] || name;
+  document.getElementById('sidebar').classList.remove('open');
+};
+window.toggleSidebar = function () { document.getElementById('sidebar').classList.toggle('open'); };
+
+function toDate(ts) { try { return ts && ts.toDate ? ts.toDate() : (ts ? new Date(ts) : null); } catch (e) { return null; } }
+function fmtDate(ts) {
+  const d = toDate(ts);
+  if (!d) return '—';
+  return d.toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+function esc(s) {
+  if (s === undefined || s === null || s === '') return '—';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function statusTag(status) {
+  const s = status || 'new';
+  return `<span class="tag ${s === 'done' ? 'tag-teal' : s === 'contacted' ? 'tag-blue' : 'tag-purple'}">${s.toUpperCase()}</span>`;
+}
+function waLink(phone) {
+  const p = (phone || '').replace(/\D/g, '');
+  if (p.length < 10) return '';
+  return `<a class="call-link" href="https://wa.me/91${p.slice(-10)}" target="_blank" rel="noopener">WhatsApp</a>`;
+}
+
+function updateTicker() {
+  const latest = allLeads[0];
+  const msgEl = document.getElementById('tickerMsg');
+  const timeEl = document.getElementById('tickerTime');
+  if (latest) {
+    const who = latest.name || latest.phone || 'Someone';
+    const what = latest.type === 'booking' ? `${latest.from || '?'} → ${latest.to || '?'}` :
+                 latest.type === 'tour' ? (latest.tourTitle || `${latest.from || '?'} → ${latest.to || '?'}`) :
+                 'sent a message';
+    msgEl.innerHTML = `Latest: <b>${esc(who)}</b> — ${esc(what)} (${esc((latest.type || 'contact').toUpperCase())})`;
+    timeEl.textContent = fmtDate(latest.createdAt);
+  } else {
+    msgEl.textContent = 'No leads yet — waiting for the first request.';
+    timeEl.textContent = '';
+  }
+}
+
+function renderStats() {
+  const bookings = allLeads.filter(l => l.type === 'booking');
+  const tours = allLeads.filter(l => l.type === 'tour');
+  const contacts = allLeads.filter(l => l.type === 'contact');
+  const newLeads = allLeads.filter(l => (l.status || 'new') === 'new');
+
+  document.getElementById('stat-bookings').textContent = bookings.length;
+  document.getElementById('stat-tours').textContent = tours.length;
+  document.getElementById('stat-contacts').textContent = contacts.length;
+  document.getElementById('stat-new').textContent = newLeads.length;
+  document.getElementById('stat-total').textContent = allLeads.length;
+
+  document.getElementById('navCountBookings').textContent = bookings.length;
+  document.getElementById('navCountTours').textContent = tours.length;
+  document.getElementById('navCountContacts').textContent = contacts.length;
+
+  const now = new Date();
+  const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const countSince = (arr, since) => arr.filter(x => { const d = toDate(x.createdAt); return d && d >= since; }).length;
+
+  const setTrend = (id, n) => {
+    const el = document.getElementById(id);
+    el.textContent = n ? `+${n} this week` : 'No change this week';
+    el.classList.toggle('up', n > 0);
+  };
+  setTrend('stat-bookings-trend', countSince(bookings, weekAgo));
+  setTrend('stat-tours-trend', countSince(tours, weekAgo));
+  setTrend('stat-contacts-trend', countSince(contacts, weekAgo));
+  document.getElementById('stat-new-trend').textContent = 'awaiting first contact';
+  document.getElementById('stat-total-trend').textContent = countSince(allLeads, weekAgo) + ' this week';
+
+  const monthCount = countSince(allLeads, monthStart);
+  document.getElementById('stat-month').textContent = monthCount;
+  document.getElementById('stat-month-trend').textContent = now.toLocaleDateString('en-IN', { month: 'long' });
+
+  const tally = {};
+  allLeads.forEach(l => {
+    const key = l.type === 'tour' ? (l.tourTitle || (l.from && l.to ? `${l.from} → ${l.to}` : null))
+      : l.type === 'booking' ? (l.from && l.to ? `${l.from} → ${l.to}` : null) : null;
+    if (key) tally[key] = (tally[key] || 0) + 1;
+  });
+  const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]);
+  if (sorted.length) {
+    document.getElementById('stat-toproute').textContent = sorted[0][0];
+    document.getElementById('stat-toproute-count').textContent = `${sorted[0][1]} request${sorted[0][1] === 1 ? '' : 's'}`;
+  } else {
+    document.getElementById('stat-toproute').textContent = 'No data yet';
+    document.getElementById('stat-toproute-count').textContent = '—';
+  }
+}
+
+function renderRecent() {
+  const tbody = document.getElementById('recentBody');
+  const data = allLeads.slice(0, 6);
+  if (!data.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="4"><div class="empty-icon">📭</div>No leads yet</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map(l => `
+    <tr class="data-row">
+      <td style="color:var(--mute);font-size:12px;white-space:nowrap">${fmtDate(l.createdAt)}</td>
+      <td>${statusTag(l.status)} <span class="tag tag-blue" style="margin-left:4px">${esc((l.type || 'contact').toUpperCase())}</span></td>
+      <td><div style="font-weight:700">${esc(l.name)}</div><div style="color:var(--mute);font-size:12px">${esc(l.phone)}</div></td>
+      <td>${leadDetail(l)}</td>
+    </tr>`).join('');
+}
+
+function leadDetail(l) {
+  if (l.type === 'booking') {
+    const parts = [[l.category, l.mode].filter(Boolean).join(' · ')];
+    if (l.from || l.to) parts.push(`${l.from || '—'} → ${l.to || '—'}`);
+    if (l.vehicle) parts.push(`${l.vehicle}${l.price ? ' (' + l.price + ')' : ''}`);
+    return parts.filter(Boolean).join('<br>');
+  }
+  if (l.type === 'tour') {
+    const parts = [l.tourTitle || (l.from && l.to ? `${l.from} → ${l.to}` : null), [l.date, l.time].filter(Boolean).join(' ')];
+    return parts.filter(Boolean).join('<br>') || '—';
+  }
+  return esc(l.message);
+}
+
+function filterLeads(type, searchId, statusId) {
+  const q = (document.getElementById(searchId).value || '').toLowerCase();
+  const status = document.getElementById(statusId).value;
+  let data = allLeads.filter(l => l.type === type);
+  if (status) data = data.filter(l => (l.status || 'new') === status);
+  if (q) data = data.filter(l => [l.name, l.phone, l.from, l.to, l.vehicle, l.tourTitle, l.message].filter(Boolean).join(' ').toLowerCase().includes(q));
+  return data;
+}
+
+window.renderBookings = function () {
+  const data = filterLeads('booking', 'bookSearch', 'bookStatusFilter');
+  document.getElementById('bookCount').textContent = data.length + ' record(s)';
+  const tbody = document.getElementById('bookingsBody');
+  if (!data.length) { tbody.innerHTML = `<tr class="empty-row"><td colspan="8"><div class="empty-icon">🚕</div>No bookings found</td></tr>`; return; }
+  tbody.innerHTML = data.map(l => `
+    <tr class="data-row" data-id="${l.id}">
+      <td><div style="font-weight:700">${esc(l.name)}</div><div style="color:var(--mute);font-size:12px">${esc(l.phone)} ${waLink(l.phone)}</div></td>
+      <td>${esc([l.category, l.mode].filter(Boolean).join(' · '))}</td>
+      <td>${esc(l.from)} → ${esc(l.to)}</td>
+      <td>${esc(l.vehicle)}${l.price ? '<br><span style="color:var(--mute);font-size:12px">' + esc(l.price) + '</span>' : ''}</td>
+      <td style="white-space:nowrap">${esc(l.date)}<br><small style="color:var(--mute)">${esc(l.time)}</small></td>
+      <td>${statusSelect(l)}</td>
+      <td style="color:var(--mute);font-size:12px;white-space:nowrap">${fmtDate(l.createdAt)}</td>
+      <td><button class="del-btn" onclick="deleteLead('${l.id}')"><i class="fas fa-trash"></i></button></td>
+    </tr>`).join('');
+};
+
+window.renderTours = function () {
+  const data = filterLeads('tour', 'tourSearch', 'tourStatusFilter');
+  document.getElementById('tourCount').textContent = data.length + ' record(s)';
+  const tbody = document.getElementById('toursBody');
+  if (!data.length) { tbody.innerHTML = `<tr class="empty-row"><td colspan="6"><div class="empty-icon">🗺️</div>No tour enquiries found</td></tr>`; return; }
+  tbody.innerHTML = data.map(l => `
+    <tr class="data-row" data-id="${l.id}">
+      <td><div style="font-weight:700">${esc(l.name)}</div><div style="color:var(--mute);font-size:12px">${esc(l.phone)} ${waLink(l.phone)}</div></td>
+      <td>${esc(l.tourTitle || (l.from && l.to ? l.from + ' → ' + l.to : null))}</td>
+      <td style="white-space:nowrap">${esc(l.date)}<br><small style="color:var(--mute)">${esc(l.time)}</small></td>
+      <td>${statusSelect(l)}</td>
+      <td style="color:var(--mute);font-size:12px;white-space:nowrap">${fmtDate(l.createdAt)}</td>
+      <td><button class="del-btn" onclick="deleteLead('${l.id}')"><i class="fas fa-trash"></i></button></td>
+    </tr>`).join('');
+};
+
+window.renderContacts = function () {
+  const data = filterLeads('contact', 'contactSearch', 'contactStatusFilter');
+  document.getElementById('contactCount').textContent = data.length + ' record(s)';
+  const tbody = document.getElementById('contactsBody');
+  if (!data.length) { tbody.innerHTML = `<tr class="empty-row"><td colspan="5"><div class="empty-icon">💬</div>No contact enquiries found</td></tr>`; return; }
+  tbody.innerHTML = data.map(l => `
+    <tr class="data-row" data-id="${l.id}">
+      <td><div style="font-weight:700">${esc(l.name)}</div><div style="color:var(--mute);font-size:12px">${esc(l.phone)} ${waLink(l.phone)}</div></td>
+      <td>${esc(l.message)}</td>
+      <td>${statusSelect(l)}</td>
+      <td style="color:var(--mute);font-size:12px;white-space:nowrap">${fmtDate(l.createdAt)}</td>
+      <td><button class="del-btn" onclick="deleteLead('${l.id}')"><i class="fas fa-trash"></i></button></td>
+    </tr>`).join('');
+};
+
+function statusSelect(l) {
+  const s = l.status || 'new';
+  return `<select class="status-select status-${s}" onchange="updateStatus('${l.id}', this.value, this)">
+    <option value="new" ${s === 'new' ? 'selected' : ''}>New</option>
+    <option value="contacted" ${s === 'contacted' ? 'selected' : ''}>Contacted</option>
+    <option value="done" ${s === 'done' ? 'selected' : ''}>Done</option>
+  </select>`;
+}
+
+window.updateStatus = async function (id, status, el) {
+  el.className = `status-select status-${status}`;
+  try { await updateDoc(doc(db, 'leads', id), { status }); }
+  catch (err) { showToast('⚠ Could not update status: ' + err.message); }
+};
+
+window.deleteLead = async function (id) {
+  if (!confirm('Delete this lead permanently?')) return;
+  try { await deleteDoc(doc(db, 'leads', id)); showToast('Lead deleted'); }
+  catch (err) { showToast('⚠ Could not delete: ' + err.message); }
+};
+
+window.clearType = async function (type) {
+  const targets = type === 'all' ? allLeads : allLeads.filter(l => l.type === type);
+  if (!targets.length) { showToast('Nothing to clear'); return; }
+  if (!confirm(`Permanently delete ${targets.length} record(s)? This cannot be undone.`)) return;
+  try {
+    await Promise.all(targets.map(l => deleteDoc(doc(db, 'leads', l.id))));
+    showToast('Records cleared');
+  } catch (err) { showToast('⚠ Could not clear: ' + err.message); }
+};
+
+window.exportCSV = function (type) {
+  const data = type === 'all' ? allLeads : allLeads.filter(l => l.type === type);
+  if (!data.length) { showToast('Nothing to export'); return; }
+  const rows = [['Type', 'Name', 'Phone', 'From', 'To', 'Vehicle', 'Price', 'Date', 'Time', 'Message', 'Status', 'Page', 'Received']];
+  data.forEach(l => rows.push([l.type, l.name, l.phone, l.from, l.to, l.vehicle, l.price, l.date, l.time, l.message, l.status || 'new', l.page, fmtDate(l.createdAt)]));
+  const csv = rows.map(r => r.map(c => `"${(c || '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `aac_leads_${type}_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  showToast('CSV exported');
+};
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function renderAll() {
+  renderStats();
+  updateTicker();
+  renderRecent();
+  renderBookings();
+  renderTours();
+  renderContacts();
+}
+
+
+/* ========== ROUND TRIP RATES (Firestore: roundTripRates) ========== */
+let unsubscribeRates = null;
+let allRates = [];
+
+const DEFAULT_RATES = [
+  { name: 'Swift Dzire', price: 11, persons: 4, bags: 2, image: 'swift-dzire.webp', order: 0, gradient: 'linear-gradient(135deg,#1b1730,#6a45dc)' },
+  { name: 'Maruti Ertiga', price: 13, persons: 6, bags: 4, image: 'ertiga.webp', order: 1, gradient: 'linear-gradient(135deg,#1c1830,#7a49d9)' },
+  { name: 'Innova Crysta', price: 18, persons: 6, bags: 4, image: 'innova-crysta.webp', order: 2, gradient: 'linear-gradient(135deg,#1a1628,#5f3fcf)' },
+  { name: 'Tempo Traveller', price: 28, persons: 11, bags: 15, image: 'tempo-traveller.webp', order: 3, gradient: 'linear-gradient(135deg,#181524,#5538b8)' },
+  { name: 'Urbania', price: 32, persons: 16, bags: 20, image: 'urbania.webp', order: 4, gradient: 'linear-gradient(135deg,#16131f,#4a2fa8)' }
+];
+
+function startRatesListener() {
+  const q = query(collection(db, 'roundTripRates'), orderBy('order', 'asc'));
+  unsubscribeRates = onSnapshot(q, (snap) => {
+    allRates = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderRatesTable();
+  }, (err) => {
+    console.error('[rates]', err);
+    const body = document.getElementById('ratesTableBody');
+    if (body) body.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--red);padding:24px">Could not load rates: ${esc(err.message)}<br><small>Check Firestore rules for collection "roundTripRates".</small></td></tr>`;
+  });
+}
+
+function renderRatesTable() {
+  const body = document.getElementById('ratesTableBody');
+  const countEl = document.getElementById('ratesCount');
+  if (!body) return;
+  if (countEl) countEl.textContent = allRates.length;
+  if (!allRates.length) {
+    body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--mute);padding:28px">No rate cards yet. Add one above or load defaults.</td></tr>';
+    return;
+  }
+  body.innerHTML = allRates.map(r => `
+    <tr>
+      <td>${esc(r.order ?? 0)}</td>
+      <td><strong>${esc(r.name)}</strong></td>
+      <td>₹${esc(r.price)}</td>
+      <td>${esc(r.persons ?? '—')}</td>
+      <td>${esc(r.bags ?? '—')}</td>
+      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--mute)">${esc(r.image || '—')}</td>
+      <td style="white-space:nowrap">
+        <button class="btn-sm btn-purple" onclick="editRate('${r.id}')" title="Edit"><i class="fas fa-pen"></i></button>
+        <button class="btn-sm btn-danger-outline" onclick="deleteRate('${r.id}','${String(r.name||'').replace(/'/g,"\\'")}')" title="Delete"><i class="fas fa-trash-can"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function resolveRateImage() {
+  const sel = document.getElementById('rateImage').value;
+  if (sel === 'custom') {
+    return (document.getElementById('rateImageCustom').value || '').trim();
+  }
+  return sel;
+}
+
+document.getElementById('rateImage')?.addEventListener('change', function () {
+  document.getElementById('rateImageCustomWrap').style.display = this.value === 'custom' ? 'block' : 'none';
+});
+
+document.getElementById('rateForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('rateName').value.trim();
+  const price = Number(document.getElementById('ratePrice').value);
+  const persons = Number(document.getElementById('ratePersons').value) || 0;
+  const bags = Number(document.getElementById('rateBags').value) || 0;
+  const order = Number(document.getElementById('rateOrder').value);
+  const image = resolveRateImage();
+  const editId = document.getElementById('rateEditId').value;
+
+  if (!name || !price) {
+    showToast('Name and price are required');
+    return;
+  }
+  if (!image) {
+    showToast('Please choose or enter an image');
+    return;
+  }
+
+  const payload = {
+    name,
+    price,
+    persons,
+    bags,
+    image,
+    order: Number.isFinite(order) ? order : allRates.length,
+    gradient: 'linear-gradient(135deg,#1b1730,#6a45dc)',
+    updatedAt: serverTimestamp()
+  };
+
+  const btn = document.getElementById('rateSaveBtn');
+  btn.disabled = true;
+  try {
+    if (editId) {
+      await updateDoc(doc(db, 'roundTripRates', editId), payload);
+      showToast('Rate card updated');
+    } else {
+      payload.createdAt = serverTimestamp();
+      await addDoc(collection(db, 'roundTripRates'), payload);
+      showToast('Rate card added');
+    }
+    cancelRateEdit();
+    document.getElementById('rateForm').reset();
+    document.getElementById('rateImageCustomWrap').style.display = 'none';
+  } catch (err) {
+    console.error(err);
+    showToast('Save failed: ' + (err.message || err));
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+window.editRate = function (id) {
+  const r = allRates.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('rateEditId').value = id;
+  document.getElementById('rateName').value = r.name || '';
+  document.getElementById('ratePrice').value = r.price ?? '';
+  document.getElementById('ratePersons').value = r.persons ?? '';
+  document.getElementById('rateBags').value = r.bags ?? '';
+  document.getElementById('rateOrder').value = r.order ?? 0;
+  const img = r.image || 'swift-dzire.webp';
+  const sel = document.getElementById('rateImage');
+  const known = [...sel.options].some(o => o.value === img);
+  if (known) {
+    sel.value = img;
+    document.getElementById('rateImageCustomWrap').style.display = 'none';
+  } else {
+    sel.value = 'custom';
+    document.getElementById('rateImageCustomWrap').style.display = 'block';
+    document.getElementById('rateImageCustom').value = img;
+  }
+  document.getElementById('rateFormTitle').textContent = 'Edit Vehicle Rate Card';
+  document.getElementById('rateCancelBtn').style.display = 'inline-flex';
+  document.getElementById('rateSaveBtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Update Rate Card';
+  document.getElementById('page-rates').scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+window.cancelRateEdit = function () {
+  document.getElementById('rateEditId').value = '';
+  document.getElementById('rateForm').reset();
+  document.getElementById('rateImageCustomWrap').style.display = 'none';
+  document.getElementById('rateFormTitle').textContent = 'Add Vehicle Rate Card';
+  document.getElementById('rateCancelBtn').style.display = 'none';
+  document.getElementById('rateSaveBtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Save Rate Card';
+};
+
+window.deleteRate = async function (id, name) {
+  if (!confirm('Delete rate card "' + (name || id) + '"? This cannot be undone.')) return;
+  try {
+    await deleteDoc(doc(db, 'roundTripRates', id));
+    showToast('Rate card deleted');
+    if (document.getElementById('rateEditId').value === id) cancelRateEdit();
+  } catch (err) {
+    showToast('Delete failed: ' + (err.message || err));
+  }
+};
+
+window.seedDefaultRates = async function () {
+  if (allRates.length && !confirm('Rate cards already exist. Add the 5 default vehicles anyway?')) return;
+  try {
+    const batch = writeBatch(db);
+    DEFAULT_RATES.forEach((r, i) => {
+      const ref = doc(collection(db, 'roundTripRates'));
+      batch.set(ref, { ...r, order: r.order ?? i, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+    });
+    await batch.commit();
+    showToast('Default vehicles loaded');
+  } catch (err) {
+    showToast('Seed failed: ' + (err.message || err));
+  }
+};
+
+
+/* ========== BLOGS (Firestore: blogs) ========== */
+let unsubscribeBlogs = null;
+let allBlogs = [];
+
+const DEFAULT_BLOGS = [{"image": "blog-ahmedabad-airport-cab-service.webp", "title": "Ahmedabad Airport Cab Service: Complete Guide to Airport Taxi Booking", "paragraph": "Looking for an Ahmedabad Airport Cab? Learn about airport pickup, airport drop, booking, vehicle options, fares and airport transfers.", "url": "ahmedabad-airport-cab-service.html", "order": 0}, {"image": "blog-ahmedabad-airport-taxi-booking.webp", "title": "Ahmedabad Airport Taxi Booking: How to Book an Airport Cab Easily", "paragraph": "Learn how to book an Ahmedabad Airport Taxi for pickup, drop, hotel transfer, city travel and outstation airport journeys.", "url": "ahmedabad-airport-taxi-booking.html", "order": 1}, {"image": "blog-ahmedabad-airport-pickup-cab.webp", "title": "Ahmedabad Airport Pickup Cab: Complete Guide for Arriving Passengers", "paragraph": "Book an Ahmedabad Airport Pickup Cab with flight details, passenger information and destination. Complete guide for airport arrivals.", "url": "ahmedabad-airport-pickup-cab.html", "order": 2}, {"image": "blog-ahmedabad-airport-drop-cab.webp", "title": "Ahmedabad Airport Drop Cab: Complete Guide to Booking a Taxi to Ahmedabad Airport", "paragraph": "Plan your Ahmedabad Airport Drop Cab with the right pickup time, vehicle and route. Complete guide for airport departure transfers.", "url": "ahmedabad-airport-drop-cab.html", "order": 3}, {"image": "blog-ahmedabad-airport-to-ahmedabad-city-cab.webp", "title": "Ahmedabad Airport to Ahmedabad City Cab: Complete Airport Transfer Guide", "paragraph": "Need an Ahmedabad Airport to City Cab? Learn about airport transfers to homes, hotels, offices and major areas of Ahmedabad.", "url": "ahmedabad-airport-to-ahmedabad-city-cab.html", "order": 4}, {"image": "blog-ahmedabad-airport-to-sg-highway-cab.webp", "title": "Ahmedabad Airport to SG Highway Cab: Airport Taxi Booking Guide", "paragraph": "Book an Ahmedabad Airport to SG Highway Cab for hotels, offices, homes and business travel. Learn what to confirm before booking.", "url": "ahmedabad-airport-to-sg-highway-cab.html", "order": 5}, {"image": "blog-ahmedabad-airport-to-gandhinagar-cab.webp", "title": "Ahmedabad Airport to Gandhinagar Cab: Complete Airport Taxi Guide", "paragraph": "Need an Ahmedabad Airport to Gandhinagar Cab? Learn about airport pickup, hotel transfers, business travel and airport drop booking.", "url": "ahmedabad-airport-to-gandhinagar-cab.html", "order": 6}, {"image": "blog-ahmedabad-airport-to-vadodara-cab.webp", "title": "Ahmedabad Airport to Vadodara Cab: One-Way and Round-Trip Guide", "paragraph": "Planning Ahmedabad Airport to Vadodara travel? Learn how to book an airport-origin cab for one-way or round-trip journeys.", "url": "ahmedabad-airport-to-vadodara-cab.html", "order": 7}, {"image": "blog-ahmedabad-airport-to-surat-cab.webp", "title": "Ahmedabad Airport to Surat Cab: Complete Outstation Airport Taxi Guide", "paragraph": "Need an Ahmedabad Airport to Surat Cab? Learn how to plan an airport-origin taxi, choose a vehicle and confirm one-way or round-trip terms.", "url": "ahmedabad-airport-to-surat-cab.html", "order": 8}, {"image": "blog-ahmedabad-airport-to-rajkot-cab.webp", "title": "Ahmedabad Airport to Rajkot Cab: Airport-Origin Taxi Booking Guide", "paragraph": "Book an Ahmedabad Airport to Rajkot Cab for one-way or round-trip travel. Learn what to confirm before an airport-origin outstation journey.", "url": "ahmedabad-airport-to-rajkot-cab.html", "order": 9}, {"image": "blog-ahmedabad-airport-to-anand-cab.webp", "title": "Ahmedabad Airport to Anand Cab: Airport Taxi and Transfer Guide", "paragraph": "Looking for an Ahmedabad Airport to Anand Cab? Learn about airport pickup, one-way travel, family transfers and booking details.", "url": "ahmedabad-airport-to-anand-cab.html", "order": 10}, {"image": "blog-ahmedabad-airport-to-nadiad-cab.webp", "title": "Ahmedabad Airport to Nadiad Cab: Complete Airport Transfer Guide", "paragraph": "Plan an Ahmedabad Airport to Nadiad Cab for airport pickup, one-way travel, family trips and return airport transfers.", "url": "ahmedabad-airport-to-nadiad-cab.html", "order": 11}, {"image": "blog-ahmedabad-airport-to-statue-of-unity-cab.webp", "title": "Ahmedabad Airport to Statue of Unity Cab: Complete Travel and Booking Guide", "paragraph": "Planning Ahmedabad Airport to Statue of Unity travel? Learn how to book an airport cab to Kevadia, plan luggage and choose one-way or return travel.", "url": "ahmedabad-airport-to-statue-of-unity-cab.html", "order": 12}, {"image": "blog-ahmedabad-airport-to-dwarka-cab.webp", "title": "Ahmedabad Airport to Dwarka Cab: Complete Outstation Airport Taxi Guide", "paragraph": "Planning an Ahmedabad Airport to Dwarka Cab? Learn how to arrange airport pickup, choose one-way or round-trip travel and plan the journey.", "url": "ahmedabad-airport-to-dwarka-cab.html", "order": 13}, {"image": "blog-ahmedabad-airport-to-somnath-cab.webp", "title": "Ahmedabad Airport to Somnath Cab: Complete Airport Taxi Booking Guide", "paragraph": "Book an Ahmedabad Airport to Somnath Cab for pilgrimage and family travel. Learn about one-way, round-trip and airport pickup planning.", "url": "ahmedabad-airport-to-somnath-cab.html", "order": 14}, {"image": "blog-ahmedabad-airport-cab-fare.webp", "title": "Ahmedabad Airport Cab Fare: What Determines Ahmedabad Airport Taxi Price?", "paragraph": "Learn what affects Ahmedabad Airport Cab fare, including distance, vehicle type, one-way travel, tolls, parking and waiting charges.", "url": "ahmedabad-airport-cab-fare.html", "order": 15}, {"image": "blog-ahmedabad-airport-one-way-round-trip-cab.webp", "title": "Ahmedabad Airport One-Way vs Round-Trip Cab: Which Booking Type Do You Need?", "paragraph": "Compare one-way and round-trip Ahmedabad Airport Cab bookings and learn which details to confirm before airport travel.", "url": "ahmedabad-airport-one-way-round-trip-cab.html", "order": 16}, {"image": "blog-ahmedabad-airport-cab-for-families.webp", "title": "Ahmedabad Airport Cab for Families: Choosing the Right Taxi for Luggage", "paragraph": "Travelling with family from Ahmedabad Airport? Learn how to choose an airport cab based on passengers, children, luggage and trip type.", "url": "ahmedabad-airport-cab-for-families.html", "order": 17}, {"image": "blog-early-morning-late-night-ahmedabad-airport-cab.webp", "title": "Early Morning and Late Night Ahmedabad Airport Cab: Booking Guide", "paragraph": "Need an early morning or late night Ahmedabad Airport Cab? Learn how to plan airport pickup and drop when your flight is outside normal hours.", "url": "early-morning-late-night-ahmedabad-airport-cab.html", "order": 18}, {"image": "blog-book-ahmedabad-airport-cab-online.webp", "title": "How to Book an Ahmedabad Airport Cab Online: Step-by-Step Guide", "paragraph": "Learn how to book an Ahmedabad Airport Cab online for pickup, drop, city transfers and outstation travel with a simple checklist.", "url": "book-ahmedabad-airport-cab-online.html", "order": 19}];
+
+const BLOG_IMAGE_OPTIONS = ["blog-ahmedabad-airport-cab-fare.webp", "blog-ahmedabad-airport-cab-for-families.webp", "blog-ahmedabad-airport-cab-service.webp", "blog-ahmedabad-airport-drop-cab.webp", "blog-ahmedabad-airport-one-way-round-trip-cab.webp", "blog-ahmedabad-airport-pickup-cab.webp", "blog-ahmedabad-airport-taxi-booking.webp", "blog-ahmedabad-airport-to-ahmedabad-city-cab.webp", "blog-ahmedabad-airport-to-anand-cab.webp", "blog-ahmedabad-airport-to-dwarka-cab.webp", "blog-ahmedabad-airport-to-gandhinagar-cab.webp", "blog-ahmedabad-airport-to-nadiad-cab.webp", "blog-ahmedabad-airport-to-rajkot-cab.webp", "blog-ahmedabad-airport-to-sg-highway-cab.webp", "blog-ahmedabad-airport-to-somnath-cab.webp", "blog-ahmedabad-airport-to-statue-of-unity-cab.webp", "blog-ahmedabad-airport-to-surat-cab.webp", "blog-ahmedabad-airport-to-vadodara-cab.webp", "blog-book-ahmedabad-airport-cab-online.webp", "blog-early-morning-late-night-ahmedabad-airport-cab.webp"];
+
+function populateBlogImageSelect() {
+  const sel = document.getElementById('blogImage');
+  if (!sel || sel.dataset.ready === '1') return;
+  const cur = sel.value;
+  sel.innerHTML = BLOG_IMAGE_OPTIONS.map(img => `<option value="${img}">${img}</option>`).join('')
+    + '<option value="custom">Custom path / URL…</option>';
+  sel.dataset.ready = '1';
+  if (cur) sel.value = cur;
+  sel.addEventListener('change', function () {
+    document.getElementById('blogImageCustomWrap').style.display = this.value === 'custom' ? 'block' : 'none';
+  });
+}
+
+function startBlogsListener() {
+  populateBlogImageSelect();
+  const q = query(collection(db, 'blogs'), orderBy('order', 'asc'));
+  unsubscribeBlogs = onSnapshot(q, (snap) => {
+    allBlogs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderBlogsTable();
+  }, (err) => {
+    console.error('[blogs]', err);
+    const body = document.getElementById('blogsTableBody');
+    if (body) body.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--red);padding:24px">Could not load blogs: ${esc(err.message)}<br><small>Add Firestore rules for collection "blogs".</small></td></tr>`;
+  });
+}
+
+function renderBlogsTable() {
+  const body = document.getElementById('blogsTableBody');
+  const countEl = document.getElementById('blogsCount');
+  if (!body) return;
+  if (countEl) countEl.textContent = allBlogs.length;
+  if (!allBlogs.length) {
+    body.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--mute);padding:28px">No blogs yet. Add one above or load defaults.</td></tr>';
+    return;
+  }
+  body.innerHTML = allBlogs.map(b => `
+    <tr>
+      <td>${esc(b.order ?? 0)}</td>
+      <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--mute)">${esc(b.image || '—')}</td>
+      <td><strong>${esc(b.title || '')}</strong><div style="font-size:12px;color:var(--mute);margin-top:4px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(b.paragraph || '')}</div></td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px"><a href="${esc(b.url || '#')}" target="_blank" rel="noopener" style="color:var(--purple)">${esc(b.url || '—')}</a></td>
+      <td style="white-space:nowrap">
+        <button class="btn-sm btn-purple" onclick="editBlog('${b.id}')" title="Edit"><i class="fas fa-pen"></i></button>
+        <button class="btn-sm btn-danger-outline" onclick="deleteBlog('${b.id}')" title="Delete"><i class="fas fa-trash-can"></i></button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function resolveBlogImage() {
+  const sel = document.getElementById('blogImage');
+  if (!sel || sel.value === 'custom') {
+    return (document.getElementById('blogImageCustom').value || '').trim();
+  }
+  return sel.value;
+}
+
+document.getElementById('blogForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('blogTitle').value.trim();
+  const paragraph = document.getElementById('blogParagraph').value.trim();
+  const url = document.getElementById('blogUrl').value.trim();
+  const orderRaw = document.getElementById('blogOrder').value;
+  const order = orderRaw === '' ? allBlogs.length : Number(orderRaw);
+  const image = resolveBlogImage();
+  const editId = document.getElementById('blogEditId').value;
+
+  if (!title || !paragraph || !url) {
+    showToast('Headline, paragraph and URL are required');
+    return;
+  }
+  if (!image) {
+    showToast('Please choose or enter an image');
+    return;
+  }
+
+  const payload = {
+    title,
+    paragraph,
+    url,
+    image,
+    order: Number.isFinite(order) ? order : allBlogs.length,
+    updatedAt: serverTimestamp()
+  };
+
+  const btn = document.getElementById('blogSaveBtn');
+  btn.disabled = true;
+  try {
+    if (editId) {
+      await updateDoc(doc(db, 'blogs', editId), payload);
+      showToast('Blog card updated');
+    } else {
+      payload.createdAt = serverTimestamp();
+      await addDoc(collection(db, 'blogs'), payload);
+      showToast('Blog card added');
+    }
+    cancelBlogEdit();
+  } catch (err) {
+    console.error(err);
+    showToast('Save failed: ' + (err.message || err));
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+window.editBlog = function (id) {
+  const b = allBlogs.find(x => x.id === id);
+  if (!b) return;
+  populateBlogImageSelect();
+  document.getElementById('blogEditId').value = id;
+  document.getElementById('blogTitle').value = b.title || '';
+  document.getElementById('blogParagraph').value = b.paragraph || '';
+  document.getElementById('blogUrl').value = b.url || '';
+  document.getElementById('blogOrder').value = b.order ?? 0;
+  const img = b.image || '';
+  const sel = document.getElementById('blogImage');
+  const known = [...sel.options].some(o => o.value === img);
+  if (known && img) {
+    sel.value = img;
+    document.getElementById('blogImageCustomWrap').style.display = 'none';
+  } else {
+    sel.value = 'custom';
+    document.getElementById('blogImageCustomWrap').style.display = 'block';
+    document.getElementById('blogImageCustom').value = img;
+  }
+  document.getElementById('blogFormTitle').textContent = 'Edit Blog Card';
+  document.getElementById('blogCancelBtn').style.display = 'inline-flex';
+  document.getElementById('blogSaveBtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Update Blog Card';
+  document.getElementById('page-blogs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+window.cancelBlogEdit = function () {
+  document.getElementById('blogEditId').value = '';
+  document.getElementById('blogForm').reset();
+  document.getElementById('blogImageCustomWrap').style.display = 'block';
+  document.getElementById('blogFormTitle').textContent = 'Add Blog Card';
+  document.getElementById('blogCancelBtn').style.display = 'none';
+  document.getElementById('blogSaveBtn').innerHTML = '<i class="fas fa-floppy-disk"></i> Save Blog Card';
+};
+
+window.deleteBlog = async function (id) {
+  const b = allBlogs.find(x => x.id === id);
+  if (!confirm('Delete blog "' + ((b && b.title) || id) + '"?')) return;
+  try {
+    await deleteDoc(doc(db, 'blogs', id));
+    showToast('Blog deleted');
+    if (document.getElementById('blogEditId').value === id) cancelBlogEdit();
+  } catch (err) {
+    showToast('Delete failed: ' + (err.message || err));
+  }
+};
+
+window.seedDefaultBlogs = async function () {
+  if (allBlogs.length && !confirm('Blog cards already exist. Add the default 20 blogs anyway?')) return;
+  try {
+    const batch = writeBatch(db);
+    DEFAULT_BLOGS.forEach((b, i) => {
+      const ref = doc(collection(db, 'blogs'));
+      batch.set(ref, { ...b, order: b.order ?? i, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+    });
+    await batch.commit();
+    showToast('Default blogs loaded');
+  } catch (err) {
+    showToast('Seed failed: ' + (err.message || err));
+  }
+};
+
+setInterval(() => { if (allLeads.length) updateTicker(); }, 30000);
+</script>
+</body>
+</html>
